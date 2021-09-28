@@ -1,17 +1,4 @@
 {
-  "files.associations": {
-    "vector": "cpp",
-    "iterator": "cpp",
-    "__functional_03": "cpp",
-    "__hash_table": "cpp",
-    "__split_buffer": "cpp",
-    "algorithm": "cpp",
-    "memory_resource": "cpp",
-    "functional": "cpp",
-    "memory": "cpp",
-    "string": "cpp",
-    "unordered_map": "cpp"
-  },
   "C_Cpp_Runner.cCompilerPath": "/usr/bin/clang",
   "C_Cpp_Runner.cppCompilerPath": "/usr/bin/clang++",
   "C_Cpp_Runner.debuggerPath": "/usr/bin/lldb",
