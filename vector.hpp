@@ -14,7 +14,7 @@ class vector
 		// const allocator_type	&const_reference;
 		// allocator_type		*pointer;
 		// const allocator_type	*const_pointer;
-		// std::random_access_iterator_tag	iterator;
+		std::random_access_iterator_tag	iterator;
 		// const std::random_access_iterator_tag	const_iterator;
 		// std::reverse_iterator<iterator>	reverse_iterator;
 		// std::reverse_iterator<const_iterator> const_reverse_iterator;
