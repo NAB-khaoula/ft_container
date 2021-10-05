@@ -1,10 +1,72 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 #include <memory>
+#include <iterator>
+#include <cstddef>
+#include <vector>
 #include <math.h>
 
 namespace ft
 {
+	template<class Iterator>
+	struct iterator_traits
+	{
+	    typedef typename Iterator::difference_type		difference_type;
+	    typedef typename Iterator::value_type 			value_type;
+	    typedef typename Iterator::pointer				pointer;
+	    typedef typename Iterator::reference			reference;
+	    typedef typename Iterator::iterator_category	iterator_category;
+	};
+
+	template<class T>
+	struct iterator_traits<T*>
+	{
+	    typedef ptrdiff_t difference_type;
+	    typedef T value_type;
+	    typedef T* pointer;
+	    typedef T& reference;
+	    typedef std::random_access_iterator_tag iterator_category;
+	};
+
+	//****************** iterator struct***************************
+	template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
+	class iterator
+	{
+		public:
+			typedef Category	iterator_category;
+			typedef Distance	difference_type;
+			typedef	T			value_type;
+			typedef	Pointer		pointer;
+			typedef	Reference	reference;
+			iterator(): _iter(nullptr){}
+			iterator(pointer iter): _iter(iter){}
+			iterator(const iterator& iter){
+				(*this) = iter;
+			}
+			iterator& operator=(const iterator& iter){
+				this->_iter = iter._iter;
+				return (*this);
+			}
+		// see if we need to delete the pointer;
+			~iterator(){}
+		// need to overload operators;
+			reference operator*() const{
+				return(*_iter);
+			}
+		// didnt overload the operator+
+			iterator& operator++(){
+				this->_iter++;
+				return (*this);
+			}
+			iterator  operator++(int){
+				iterator post_increment = *this;
+				this->_iter++;
+				return (post_increment);
+			}
+		private:
+			pointer _iter;
+	};
+	//****************** iterator struct***************************
 	template <typename T, typename Alloc = std::allocator<T> >
 	class vector
 	{
@@ -12,11 +74,11 @@ namespace ft
 		//****************** member Type ******************************
 		typedef T value_type;
 		typedef Alloc allocator_type;
+		typedef iterator<std::random_access_iterator_tag, value_type> iterator;
 		// allocator_type		&reference;
 		// const allocator_type	&const_reference;
 		// allocator_type		*pointer;
 		// const allocator_type	*const_pointer;
-		typedef std::random_access_iterator_tag iterator(value_type);
 		// const std::random_access_iterator_tag	const_iterator;
 		// std::reverse_iterator<iterator>	reverse_iterator;
 		// std::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -35,10 +97,10 @@ namespace ft
 		{
 			_allocator = alloc;
 			_array = _allocator.allocate(n);
-			for (size_type i = 0; i < n; i++)
-				_array[i] = _allocator.construct(val);
 			_current = n;
 			_capacity = n;
+			for (size_type i = 0; i < n; i++)
+				_array[i] = val;
 		}
 		// template <class InputIterator>
 		// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()){
@@ -73,6 +135,44 @@ namespace ft
 			_allocator.deallocate(_array, _capacity);
 		}
 		//******************destructor******************
+		//******************iterator******************
+		iterator begin(){
+			iterator it(_array);
+			return (it);
+		}
+		//******************iterator******************
+		//******************Modifiers******************
+		void push_back (const value_type& val){
+			if (_current < _capacity)
+			{
+				std::cout << "No need to scale the memory" << std::endl;
+				_current++;
+				this->_array[_current] = val;
+			}
+			else
+			{
+				std::cout << "allocating new memory" << std::endl;
+				T*	_newArray;
+				if (_capacity)
+					_newArray = _allocator.allocate(_capacity * 2);
+				else
+					_newArray = _allocator.allocate(1);
+				std::cout << _capacity << std::endl;
+				if (_capacity != 0){
+					for(size_type i = 0; i < _capacity; i++)
+						_newArray[i] = _array[i];
+				}
+				_newArray[_current] = val;
+				_current++;
+				_allocator.deallocate(_array, _capacity);
+				if (_capacity)
+					_capacity = _capacity * 2;
+				else
+					_capacity = 1;
+				_array = _newArray;
+			}
+		}
+		//******************Modifiers******************
 		//******************method of Capacity******************
 		// need verification!!
 		size_type capacity() const
