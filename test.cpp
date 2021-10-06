@@ -29,26 +29,29 @@ void do_something(MyIterator start, MyIterator end) {
 }
 
 int main(){
-	std::vector<int> 			vect;
-	vect.push_back(1337);
-	vect.push_back(42);
-	vect.push_back(24);
-	vect.push_back(24);
-	std::vector<int>::iterator	iter = vect.begin();
+	// std::vector<int> 			vect;
+	// vect.push_back(1337);
+	// vect.push_back(42);
+	// vect.push_back(24);
+	// vect.push_back(24);
+	// std::vector<int>::iterator	iter = vect.begin();
 	ft::vector<int>				pseudoVect;
 	pseudoVect.push_back(1337);
 	pseudoVect.push_back(42);
 	pseudoVect.push_back(24);
 	pseudoVect.push_back(24);
 	ft::vector<int>::iterator	pseudoIter = pseudoVect.begin();
-	std::cout << *iter << std::endl;
+	ft::vector<int>::iterator	Iter;
+	// std::cout << *iter << std::endl;
 	// iter += 3;
-	std::cout << *iter << std::endl;
-	std::cout << iter[0] << std::endl;
+	// iter = 3 + iter;
+	// std::cout << *iter << std::endl;
+	// std::cout << iter[0] << std::endl;
 	std::cout << *pseudoIter << std::endl;
 	// pseudoIter += 3;
-	std::cout << *pseudoIter << std::endl;
-	std::cout << pseudoIter[0] << std::endl;
+	Iter = 3 + pseudoIter;
+	std::cout << *Iter << std::endl;
+	// std::cout << pseudoIter[0] << std::endl;
 	// std::vector<int> vect;
 	// vect.push_back(3);
 	// vect.push_back(3);

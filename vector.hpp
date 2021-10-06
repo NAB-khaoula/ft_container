@@ -92,6 +92,9 @@ namespace ft
 			reference operator[] (difference_type n) const{
 				return (this->_iter[n]);
 			}
+  			friend iterator operator+ (iterator::difference_type n, const iterator& it){
+				  std::cout << "mojahid lm#ekess" << std::endl;
+				  return (it._iter + n);}
 		private:
 			pointer _iter;
 	};
