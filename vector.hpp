@@ -63,6 +63,35 @@ namespace ft
 				this->_iter++;
 				return (post_increment);
 			}
+			iterator operator+(difference_type n) const{
+				return (this->_iter + n);
+			}
+			iterator &operator+=(difference_type n){
+				this->_iter = this->_iter + n;
+				return(*this);
+			}
+			iterator operator-(difference_type n) const{
+				return (this->_iter - n);
+			}
+			iterator& operator--(){
+				this->_iter--;
+				return (*this);
+			}
+			iterator  operator--(int){
+				iterator post_increment = *this;
+				this->_iter--;
+				return (post_increment);
+			}
+			iterator &operator-=(difference_type n){
+				this->_iter = this->_iter - n;
+				return(*this);
+			}
+			pointer operator->() const {
+  				return &(operator*());
+			}
+			reference operator[] (difference_type n) const{
+				return (this->_iter[n]);
+			}
 		private:
 			pointer _iter;
 	};
@@ -132,7 +161,7 @@ namespace ft
 		//******************destructor******************
 		~vector()
 		{
-			_allocator.deallocate(_array, _capacity);
+			_allocator.deallocate(this->_array, _capacity);
 		}
 		//******************destructor******************
 		//******************iterator******************
@@ -142,22 +171,20 @@ namespace ft
 		}
 		//******************iterator******************
 		//******************Modifiers******************
-		void push_back (const value_type& val){
+		void push_back(const value_type& val){
 			if (_current < _capacity)
 			{
-				std::cout << "No need to scale the memory" << std::endl;
-				_current++;
 				this->_array[_current] = val;
+				_current++;
 			}
 			else
 			{
-				std::cout << "allocating new memory" << std::endl;
+				// std::cout << "allocating new memory" << std::endl;
 				T*	_newArray;
 				if (_capacity)
 					_newArray = _allocator.allocate(_capacity * 2);
 				else
 					_newArray = _allocator.allocate(1);
-				std::cout << _capacity << std::endl;
 				if (_capacity != 0){
 					for(size_type i = 0; i < _capacity; i++)
 						_newArray[i] = _array[i];
