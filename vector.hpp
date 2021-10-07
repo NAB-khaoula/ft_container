@@ -8,114 +8,145 @@
 
 namespace ft
 {
-	template<class Iterator>
+	template<typename Iterator>
 	struct iterator_traits
 	{
-	    typedef typename Iterator::difference_type		difference_type;
-	    typedef typename Iterator::value_type 			value_type;
-	    typedef typename Iterator::pointer				pointer;
-	    typedef typename Iterator::reference			reference;
-	    typedef typename Iterator::iterator_category	iterator_category;
+		typedef Iterator::difference_type		difference_type;
+		typedef Iterator::value_type 			value_type;
+		typedef Iterator::pointer				pointer;
+		typedef Iterator::reference			reference;
+		typedef Iterator::iterator_category	iterator_category;
 	};
 
 	template<class T>
 	struct iterator_traits<T*>
 	{
-	    typedef ptrdiff_t difference_type;
-	    typedef T value_type;
-	    typedef T* pointer;
-	    typedef T& reference;
-	    typedef std::random_access_iterator_tag iterator_category;
+		typedef ptrdiff_t difference_type;
+		typedef T value_type;
+		typedef T* pointer;
+		typedef T& reference;
+		typedef std::random_access_iterator_tag iterator_category;
+	};
+
+	template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
+	struct iterator
+	{
+		typedef T         value_type;
+		typedef Distance  difference_type;
+		typedef Pointer   pointer;
+		typedef Reference reference;
+		typedef Category  iterator_category;
 	};
 
 	//****************** iterator struct***************************
-	template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
-	class iterator
+	template <class Iterator>
+	class custumozedIterator : public iterator<std::random_access_iterator_tag, iterator_traits<Iterator>::value_type >
 	{
+		typedef Iterator													iterator_type;
+    	typedef typename iterator_traits<iterator_type>::iterator_category	iterator_category;
+    	typedef typename iterator_traits<iterator_type>::value_type			value_type;
+    	typedef typename iterator_traits<iterator_type>::difference_type	difference_type;
+    	typedef typename iterator_traits<iterator_type>::pointer			pointer;
+    	typedef typename iterator_traits<iterator_type>::reference			reference;
 		public:
-			typedef Category	iterator_category;
-			typedef Distance	difference_type;
-			typedef	T			value_type;
-			typedef	Pointer		pointer;
-			typedef	Reference	reference;
-			iterator(): _iter(nullptr){}
-			iterator(pointer iter): _iter(iter){}
+
+			//****************** constructors ***************************
+			iterator(): _iter(nullptr){
+			}
+
+			iterator(pointer iter): _iter(iter){	
+			}
+
 			iterator(const iterator& iter){
 				(*this) = iter;
 			}
+
 			iterator& operator=(const iterator& iter){
 				this->_iter = iter._iter;
 				return (*this);
 			}
-		// see if we need to delete the pointer;
-			~iterator(){}
-		// need to overload operators;
+			//****************** constructors ***************************
+			//****************** operators overload ***************************
+			//****************** operators overload ***************************
 			reference operator*() const{
 				return(*_iter);
 			}
-		// didnt overload the operator+
+
 			iterator& operator++(){
 				this->_iter++;
 				return (*this);
 			}
+
 			iterator  operator++(int){
 				iterator post_increment = *this;
 				this->_iter++;
 				return (post_increment);
 			}
+
 			iterator operator+(difference_type n) const{
 				return (this->_iter + n);
 			}
+
 			iterator &operator+=(difference_type n){
 				this->_iter = this->_iter + n;
 				return(*this);
 			}
+
 			iterator operator-(difference_type n) const{
 				return (this->_iter - n);
 			}
+
 			iterator& operator--(){
 				this->_iter--;
 				return (*this);
 			}
+
 			iterator  operator--(int){
 				iterator post_increment = *this;
 				this->_iter--;
 				return (post_increment);
 			}
+
 			iterator &operator-=(difference_type n){
 				this->_iter = this->_iter - n;
 				return(*this);
 			}
+
 			pointer operator->() const {
   				return &(operator*());
 			}
+
 			reference operator[] (difference_type n) const{
 				return (this->_iter[n]);
 			}
-  			friend iterator operator+ (iterator::difference_type n, const iterator& it){
-				  std::cout << "mojahid lm#ekess" << std::endl;
-				  return (it._iter + n);}
+
+			friend iterator<Category, T> operator+ (typename iterator<Category, T>::difference_type n, const iterator<Category, T>& it){
+				return (it._iter + n);
+			}
+
+			friend iterator<Category, T> operator- (typename iterator<Category, T>::difference_type n, const iterator<Category, T>& it){
+				return (it._iter - n);
+			}
+			//****************** operators overload ***************************
+
 		private:
 			pointer _iter;
 	};
+
 	//****************** iterator struct***************************
 	template <typename T, typename Alloc = std::allocator<T> >
 	class vector
 	{
 	public:
 		//****************** member Type ******************************
-		typedef T value_type;
-		typedef Alloc allocator_type;
-		typedef iterator<std::random_access_iterator_tag, value_type> iterator;
-		// allocator_type		&reference;
-		// const allocator_type	&const_reference;
-		// allocator_type		*pointer;
-		// const allocator_type	*const_pointer;
-		// const std::random_access_iterator_tag	const_iterator;
-		// std::reverse_iterator<iterator>	reverse_iterator;
-		// std::reverse_iterator<const_iterator> const_reverse_iterator;
-		// std::iterator_traits<iterator>	difference_type;
+		typedef	T							value_type;
+		typedef	typename Alloc<value_type>	allocator_type;
+		typedef	value_type&					reference;
+		typedef	const value_type&			const_reference;
+		typedef	value_type*					pointer;
+		typedef	const value_type* 			const_pointer;
 		typedef size_t size_type;
+		typedef	iterator<std::random_access_iterator_tag, value_type> iterator;
 		//****************** member Type ******************************
 		//******************constructor******************
 		vector(const allocator_type &alloc = allocator_type())
