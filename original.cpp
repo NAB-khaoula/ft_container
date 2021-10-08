@@ -15,7 +15,6 @@ int main(){
 	std::cout << *(++iter) << std::endl;
 	std::cout << *(iter + 2) << std::endl;
 	std::cout << iter[2] << std::endl;
-	std::cout << "dif" << std::endl;
 	// while(iter != vect.end())
 	// 	std::cout << *(iter++)<< std::endl;
 }
