@@ -1,5 +1,6 @@
 #include <iostream>
-#include "vector.hpp"
+#include <vector>
+#include <iterator>
 
 
 int main(){
@@ -12,13 +13,9 @@ int main(){
 	std::vector<int>::iterator	iter = vect.begin();
 	std::cout << *iter << std::endl;
 	std::cout << *(++iter) << std::endl;
-	// std::cout << *(++pseudoIter) << std::endl;
-	// std::cout << *(iter + 2) << std::endl;
-	// std::cout << *(pseudoIter + 2) << std::endl;
-	// std::cout << iter[2] << std::endl;
-	// std::cout << pseudoIter[2] << std::endl;
-	// std::cout << iter[2] << std::endl;
-	// std::cout << pseudoIter[2] << std::endl;
-	while(iter != vect.end())
-		std::cout << *(iter++)<< std::endl;
+	std::cout << *(iter + 2) << std::endl;
+	std::cout << iter[2] << std::endl;
+	std::cout << "dif" << std::endl;
+	// while(iter != vect.end())
+	// 	std::cout << *(iter++)<< std::endl;
 }

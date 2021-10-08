@@ -419,7 +419,7 @@ namespace ft
 		//******************method of Capacity******************
 	private:
 		T *_array;
-		int _current;
+		size_type _current;
 		size_type _capacity;
 		Alloc _allocator;
 	};

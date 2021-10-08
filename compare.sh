@@ -1,5 +1,7 @@
-clang++ -Wall -Wextra -Werror duplicated.cpp -o duplicated
-clang++ -Wall -Wextra -Werror original.cpp -o original
-echo ./duplicated > Duplicated
-echo ./original > Original
-diff Duplicated Original
+clang++ -Wall -Wextra -Werror duplicated.cpp -o dup
+clang++ -Wall -Wextra -Werror original.cpp -o origin
+./dup > duplicated
+./origin > Original
+diff  -e Duplicated Original
+rm -rf duplicated dup 
+rm -rf original origin
