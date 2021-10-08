@@ -34,13 +34,23 @@ namespace ft
 	template<class T>
 	struct iterator_traits<T*>
 	{
-		typedef ptrdiff_t difference_type;
-		typedef T value_type;
-		typedef T* pointer;
-		typedef T& reference;
-		typedef std::random_access_iterator_tag iterator_category;
+		typedef ptrdiff_t							difference_type;
+		typedef T									value_type;
+		typedef T*									pointer;
+		typedef T&									reference;
+		typedef std::random_access_iterator_tag		iterator_category;
 	};
-	//******************iterator_traits that convert normal pointer***************************
+
+	template<class T>
+	struct iterator_traits<const T*>
+	{
+		typedef ptrdiff_t							difference_type;
+		typedef T									value_type;
+		typedef const T*							pointer;
+		typedef const T&							reference;
+		typedef std::random_access_iterator_tag		iterator_category;
+	};
+	//******************iterator_traits that convert normal pointer/ const pointer***************************
 
 	//******************customized iterator struct***************************
 	template <class Iterator>
@@ -61,20 +71,19 @@ namespace ft
 			customizedIterator(): _iter(nullptr){
 			}
 
-			customizedIterator(pointer iter): _iter(iter){	
+			customizedIterator(iterator_type iter): _iter(iter){	
 			}
 
-			customizedIterator(const customizedIterator& iter){
-				(*this) = iter;
+			customizedIterator(const customizedIterator& iter): _iter(iter._iter){
 			}
 
-			customizedIterator& operator=(const customizedIterator& iter){
-				this->_iter = iter._iter;
-				return (*this);
-			}
 			//****************** constructors ***************************
 
 			//****************** operators overload ***************************
+			iterator_type base() const{
+				return(this->_iter);
+			}
+
 			reference operator*() const{
 				return(*_iter);
 			}
@@ -157,27 +166,146 @@ namespace ft
 			//****************** operators overload ***************************
 
 		private:
-			pointer _iter;
+			iterator_type _iter;
 	};
-
 	//****************** customizedIterator struct***************************
+	//****************** reverse_iterator struct***************************
+	template <class Iterator>
+	class reverse_iterator : public iterator<std::random_access_iterator_tag, typename iterator_traits<Iterator>::value_type >
+	{
+		public:
+
+			//****************** reverse_iterator member types ***************************
+			typedef Iterator													iterator_type;
+    		typedef typename iterator_traits<iterator_type>::iterator_category	iterator_category;
+    		typedef typename iterator_traits<iterator_type>::value_type			value_type;
+    		typedef typename iterator_traits<iterator_type>::difference_type	difference_type;
+    		typedef typename iterator_traits<iterator_type>::pointer			pointer;
+    		typedef typename iterator_traits<iterator_type>::reference			reference;
+			//****************** reverse_iterator member types ***************************
+
+			//****************** constructors ***************************
+			reverse_iterator(): _iter(nullptr){
+			}
+
+			explicit reverse_iterator (iterator_type it){
+				_iter = it;
+			}
+
+			reverse_iterator(const reverse_iterator& iter) : _iter(iter._iter){
+			}
+
+			//****************** constructors ***************************
+
+			//****************** operators overload ***************************
+			iterator_type base() const{
+				return(this->_iter);
+			}
+
+			reference operator*() const{
+				return(*_iter);
+			}
+
+			reverse_iterator& operator++(){
+				this->_iter++;
+				return (*this);
+			}
+
+			reverse_iterator  operator++(int){
+				reverse_iterator post_increment = *this;
+				this->_iter++;
+				return (post_increment);
+			}
+
+			reverse_iterator operator+(difference_type n) const{
+				return (this->_iter + n);
+			}
+
+			reverse_iterator &operator+=(difference_type n){
+				this->_iter = this->_iter + n;
+				return(*this);
+			}
+
+			reverse_iterator operator-(difference_type n) const{
+				return (this->_iter - n);
+			}
+
+			reverse_iterator& operator--(){
+				this->_iter--;
+				return (*this);
+			}
+
+			reverse_iterator  operator--(int){
+				reverse_iterator post_increment = *this;
+				this->_iter--;
+				return (post_increment);
+			}
+
+			reverse_iterator &operator-=(difference_type n){
+				this->_iter = this->_iter - n;
+				return(*this);
+			}
+
+			pointer operator->() const {
+  				return &(operator*());
+			}
+
+			reference operator[] (difference_type n) const{
+				return (this->_iter[n]);
+			}
+
+			//****************** operators overload non member function ***************************
+			friend reverse_iterator<Iterator> operator+ (typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator>& it){
+				return (it._iter + n);
+			}
+
+			friend reverse_iterator<Iterator> operator- (typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator>& it){
+				return (it._iter - n);
+			}
+			friend bool operator== (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
+				return (lhs._iter == rhs._iter);
+			}
+			friend bool operator!= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
+				return (lhs._iter != rhs._iter);
+			}
+			friend bool operator< (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
+				return (lhs._iter < rhs._iter);
+			}
+			friend bool operator<= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
+				return (lhs._iter <= rhs._iter);
+			}
+			friend bool operator> (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
+				return (lhs._iter > rhs._iter);
+			}
+			friend bool operator>= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
+				return (lhs._iter >= rhs._iter);
+			}
+			//****************** operators overload non member function ***************************
+			//****************** operators overload ***************************
+
+		private:
+			iterator_type _iter;
+	};
+	//****************** customizedIterator struct***************************
+	
+
 	template <typename T, typename Alloc = std::allocator<T> >
 	class vector
 	{
 	public:
 		//****************** member Type ******************************
-		typedef	T											value_type;
-		typedef	Alloc								allocator_type;
-		typedef	value_type&									reference;
-		typedef	const value_type&							const_reference;
-		typedef	value_type*									pointer;
-		typedef	const value_type* 							const_pointer;
-		typedef	customizedIterator<pointer>					iterator;
-		typedef	const customizedIterator<const_pointer>		const_iterator;
-		// typedef	reverse_iterator<iterator>					reverse_iterator;
-		// typedef	const_reverse_iterator<iterator>			const_reverse_iterator;
-		typedef	typename iterator_traits<iterator>::difference_type	difference_type;
-		typedef size_t 										size_type;
+		typedef	T														value_type;
+		typedef	Alloc													allocator_type;
+		typedef	typename allocator_type::reference								reference;
+		typedef	typename allocator_type::const_reference							const_reference;
+		typedef	typename allocator_type::pointer									pointer;
+		typedef	typename allocator_type::const_pointer							const_pointer;
+		typedef	customizedIterator<pointer>								iterator;
+		typedef	customizedIterator<const_pointer>						const_iterator;
+		typedef	reverse_iterator<const_iterator>						const_reverse_iterator;
+		typedef	reverse_iterator<iterator>								reverse_iterator;
+		typedef	typename iterator_traits<iterator>::difference_type		difference_type;
+		typedef size_t 													size_type;
 		//****************** member Type ******************************
 		//******************constructor******************
 		vector(const allocator_type &alloc = allocator_type())
@@ -234,6 +362,11 @@ namespace ft
 			iterator it(_array);
 			return (it);
 		}
+
+		// iterator end(){
+		// 	iterator it(_array);
+		// 	return (it);
+		// }
 		//******************iterator******************
 		//******************Modifiers******************
 		void push_back(const value_type& val){
