@@ -128,6 +128,6 @@ template <class Iterator>
 			iterator_type _iter;
 	};
 		//****************** reverse_iterator struct***************************
-	
+
 
 #endif
