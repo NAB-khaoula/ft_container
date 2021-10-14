@@ -10,6 +10,13 @@
 
 namespace ft
 {
+	//******************is_integral******************
+	template <typename T>
+		struct is_integral{
+			typedef	bool	value_type;
+		}
+	//******************is_integral******************
+	
 	template <typename T, typename Alloc = std::allocator<T> >
 	class vector
 	{
@@ -276,6 +283,7 @@ namespace ft
 		}
 
 		//******************Element access******************
+
 
 	private:
 		T *_array;
