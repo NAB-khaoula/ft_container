@@ -138,6 +138,19 @@ namespace ft
 			_size = 0;
 		}
 
+		iterator erase (iterator position){
+			pointer newArray = _allocator.allocate(_capacity);
+			int i = -1;
+			iterator it = this->begin() - 1;
+			while(++it != position)
+				newArray[++i] = *it;
+			while(++it != this->end())
+				newArray[i++] = *it;
+			_allocator.deallocate(_array, _capacity);
+			_array = newArray;
+			return(it(_array));
+		}
+
 		// void assign( size_type count, const T& value ){
 		// 	this->clear();
 		// 	for(int i = 0; i < count; i++)
