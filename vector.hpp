@@ -293,7 +293,7 @@ namespace ft
 		//******************Element access******************
 
 
-	private:
+	private: 
 		T *_array;
 		size_type _size;
 		size_type _capacity;
