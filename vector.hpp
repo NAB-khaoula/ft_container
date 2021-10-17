@@ -21,7 +21,7 @@ namespace ft
 	template <typename T>
 		struct is_integral{
 			typedef	bool	value_type;
-			typedef true_type type;
+			typedef std::true_type type;
 		};
 	//******************is_integral/ enable_if******************
 	
@@ -60,19 +60,17 @@ namespace ft
 			for (size_type i = 0; i < n; i++)
 				_array[i] = val;
 		}
-		// template <class InputIterator>
-		// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()){
-		// 	int i = 0;
-		// 	_allocator = alloc;
-		// 	while (first != last)
-		// 	{
-		// 		i++;
-		// 		first++;
-		// 	}
-		// 	_size = 0;
-		// 	_capacity = i;
-		// 	_array = _allocator.allocate(i);
-		// }
+		template <class InputIterator>
+		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()){
+			int dist = 0;
+			while(first != last){
+				_array[dist] = *first;
+				dist++;
+				first++;
+			}
+			_capacity = dist;
+			_size = dist;
+		}
 		vector(const vector &x)
 		{
 			(*this) = x;
