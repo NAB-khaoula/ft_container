@@ -51,25 +51,34 @@ namespace ft
 			_size = 0;
 			_capacity = 0;
 		}
-		vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type())
-		{
-			_allocator = alloc;
-			_array = _allocator.allocate(n);
-			_size = n;
-			_capacity = n;
-			for (size_type i = 0; i < n; i++)
-				_array[i] = val;
-		}
+		// vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type())
+		// {
+		// 	_allocator = alloc;
+		// 	_array = _allocator.allocate(n);
+		// 	_size = n;
+		// 	_capacity = n;
+		// 	for (size_type i = 0; i < n; i++)
+		// 		_array[i] = val;
+		// }
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()){
-			int dist = 0;
+			InputIterator it = first;
+			int i = 0;
+			while(it != last)
+			{
+				it++;
+				i++;
+			}
+			_array = _allocator.allocate(i);
+			_allocator = alloc;
+			i = 0;
 			while(first != last){
-				_array[dist] = *first;
-				dist++;
+				_array[i] = *first;
+				i++;
 				first++;
 			}
-			_capacity = dist;
-			_size = dist;
+			_capacity = i;
+			_size = i;
 		}
 		vector(const vector &x)
 		{
