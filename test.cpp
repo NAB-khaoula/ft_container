@@ -23,11 +23,13 @@ struct data
 };
 
 int main(){
-	// ft::vector<int> vect;
-	// vect.push_back(1337);
-	// vect.push_back(42);
-	// vect.push_back(1997);
-	// vect.push_back(1962);
+	ft::vector<int> vect;
+	vect.push_back(1337);
+	vect.push_back(42);
+	vect.push_back(1997);
+	vect.push_back(1962);
+	vect.push_back(1962);
+	std::cout << "till now it's good" << std::endl;
 	// vect.resize(2);
 	// ft::vector<int>::iterator iter(vect.begin());
 	// std::cout << *iter << std::endl;
@@ -74,26 +76,24 @@ int main(){
 	// std::cout << emptyData.capacity() << std::endl;
 	// std::cout << emptyData.size() << std::endl;
 	// std::cout << emptyData.max_size() << std::endl;
+	ft::vector<int> vec(vect.begin(), vect.end());
 
-	size_t tab[5] = {1,2,60,4,5};
-
-	ft::vector<size_t> vec(tab, tab + 5);
-	// for(int i = 0; i < 5; i++)
-	// 	std::cout << vec[i] << std::endl;
-	// std::cout << vec.size() << std::endl;
-	// std::cout << vec.capacity() << std::endl;
-	vec.assign(tab, tab + 7);
-	std::cout << vec.size() << std::endl;
+   	// // vec.push_back(10);
+   	// // vec.push_back(2);
+   	// // vec.push_back(3);
+   	// // vec.push_back(4);
+   	// // vec.push_back(4);
+   	// // vec.push_back(4);
+	std::cout << "*********" << std::endl;
 	std::cout << vec.capacity() << std::endl;
-	vec.insert(vec.begin() + 3, 3);
-   	// vec.push_back(10);
-   	// vec.push_back(2);
-   	// vec.push_back(3);
-   	// vec.push_back(4);
-   	// vec.push_back(4);
-   	// vec.push_back(4);
-	// std::cout << vec.capacity() << std::endl;
-	// std::cout << vec.size() << std::endl;
+	std::cout << vec.size() << std::endl;
+	std::cout << "*********" << std::endl;
+	// std::cout << vec[0] << std::endl;
+	// std::cout << vec[1] << std::endl;
+	// std::cout << vec[2] << std::endl;
+	// std::cout << vec[3] << std::endl;
+	// std::cout << vec[4] << std::endl;
+	// std::cout << vec[5] << std::endl;
 	// vec.pop_back();
 	// vec.erase(vec.begin());
 	// std::cout << vec.capacity() << std::endl;
