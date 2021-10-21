@@ -2,7 +2,7 @@
 #include <vector>
 #include <memory>
 #include <iterator>
-// #include "vector.hpp"
+#include "vector.hpp"
 
 struct data
 {
@@ -74,19 +74,21 @@ int main(){
 	// std::cout << emptyData.capacity() << std::endl;
 	// std::cout << emptyData.size() << std::endl;
 	// std::cout << emptyData.max_size() << std::endl;
-	std::vector<int> vec;
+	size_t a = 3;
+	size_t b = 3;
+	ft::vector<size_t> vec(a,b);
 
-   	vec.push_back(10);
-   	vec.push_back(2);
-   	vec.push_back(3);
-   	vec.push_back(4);
-   	vec.push_back(4);
-   	vec.push_back(4);
-	std::cout << vec.capacity() << std::endl;
-	std::cout << vec.size() << std::endl;
+   	// vec.push_back(10);
+   	// vec.push_back(2);
+   	// vec.push_back(3);
+   	// vec.push_back(4);
+   	// vec.push_back(4);
+   	// vec.push_back(4);
+	// std::cout << vec.capacity() << std::endl;
+	// std::cout << vec.size() << std::endl;
 	// vec.pop_back();
-	vec.erase(vec.begin());
-	std::cout << vec.capacity() << std::endl;
-	std::cout << vec.size() << std::endl;
+	// vec.erase(vec.begin());
+	// std::cout << vec.capacity() << std::endl;
+	// std::cout << vec.size() << std::endl;
 
 }

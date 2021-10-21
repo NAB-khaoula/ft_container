@@ -11,18 +11,18 @@
 namespace ft
 {
 	//******************is_integral/ enable_if******************
-	template <bool, typename T = void>
-		struct enable_if{};
+	// template <bool, typename T = void>
+	// 	struct enable_if{};
 
-	template <typename T>
-		struct enable_if<true, T> {
-	  		typedef T type;
-		};
-	template <typename T>
-		struct is_integral{
-			typedef	bool	value_type;
-			typedef true_type type;
-		};
+	// template <typename T>
+	// 	struct enable_if<true, T> {
+	//   		typedef T type;
+	// 	};
+	// template <typename T>
+	// 	struct is_integral{
+	// 		typedef	bool	value_type;
+	// 		typedef true_type type;
+	// 	};
 	//******************is_integral/ enable_if******************
 	
 	template <typename T, typename Alloc = std::allocator<T> >
@@ -60,19 +60,20 @@ namespace ft
 			for (size_type i = 0; i < n; i++)
 				_array[i] = val;
 		}
-		// template <class InputIterator>
-		// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()){
-		// 	int i = 0;
-		// 	_allocator = alloc;
-		// 	while (first != last)
-		// 	{
-		// 		i++;
-		// 		first++;
-		// 	}
-		// 	_size = 0;
-		// 	_capacity = i;
-		// 	_array = _allocator.allocate(i);
-		// }
+		template <class InputIterator>
+		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()){
+			// int i = 0;
+			// _allocator = alloc;
+			// while (first != last)
+			// {
+			// 	i++;
+			// 	first++;
+			// }
+			// _size = 0;
+			// _capacity = i;
+			// _array = _allocator.allocate(i);
+			std::cout << "here is the ranged constructor" << std::endl;
+		}
 		vector(const vector &x)
 		{
 			(*this) = x;
@@ -153,18 +154,18 @@ namespace ft
 			_size = 0;
 		}
 
-		iterator erase (iterator position){
-			pointer newArray = _allocator.allocate(_capacity);
-			int i = -1;
-			iterator it = this->begin() - 1;
-			while(++it != position)
-				newArray[++i] = *it;
-			while(++it != this->end())
-				newArray[i++] = *it;
-			_allocator.deallocate(_array, _capacity);
-			_array = newArray;
-			return(it(_array));
-		}
+		// iterator erase (iterator position){
+		// 	pointer newArray = _allocator.allocate(_capacity);
+		// 	int i = -1;
+		// 	iterator it = this->begin() - 1;
+		// 	while(++it != position)
+		// 		newArray[++i] = *it;
+		// 	while(++it != this->end())
+		// 		newArray[i++] = *it;
+		// 	_allocator.deallocate(_array, _capacity);
+		// 	_array = newArray;
+		// 	return(it(_array));
+		// }
 
 		// void assign( size_type count, const T& value ){
 		// 	this->clear();
