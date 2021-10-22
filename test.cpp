@@ -28,8 +28,7 @@ int main(){
 	vect.push_back(42);
 	vect.push_back(1997);
 	vect.push_back(1962);
-	vect.push_back(1962);
-	std::cout << "till now it's good" << std::endl;
+	vect.push_back(1963);
 	// vect.resize(2);
 	// ft::vector<int>::iterator iter(vect.begin());
 	// std::cout << *iter << std::endl;
@@ -76,19 +75,28 @@ int main(){
 	// std::cout << emptyData.capacity() << std::endl;
 	// std::cout << emptyData.size() << std::endl;
 	// std::cout << emptyData.max_size() << std::endl;
-	ft::vector<int> vec(vect.begin(), vect.end());
+	ft::vector<int> vec;
 
-   	// // vec.push_back(10);
-   	// // vec.push_back(2);
-   	// // vec.push_back(3);
-   	// // vec.push_back(4);
-   	// // vec.push_back(4);
-   	// // vec.push_back(4);
-	std::cout << "*********" << std::endl;
-	std::cout << vec.capacity() << std::endl;
-	std::cout << vec.size() << std::endl;
-	std::cout << "*********" << std::endl;
-	// std::cout << vec[0] << std::endl;
+   	vec.push_back(10);
+   	vec.push_back(2);
+   	vec.push_back(3);
+   	vec.push_back(24);
+   	vec.push_back(42);
+   	vec.push_back(43);
+   	vec.push_back(44);
+   	vec.push_back(45);
+   	vec.push_back(46);
+	vec.insert(vec.begin() + 3, 4, 1337);
+	   for(int i=0; i < vec.size() ; i++)
+			std::cout << vec[i] << std::endl;
+	   std::cout << vec.capacity() << std::endl;
+	   std::cout << vec.size() << std::endl;
+
+	// std::cout << "*********" << std::endl;
+	// std::cout << vec.capacity() << std::endl;
+	// std::cout << vec.size() << std::endl;
+	// std::cout << "*********" << std::endl;
+	// // std::cout << vec[0] << std::endl;
 	// std::cout << vec[1] << std::endl;
 	// std::cout << vec[2] << std::endl;
 	// std::cout << vec[3] << std::endl;
@@ -98,5 +106,4 @@ int main(){
 	// vec.erase(vec.begin());
 	// std::cout << vec.capacity() << std::endl;
 	// std::cout << vec.size() << std::endl;
-
 }

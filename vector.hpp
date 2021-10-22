@@ -349,10 +349,43 @@ template <>
 		
 		iterator insert (iterator position, const value_type& val){
 			if (_size < _capacity){
-
+				iterator temporaryIterator = this->end() + 1;
+				while(--temporaryIterator != position)
+					*temporaryIterator = *(temporaryIterator - 1);
+				*(position) = val; 
+				_size++;
+				return position;
 			}
 			else{
+				std::cout << "testing out of capacity" << std::endl;
+				pointer newArray = _allocator.allocate(_capacity * 2);
+				int j = -1;
+				for(iterator i = this->begin(); i < position; i++)
+					newArray[++j] = *i;
+				newArray[++j] = val;
+				int k = j;
+				for(iterator i = position; i < this->end(); i++)
+					newArray[++j] = *i;
+				_allocator.deallocate(_array, _capacity);
+				_capacity *= 2;
+				_size++;
+				_array = newArray;
+				return newArray + k;
+			}
+		}
 
+		void insert (iterator position, size_type n, const value_type& val){
+			if(_size + n < _capacity)
+			{
+				iterator temporaryIterator = this->end() + n;
+				while(--temporaryIterator != position)
+					*temporaryIterator = *(temporaryIterator - n);
+				for(int i = 0; i < n; i++)
+					*(position + i) = val; 
+				_size += n;
+			}
+			else{
+				std::cout << "testing out of capacity" << std::endl;
 			}
 		}
 

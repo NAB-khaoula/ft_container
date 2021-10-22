@@ -130,12 +130,12 @@ template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T
 			}
 
 			//****************** operators overload non member function ***************************
-			friend customizedIterator<Iterator> operator+ (typename customizedIterator<Iterator>::difference_type n, const customizedIterator<Iterator>& it){
-				return (it._iter + n);
+			friend typename customizedIterator<Iterator>::difference_type operator+ (const customizedIterator<Iterator>& n, const customizedIterator<Iterator>& it){
+				return (it._iter + n._iter);
 			}
 
-			friend customizedIterator<Iterator> operator- (typename customizedIterator<Iterator>::difference_type n, const customizedIterator<Iterator>& it){
-				return (it._iter - n);
+			friend typename customizedIterator<Iterator>::difference_type operator- (const customizedIterator<Iterator>& n, const customizedIterator<Iterator>& it){
+				return (n._iter - it._iter);
 			}
 			friend bool operator== (const customizedIterator<Iterator>& lhs, const customizedIterator<Iterator>& rhs){
 				return (lhs._iter == rhs._iter);

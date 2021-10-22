@@ -96,13 +96,14 @@ template <class Iterator>
 			}
 
 			//****************** operators overload non member function ***************************
-			friend reverse_iterator<Iterator> operator+ (typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator>& it){
-				return (it._iter - n);
+			friend typename reverse_iterator<Iterator>::difference_type operator+ (const reverse_iterator<Iterator>& n, const reverse_iterator<Iterator>& it){
+				return (it._iter + n._iter);
 			}
 
-			friend reverse_iterator<Iterator> operator- (typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator>& it){
-				return (it._iter + n);
+			friend typename reverse_iterator<Iterator>::difference_type operator- (const reverse_iterator<Iterator>& n, const reverse_iterator<Iterator>& it){
+				return (it._iter - n._iter);
 			}
+
 			friend bool operator== (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs){
 				return (lhs._iter == rhs._iter);
 			}
