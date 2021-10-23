@@ -357,7 +357,6 @@ template <>
 				return position;
 			}
 			else{
-				std::cout << "testing out of capacity" << std::endl;
 				pointer newArray = _allocator.allocate(_capacity * 2);
 				int j = -1;
 				for(iterator i = this->begin(); i < position; i++)
@@ -385,49 +384,137 @@ template <>
 				_size += n;
 			}
 			else{
-				std::cout << "testing out of capacity" << std::endl;
+				size_type tempCapacity = _capacity;
+				while(_size + n > _capacity * 2)
+					_capacity *= 2;
+				pointer newArray = _allocator.allocate(_capacity * 2);
+				int j = -1;
+				for(iterator i = this->begin(); i < position; i++)
+					newArray[++j] = *i;
+				for(int l = 0; l < n; l++)
+					newArray[++j] = val;
+				for(iterator i = position; i < this->end(); i++)
+					newArray[++j] = *i;
+				_allocator.deallocate(_array, tempCapacity);
+				_capacity *= 2;
+				_size += n;
+				_array = newArray;
 			}
 		}
 
+		template <class InputIterator>
+    		void insert (iterator position, InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type = 0)
+			{
+				difference_type iteration = last - first;
+				if(_size + iteration < _capacity)
+				{
+					iterator temporaryIterator = this->end() + iteration;
+					while(--temporaryIterator != position)
+						*temporaryIterator = *(temporaryIterator - iteration);
+					for(int i = 0; i < iteration; i++)
+						*(position + i) = *(first + i); 
+					_size += iteration;
+				}
+				else{
+					std::cout << "testing out of capacity" << std::endl;
+					size_type tempCapacity = _capacity;
+					while(_size + iteration > _capacity * 2)
+						_capacity *= 2;
+					pointer newArray = _allocator.allocate(_capacity * 2);
+					int j = -1;
+					for(iterator i = this->begin(); i < position; i++)
+						newArray[++j] = *i;
+					for(int l = 0; l < iteration; l++)
+						newArray[++j] = *(first + l);
+					for(iterator i = position; i < this->end(); i++)
+						newArray[++j] = *i;
+					_allocator.deallocate(_array, tempCapacity);
+					_capacity *= 2;
+					_size += iteration;
+					_array = newArray;
+				}
+			}
+
+		iterator erase (iterator position)
+		{
+			pointer newArray = _allocator.allocate(_capacity);
+			int i = -1;
+			iterator it = this->begin() - 1;
+			while(++it < position)
+				newArray[++i] = *it;
+			while(++it != this->end())
+				newArray[++i] = *it;
+			_allocator.deallocate(_array, _capacity);
+			_array = newArray;
+			_size--;
+			return(position + 1);
+		}
+
+		iterator erase (iterator first, iterator last){
+			pointer newArray = _allocator.allocate(_capacity);
+			int i = -1;
+			iterator it = this->begin() - 1;
+			while(++it != first)
+				newArray[++i] = *it;
+			it = last - 1;
+			while(++it != this->end())
+				newArray[++i] = *it;
+			_allocator.deallocate(_array, _capacity);
+			_array = newArray;
+			_size -= (size_type)(last - first);
+			return (last);
+		}
 		void clear(){
 			_allocator.deallocate(_array, _size);
 			_size = 0;
 		}
 
-		// iterator erase (iterator position){
-		// 	pointer newArray = _allocator.allocate(_capacity);
-		// 	int i = -1;
-		// 	iterator it = this->begin() - 1;
-		// 	while(++it != position)
-		// 		newArray[++i] = *it;
-		// 	while(++it != this->end())
-		// 		newArray[i++] = *it;
-		// 	_allocator.deallocate(_array, _capacity);
-		// 	_array = newArray;
-		// 	return(it(_array));
-		// }
+		template <class T, class Alloc>
+			friend bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+				if(lhs.size() != rhs.size())
+					return false;
+				else
+				{
+					for(int i = 0; i < lhs.size(); i++)
+						if(lhs[i] != rhs[i])
+							return false;
+				}
+				return true;
+			}
 
-		// void assign( size_type count, const T& value ){
-		// 	this->clear();
-		// 	for(int i = 0; i < count; i++)
-		// 		this->push_back(value);
-		// 	// _capacity = count;
-		// 	_allocator.destroy(_array + count);
-		// }
-		// //ANCHOR need to add another prototype (iterator);
-		// template <class InputIterator>
-  		// void assign (InputIterator first, InputIterator last){
+		// template <class T, class Alloc>
+			friend bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+				return(!(lhs == rhs));
+			}
 
-		// }
+		// template <class T, class Alloc>
+			friend bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+			}
+		
+		// template <class T, class Alloc>
+			friend bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+			}
 
-		// iterator erase( iterator pos ){
+		// template <class T, class Alloc>
+			friend bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+			}
 
-		// }
+		// template <class T, class Alloc>
+			friend bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+			}
 
-		// iterator erase( iterator first, iterator last ){
-
-		// }
-
+		void swap (vector& x){
+			// size_type tempSwap;
+			// _allocator = allocator_type();
+			// // _allocator.deallocate(_array, _capacity);
+			// tempSwap = _capacity;
+			// _capacity = x.capacity();
+			// _size = x.size();
+			// pointer newArray = _allocator.allocate(_capacity);
+			// for(int i = 0; i < _size; i++)
+			// 	newArray[i] = x[i];
+			// _array = newArray;
+		}
 		//******************Modifiers******************
 
 

@@ -6,20 +6,20 @@
 
 struct data
 {
-    int a;
-    int b;
-    data(int a = 1337, int b = 42) : a(a), b(b)
-    {}
-    data(const data& dt) {*this = dt;}
-    data& operator= (const data& dt)
-    {
-        if (this != &dt)
-        {
-            this->a = dt.a;
-            this->b = dt.b;
-        }
-        return (*this);
-    }
+	int a;
+	int b;
+	data(int a = 1337, int b = 42) : a(a), b(b)
+	{}
+	data(const data& dt) {*this = dt;}
+	data& operator= (const data& dt)
+	{
+		if (this != &dt)
+		{
+			this->a = dt.a;
+			this->b = dt.b;
+		}
+		return (*this);
+	}
 };
 
 int main(){
@@ -84,14 +84,13 @@ int main(){
    	vec.push_back(42);
    	vec.push_back(43);
    	vec.push_back(44);
-   	vec.push_back(45);
-   	vec.push_back(46);
-	vec.insert(vec.begin() + 3, 4, 1337);
-	   for(int i=0; i < vec.size() ; i++)
-			std::cout << vec[i] << std::endl;
-	   std::cout << vec.capacity() << std::endl;
-	   std::cout << vec.size() << std::endl;
-
+	// std::cout << "**" << vec.capacity() << std::endl;
+	// std::cout <<  "**" << vec.size() << std::endl;
+	// std::cout << "return " << *(vec.erase(vec.begin(), vec.begin() + 4)) << std::endl;
+	// for(int i = 0; i < vec.size() ; i++)
+	// 	std::cout << "element:" << vec[i] << std::endl;
+	// std::cout << "**" << vec.capacity() << std::endl;
+	// std::cout <<  "**" << vec.size() << std::endl;
 	// std::cout << "*********" << std::endl;
 	// std::cout << vec.capacity() << std::endl;
 	// std::cout << vec.size() << std::endl;
@@ -106,4 +105,20 @@ int main(){
 	// vec.erase(vec.begin());
 	// std::cout << vec.capacity() << std::endl;
 	// std::cout << vec.size() << std::endl;
+
+	ft::vector<int> foo (3,100);   // three ints with a value of 100
+	ft::vector<int> bar (5,200);   // five ints with a value of 200
+	
+	foo.swap(bar);
+		
+	std::cout << "foo contains:";
+	for (unsigned i=0; i<foo.size(); i++)
+		std::cout << ' ' << foo[i];
+	std::cout << '\n';
+	
+	std::cout << "bar contains:";
+	for (unsigned i=0; i<bar.size(); i++)
+		std::cout << ' ' << bar[i];
+	std::cout << '\n';
+
 }
