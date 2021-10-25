@@ -1,7 +1,10 @@
 #ifndef ITERATOR_HPP
 #define ITERATOR_HPP
-#include "vector.hpp"
 
+#include <iostream>
+#include <cstddef>
+
+//******************base struct iterator***************************
 template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 	struct iterator
 	{

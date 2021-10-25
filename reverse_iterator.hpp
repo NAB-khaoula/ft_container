@@ -1,10 +1,9 @@
 #ifndef REVERSE_ITERATOR_HPP
 #define REVERSE_ITERATOR_HPP
 
-#include "vector.hpp"
 #include "iterator.hpp"
 
-	//****************** reverse_iterator struct***************************
+//****************** reverse_iterator struct***************************
 
 template <class Iterator>
 	class reverse_iterator : public iterator<std::random_access_iterator_tag, typename iterator_traits<Iterator>::value_type >

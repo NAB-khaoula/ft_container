@@ -23,12 +23,12 @@ struct data
 };
 
 int main(){
-	ft::vector<int> vect;
-	vect.push_back(1337);
-	vect.push_back(42);
-	vect.push_back(1997);
-	vect.push_back(1962);
-	vect.push_back(1963);
+	// ft::vector<int> vect;
+	// vect.push_back(1337);
+	// vect.push_back(42);
+	// vect.push_back(1997);
+	// vect.push_back(1962);
+	// vect.push_back(1963);
 	// vect.resize(2);
 	// ft::vector<int>::iterator iter(vect.begin());
 	// std::cout << *iter << std::endl;
@@ -75,15 +75,15 @@ int main(){
 	// std::cout << emptyData.capacity() << std::endl;
 	// std::cout << emptyData.size() << std::endl;
 	// std::cout << emptyData.max_size() << std::endl;
-	ft::vector<int> vec;
+	// ft::vector<int> vec;
 
-   	vec.push_back(10);
-   	vec.push_back(2);
-   	vec.push_back(3);
-   	vec.push_back(24);
-   	vec.push_back(42);
-   	vec.push_back(43);
-   	vec.push_back(44);
+   	// vec.push_back(10);
+   	// vec.push_back(2);
+   	// vec.push_back(3);
+   	// vec.push_back(24);
+   	// vec.push_back(42);
+   	// vec.push_back(43);
+   	// vec.push_back(44);
 	// std::cout << "**" << vec.capacity() << std::endl;
 	// std::cout <<  "**" << vec.size() << std::endl;
 	// std::cout << "return " << *(vec.erase(vec.begin(), vec.begin() + 4)) << std::endl;
@@ -121,8 +121,20 @@ int main(){
 	// 	std::cout << ' ' << bar[i];
 	// std::cout << '\n';
 	
-	ft::vector<int> foo (3,100);   // three ints with a value of 100
-  	ft::vector<int> bar (3,100);   // two ints with a value of 200
+	// ft::vector<int> foo (3,100);   // three ints with a value of 100
+  	// ft::vector<int> bar (3,100);   // two ints with a value of 200
 
-  	if (foo==bar) std::cout << "foo and bar are equal\n";
+  	// if (foo==bar) std::cout << "foo and bar are equal\n";
+	std::allocator<int> alloc;
+	int *tab = alloc.allocate(5);
+	for (int i = 0; i < 5; i++)
+	 	tab[i] = i;
+	for (int i = 0; i < 5; i++){
+	 	std::cout << tab[i] << "\n";
+		// alloc.destroy(&tab[i]);
+	}
+	alloc.deallocate(tab, 5);
+	// for (int i = 0; i < 5; i++)
+	//  	tab[i] = i;
+
 }

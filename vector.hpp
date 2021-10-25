@@ -4,7 +4,6 @@
 #include <iterator>
 #include <iostream>
 #include <cstddef>
-#include <vector>
 #include "iterator.hpp"
 #include "reverse_iterator.hpp"
 #include <math.h>
@@ -24,16 +23,16 @@ namespace ft
 		  return (first2!=last2);
 		}
 
-		template <class InputIterator1, class InputIterator2>
-			bool equal ( InputIterator1 first1, InputIterator1 last1, InputIterator2 first2 )
-			{
-				while (first1!=last1) {
-					if (!(*first1 == *first2))   
-						return false;
-					++first1; ++first2;
-				}
-				return true;
+	template <class InputIterator1, class InputIterator2>
+		bool equal ( InputIterator1 first1, InputIterator1 last1, InputIterator2 first2 )
+		{
+			while (first1!=last1) {
+				if (!(*first1 == *first2))   
+					return false;
+				++first1; ++first2;
 			}
+			return true;
+		}
 
 	//******************is_integral/ enable_if******************
 	template <bool, typename T = void>
@@ -168,16 +167,22 @@ template <>
 		//******************assignment operator******************
 		vector &operator=(const vector &x)
 		{
-			_array = x._array;
+			_allocator.deallocate(_array, _capacity);
+			_allocator = x._allocator;
+			pointer newArray = _allocator.allocate(x._capacity);
+			for(size_type i = 0; i < x.size(); i++){
+				newArray[i] = x._array[i];
+			}
+			_array = newArray;
 			_size = x._size;
 			_capacity = x._capacity;
-			_allocator = x._allocator;
+			return(*this);
 		}
 		//******************assignment operator******************
 		//******************destructor******************
 		~vector()
 		{
-			_allocator.deallocate(this->_array, _capacity);
+			delete [] _array;
 		}
 		//******************destructor******************
 		//******************iterator******************
@@ -219,28 +224,28 @@ template <>
 			if (n < _size)
 			{
 				pointer newArray = _allocator.allocate(_capacity);
-				for (int i = n; i < _size; i++)
+				for (size_type i = 0; i < n; i++)
 					newArray[i] = _array[i];
-				_allocator.destroy(_array);
+				_allocator.deallocate(_array, _capacity);
 				_array = newArray;
 				_size = n;
 			}
 			else if (n <= _capacity)
 			{
-				for (int i = n; i < _size; i++)
+				for (size_type i = _size; i < n; i++)
 					_array[i] = val;
 				_size = n;
 			}
 			else
 			{
 				if (n < _capacity * 2)
-					for (int i = _size; i < n; i++)
+					for (size_type i = _size; i < n; i++)
 						this->push_back(val);
 				else{
 					pointer newArray = _allocator.allocate(n);
-					for (int i = 0; i < _capacity; i++)
+					for (size_type i = 0; i < _capacity; i++)
 						newArray[i] = _array[i];
-					for (int i = _capacity; i < n; i++)
+					for (size_type i = _capacity; i < n; i++)
 						newArray[i] = val;
 					delete [] _array;
 					_capacity = n;
@@ -259,8 +264,10 @@ template <>
 			if (n > _capacity)
 			{
 				pointer newArray = _allocator.allocate(n);
-				for (int i = 0; i < _size; i++)
+				for (size_type i = 0; i < _size; i++)
 					newArray[i] = _array[i];
+				_allocator.deallocate(_array, _capacity);
+				_array = newArray;
 				_capacity = n;
 			}
 		}
@@ -308,7 +315,7 @@ template <>
 		template <class InputIterator>
 			void assign (InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type = 0){
 				difference_type dist = last - first;
-				if(dist <= _capacity){
+				if(dist <= (difference_type)_capacity){
 					for(int i = 0; i < dist; i++)
 						_array[i] = *first++;
 					_size = dist;					
@@ -325,13 +332,13 @@ template <>
 			}
 		void assign (size_type n, const value_type& val){
 			if (n <= _capacity){
-				for(int i = 0; i < n; i++)
+				for(size_type i = 0; i < n; i++)
 					_array[i] = val;
 				_size = n;
 			}
 			else{
 				pointer newArray = _allocator.allocate(n);
-				for(int i = 0; i < n; i++)
+				for(size_type i = 0; i < n; i++)
 					newArray[i] = val;
 				_allocator.deallocate(_array, _capacity);
 				_array = newArray;
@@ -373,7 +380,7 @@ template <>
 		}
 		
 		iterator insert (iterator position, const value_type& val){
-			if (_size < _capacity){
+			if (_size <= _capacity){
 				iterator temporaryIterator = this->end() + 1;
 				while(--temporaryIterator != position)
 					*temporaryIterator = *(temporaryIterator - 1);
@@ -404,7 +411,7 @@ template <>
 				iterator temporaryIterator = this->end() + n;
 				while(--temporaryIterator != position)
 					*temporaryIterator = *(temporaryIterator - n);
-				for(int i = 0; i < n; i++)
+				for(size_type i = 0; i < n; i++)
 					*(position + i) = val; 
 				_size += n;
 			}
@@ -416,7 +423,7 @@ template <>
 				int j = -1;
 				for(iterator i = this->begin(); i < position; i++)
 					newArray[++j] = *i;
-				for(int l = 0; l < n; l++)
+				for(size_type l = 0; l < n; l++)
 					newArray[++j] = val;
 				for(iterator i = position; i < this->end(); i++)
 					newArray[++j] = *i;
@@ -441,7 +448,6 @@ template <>
 					_size += iteration;
 				}
 				else{
-					std::cout << "testing out of capacity" << std::endl;
 					size_type tempCapacity = _capacity;
 					while(_size + iteration > _capacity * 2)
 						_capacity *= 2;
@@ -490,12 +496,16 @@ template <>
 			return (last);
 		}
 		void clear(){
-			_allocator.deallocate(_array, _size);
-			_size = 0;
+			while(_size)
+			{
+				_allocator.destroy(_array + _size);
+				_size--;
+			}
 		}
 
 		void swap (vector& x){
-			vector temporary(x);
+			vector temporary ;
+			temporary = x;
 			x = *this;
 			*this = temporary;
 		}
@@ -508,37 +518,37 @@ template <>
 		//******************Allocator******************
 
 		template <class Ta, class Alloca>
-			friend bool operator== (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs);
+			friend bool operator== (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs)
 			{
 				return(equal(lhs.begin(), lhs.end(), rhs.begin()));
 			}
 
 		template <class Ta, class Alloca>
-			friend bool operator!= (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs);
+			friend bool operator!= (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs)
 			{
 				return(!(lhs == rhs));
 			}
 
 		template <class Ta, class Alloca>
-			friend bool operator<  (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs);
+			friend bool operator<  (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs)
 			{
 				return(lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 			}
 		
 		template <class Ta, class Alloca>
-			friend bool operator<= (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs);
+			friend bool operator<= (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs)
 			{
 				return(!(rhs < lhs));
 			}
 
 		template <class Ta, class Alloca>
-			friend bool operator>  (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs);
+			friend bool operator>  (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs)
 			{
 				return(rhs < lhs);
 			}
 
 		template <class Ta, class Alloca>
-			friend bool operator>= (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs);
+			friend bool operator>= (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs)
 			{
 				return(!(lhs < rhs));
 			}

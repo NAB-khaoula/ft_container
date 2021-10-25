@@ -31,7 +31,6 @@ int main()
     // *************************************************************************
 
     //NOTE - Constructor
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> first;                                
     // ft::vector<int> second (4,100);                      
     // ft::vector<int> third (second.begin(),second.end()); 
@@ -44,7 +43,6 @@ int main()
     // std::cout << '\n';
 
     //NOTE - Assign content (operator=)
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> foo (3,0);
     // ft::vector<int> bar (5,0);
     // bar = foo;
@@ -53,7 +51,6 @@ int main()
     // std::cout << "Size of bar: " << int(bar.size()) << '\n';
 
     //NOTE - Return iterator to beginning
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector;
     // for (int i=1; i<=5; i++) myvector.push_back(i);
     // std::cout << "myvector contains:";
@@ -62,7 +59,6 @@ int main()
     // std::cout << '\n';
     
     //NOTE - Return iterator to end
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector;
     // for (int i=1; i<=5; i++) myvector.push_back(i);
     // std::cout << "myvector contains:";
@@ -71,7 +67,6 @@ int main()
     // std::cout << '\n';
     
     //NOTE - Return reverse iterator to reverse beginning
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector (5);  // 5 default-constructed ints
     // int i=0;
     // ft::vector<int>::reverse_iterator rit = myvector.rbegin();
@@ -83,7 +78,6 @@ int main()
     // std::cout << '\n';
     
     //NOTE - Return reverse iterator to reverse end
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector (5); 
     // ft::vector<int>::reverse_iterator rit = myvector.rbegin();
     // int i=0;
@@ -95,7 +89,6 @@ int main()
     // std::cout << '\n';
     
     //NOTE - Return size
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myints;
     // std::cout << "0. size: " << myints.size() << '\n';
     // for (int i=0; i<10; i++) myints.push_back(i);
@@ -106,7 +99,6 @@ int main()
     // std::cout << "3. size: " << myints.size() << '\n';
     
     //NOTE - Return maximum size
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector;
     // for (int i=0; i<100; i++) myvector.push_back(i);
     // std::cout << "size: " << myvector.size() << "\n";
@@ -114,19 +106,19 @@ int main()
     // std::cout << "max_size: " << myvector.max_size() << "\n"; 
     
     //NOTE - Change size
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector;
-    // for (int i=1;i<10;i++) myvector.push_back(i);
+    // for (size_t i=1;i<10;i++) myvector.push_back(i);
     // myvector.resize(5);
     // myvector.resize(8,100);
     // myvector.resize(12);
+    // myvector.resize(30, 60);
+    // myvector.resize(15, 60);
     // std::cout << "myvector contains:";
-    // for (int i=0;i<myvector.size();i++)
+    // for (size_t i=0;i<myvector.size();i++)
     //     std::cout << ' ' << myvector[i];
     // std::cout << '\n';
     
     //NOTE - Return size of allocated storage capacity
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector;
     // for (int i=0; i<100; i++) myvector.push_back(i);
     // std::cout << "size: " << (int) myvector.size() << '\n';
@@ -134,7 +126,6 @@ int main()
     // std::cout << "max_size: " << (int) myvector.max_size() << '\n';
     
     //NOTE - Test whether vector is empty
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector;
     // int sum (0);
     // for (int i=1;i<=10;i++) myvector.push_back(i);
@@ -146,7 +137,6 @@ int main()
     // std::cout << "total: " << sum << '\n';
     
     //NOTE - Request a change in capacity
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int>::size_type sz;
     // ft::vector<int> foo;
     // sz = foo.capacity();
@@ -171,7 +161,6 @@ int main()
     // }
     
     //NOTE - Access element
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector (10);
     // ft::vector<int>::size_type sz = myvector.size();
     // for (unsigned i=0; i<sz; i++) myvector[i]=i;
@@ -188,7 +177,6 @@ int main()
     // std::cout << '\n';
     
     //NOTE - Access element
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector (10);
     // for (unsigned i=0; i<myvector.size(); i++)
     //     myvector.at(i)=i;
@@ -198,7 +186,6 @@ int main()
     // std::cout << '\n';
 
     //NOTE - Access first element
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector;
     // myvector.push_back(78);
     // myvector.push_back(16);
@@ -206,7 +193,6 @@ int main()
     // std::cout << "myvector.front() is now " << myvector.front() << '\n';
     
     //NOTE - Access last element
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector;
     // myvector.push_back(10);
     // while (myvector.back() != 0)
@@ -219,7 +205,6 @@ int main()
     // std::cout << '\n';
     
     //NOTE - Assign vector content
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> first;
     // ft::vector<int> second;
     // ft::vector<int> third;
@@ -234,7 +219,6 @@ int main()
     // std::cout << "Size of third: " << int (third.size()) << '\n';
     
     //NOTE - Add element at the end
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector;
     // int myint;
     // std::cout << "Please enter some integers (enter 0 to end):\n";
@@ -245,7 +229,6 @@ int main()
     // std::cout << "myvector stores " << int(myvector.size()) << " numbers.\n";
     
     //NOTE - Delete last element
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector;
     // int sum (0);
     // myvector.push_back (100);
@@ -259,7 +242,6 @@ int main()
     // std::cout << "The elements of myvector add up to " << sum << '\n';
     
     //NOTE - Clear content
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector;
     // myvector.push_back (100);
     // myvector.push_back (200);
@@ -275,13 +257,14 @@ int main()
     // std::cout << myvector.capacity() << std::endl;
     // myvector.push_back (1101);
     // myvector.push_back (2202);
+    // std::cout << myvector.size() << std::endl;
+    // std::cout << myvector.capacity() << std::endl;
     // std::cout << "myvector contains:";
     // for (unsigned i=0; i<myvector.size(); i++)
     //     std::cout << ' ' << myvector[i];
     // std::cout << '\n';
     
     //NOTE - Insert elements
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector(3, 100);
     // std::cout << myvector.size() << std::endl;
     // std::cout << myvector.capacity() << std::endl;
@@ -313,12 +296,11 @@ int main()
     // int i = 2;
     // it = vec.insert(vec.begin() + i, 7);
     // std::cout << "The vector elements are: ";
-    // for (ft::vector<int>::iterator it = vec.begin(); it != vec.end(); ++it)
-    //     std::cout << *it << " ";
+    // for (ft::vector<int>::iterator it1 = vec.begin(); it1 != vec.end(); ++it1)
+    //     std::cout << *it1 << " ";
     // std::cout << '\n';
     
     //NOTE - Erase elements
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector1;
     // for (int i=1; i<=10; i++) myvector1.push_back(i);
     // std::cout << myvector1.size() << std::endl;
@@ -333,7 +315,6 @@ int main()
     // std::cout << std::endl;
 
     //NOTE - Swap content
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> foo(3, 100);   // three ints with a value of 100
     // ft::vector<int> bar(5, 200);   // five ints with a value of 200
     // std::cout << "Size foo before " << foo.size() << std::endl;
@@ -355,7 +336,6 @@ int main()
     // std::cout << '\n';
 
     //NOTE - Get allocator
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector;
     // int * p;
     // unsigned int i;
@@ -368,19 +348,17 @@ int main()
     // myvector.get_allocator().deallocate(p,5);
     
     //NOTE - Relational operators for vector
-    // std::cout << "------------- Library STD -------------" << std::endl;
-    // ft::vector<int> foo (1,200);   // three ints with a value of 100
-    // ft::vector<int> bar (1,100);   // two ints with a value of 200
+    ft::vector<int> foo (1,200);   // three ints with a value of 100
+    ft::vector<int> bar (1,100);   // two ints with a value of 200
 
-    // if (foo==bar) std::cout << "foo and bar are equal\n";
-    // if (foo!=bar) std::cout << "foo and bar are not equal\n";
-    // if (foo< bar) std::cout << "foo is less than bar\n";
-    // if (foo> bar) std::cout << "foo is greater than bar\n";
-    // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
-    // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+    if (foo==bar) std::cout << "foo and bar are equal\n";
+    if (foo!=bar) std::cout << "foo and bar are not equal\n";
+    if (foo< bar) std::cout << "foo is less than bar\n";
+    if (foo> bar) std::cout << "foo is greater than bar\n";
+    if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+    if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
  
     //NOTE - Exchange contents of vectors
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> foo (3,100);   // three ints with a value of 100
     // ft::vector<int> bar (5,200);   // five ints with a value of 200
     // std::swap(foo, bar);
@@ -398,7 +376,6 @@ int main()
     // *************************************************************************
 
     //NOTE - std::stack::stack
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // ft::vector<int> myvector (2,200);        // vector with 2 elements
     // std::stack<int> first;                    // empty stack
     // std::stack<int,ft::vector<int> > third;  // empty stack using vector
@@ -408,7 +385,6 @@ int main()
     // std::cout << "size of fourth: " << fourth.size() << '\n';
 
     //NOTE - std::stack::empty
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // std::stack<int> mystack;
     // int sum (0);
     // for (int i=1;i<=10;i++) mystack.push(i);
@@ -420,7 +396,6 @@ int main()
     // std::cout << "total: " << sum << '\n';
 
     //NOTE - std::stack::size
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // std::stack<int> myints;
     // std::cout << "0. size: " << myints.size() << '\n';
     // for (int i=0; i<5; i++) myints.push(i);
@@ -429,7 +404,6 @@ int main()
     // std::cout << "2. size: " << myints.size() << '\n';
 
     //NOTE - std::stack::top
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // std::stack<int> mystack;
     // mystack.push(10);
     // mystack.push(20);
@@ -437,7 +411,6 @@ int main()
     // std::cout << "mystack.top() is now " << mystack.top() << '\n';
 
     //NOTE - std::stack::push
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // std::stack<int> mystack;
     // for (int i=0; i<5; ++i) mystack.push(i);
     // std::cout << "Popping out elements...";
@@ -449,7 +422,6 @@ int main()
     // std::cout << '\n';
 
     //NOTE - std::stack::pop
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // std::stack<int> mystack;
     // for (int i=0; i<5; ++i) mystack.push(i);
     // std::cout << "Popping out elements...";
@@ -461,7 +433,6 @@ int main()
     // std::cout << '\n';
 
     //NOTE - operator==
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // std::stack <int, ft::vector<int> > s1, s2, s3;
     // s1.push( 1 );
     // s2.push( 2 );
@@ -477,7 +448,6 @@ int main()
     //     std::cout << "The stacks s1 and s3 are not equal." << std::endl;
 
     //NOTE - operator!=
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // std::stack <int, ft::vector<int> > s1, s2, s3;
     // s1.push( 1 );
     // s2.push( 2 );
@@ -492,7 +462,6 @@ int main()
     //     std::cout << "The stacks s1 and s3 are equal." << std::endl;
 
     //NOTE - operator<
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // std::stack <int, ft::vector<int> > s1, s2, s3;
     // s1.push( 2 );
     // s1.push( 4 );
@@ -528,7 +497,6 @@ int main()
     // std::cout << ")." << std::endl;
 
     //NOTE - operator<=
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // std::stack <int> s1, s2, s3;
     // s1.push( 5 );
     // s1.push( 10 );
@@ -551,7 +519,6 @@ int main()
     //         << "the stack s3." << std::endl;
 
     //NOTE - operator>
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // std::stack <int, ft::vector<int> > s1, s2, s3;
     // s1.push( 1 );
     // s1.push( 2 );
@@ -575,7 +542,6 @@ int main()
     //         << "the stack s3." << std::endl;
 
     //NOTE - operator>=
-    // std::cout << "------------- Library STD -------------" << std::endl;
     // std::stack <int, ft::vector<int> > s1, s2, s3;
     // s1.push( 1 );
     // s1.push( 2 );
