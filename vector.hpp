@@ -2,6 +2,7 @@
 #define VECTOR_HPP
 #include <memory>
 #include <iterator>
+#include <iostream>
 #include <cstddef>
 #include <vector>
 #include "iterator.hpp"
@@ -10,6 +11,30 @@
 
 namespace ft
 {
+
+	template <class InputIterator1, class InputIterator2>
+		bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2)
+		{
+		  while (first1!=last1)
+		  {
+		    if (first2==last2 || *first2<*first1) return false;
+		    else if (*first1<*first2) return true;
+		    ++first1; ++first2;
+		  }
+		  return (first2!=last2);
+		}
+
+		template <class InputIterator1, class InputIterator2>
+			bool equal ( InputIterator1 first1, InputIterator1 last1, InputIterator2 first2 )
+			{
+				while (first1!=last1) {
+					if (!(*first1 == *first2))   
+						return false;
+					++first1; ++first2;
+				}
+				return true;
+			}
+
 	//******************is_integral/ enable_if******************
 	template <bool, typename T = void>
 		struct enable_if{};
@@ -469,53 +494,55 @@ template <>
 			_size = 0;
 		}
 
-		template <class T, class Alloc>
-			friend bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
-				if(lhs.size() != rhs.size())
-					return false;
-				else
-				{
-					for(int i = 0; i < lhs.size(); i++)
-						if(lhs[i] != rhs[i])
-							return false;
-				}
-				return true;
+		void swap (vector& x){
+			vector temporary(x);
+			x = *this;
+			*this = temporary;
+		}
+		//******************Modifiers******************
+		
+		//******************Allocator******************
+		allocator_type get_allocator() const{
+			return (_allocator);
+		}
+		//******************Allocator******************
+
+		template <class Ta, class Alloca>
+			friend bool operator== (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs);
+			{
+				return(equal(lhs.begin(), lhs.end(), rhs.begin()));
 			}
 
-		// template <class T, class Alloc>
-			friend bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+		template <class Ta, class Alloca>
+			friend bool operator!= (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs);
+			{
 				return(!(lhs == rhs));
 			}
 
-		// template <class T, class Alloc>
-			friend bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+		template <class Ta, class Alloca>
+			friend bool operator<  (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs);
+			{
+				return(lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 			}
 		
-		// template <class T, class Alloc>
-			friend bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+		template <class Ta, class Alloca>
+			friend bool operator<= (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs);
+			{
+				return(!(rhs < lhs));
 			}
 
-		// template <class T, class Alloc>
-			friend bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+		template <class Ta, class Alloca>
+			friend bool operator>  (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs);
+			{
+				return(rhs < lhs);
 			}
 
-		// template <class T, class Alloc>
-			friend bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+		template <class Ta, class Alloca>
+			friend bool operator>= (const vector<Ta,Alloca>& lhs, const vector<Ta,Alloca>& rhs);
+			{
+				return(!(lhs < rhs));
 			}
 
-		void swap (vector& x){
-			// size_type tempSwap;
-			// _allocator = allocator_type();
-			// // _allocator.deallocate(_array, _capacity);
-			// tempSwap = _capacity;
-			// _capacity = x.capacity();
-			// _size = x.size();
-			// pointer newArray = _allocator.allocate(_capacity);
-			// for(int i = 0; i < _size; i++)
-			// 	newArray[i] = x[i];
-			// _array = newArray;
-		}
-		//******************Modifiers******************
 
 
 	private: 
@@ -524,6 +551,5 @@ template <>
 		size_type _capacity;
 		Alloc _allocator;
 	};
-
 }
 #endif

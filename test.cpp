@@ -106,19 +106,23 @@ int main(){
 	// std::cout << vec.capacity() << std::endl;
 	// std::cout << vec.size() << std::endl;
 
-	ft::vector<int> foo (3,100);   // three ints with a value of 100
-	ft::vector<int> bar (5,200);   // five ints with a value of 200
+	// ft::vector<int> foo (3,100);   // three ints with a value of 100
+	// ft::vector<int> bar (5,200);   // five ints with a value of 200
 	
-	foo.swap(bar);
+	// foo.swap(bar);
 		
-	std::cout << "foo contains:";
-	for (unsigned i=0; i<foo.size(); i++)
-		std::cout << ' ' << foo[i];
-	std::cout << '\n';
+	// std::cout << "foo contains:";
+	// for (unsigned i=0; i<foo.size(); i++)
+	// 	std::cout << ' ' << foo[i];
+	// std::cout << '\n';
 	
-	std::cout << "bar contains:";
-	for (unsigned i=0; i<bar.size(); i++)
-		std::cout << ' ' << bar[i];
-	std::cout << '\n';
+	// std::cout << "bar contains:";
+	// for (unsigned i=0; i<bar.size(); i++)
+	// 	std::cout << ' ' << bar[i];
+	// std::cout << '\n';
+	
+	ft::vector<int> foo (3,100);   // three ints with a value of 100
+  	ft::vector<int> bar (3,100);   // two ints with a value of 200
 
+  	if (foo==bar) std::cout << "foo and bar are equal\n";
 }
