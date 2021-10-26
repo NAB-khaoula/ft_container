@@ -145,6 +145,7 @@ template <>
 			for (size_type i = 0; i < n; i++)
 				_array[i] = val;
 		}
+
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type = 0)
 		{
@@ -161,7 +162,14 @@ template <>
 		}
 		vector(const vector &x)
 		{
-			(*this) = x;
+			_allocator = x._allocator;
+			pointer newArray = _allocator.allocate(x._capacity);
+			for(size_type i = 0; i < x.size(); i++){
+				newArray[i] = x._array[i];
+			}
+			_array = newArray;
+			_size = x._size;
+			_capacity = x._capacity;
 		}
 		//******************constructor******************
 		//******************assignment operator******************
@@ -187,13 +195,19 @@ template <>
 		//******************destructor******************
 		//******************iterator******************
 		iterator begin(){
-			iterator it(_array);
-			return (it);
+			return (iterator (_array));
+		}
+
+		const_iterator begin() const{
+			return (const_iterator (_array));
 		}
 
 		iterator end(){
-			iterator it(_array + _size);
-			return (it);
+			return (iterator (_array + _size));
+		}
+
+		const_iterator end() const{
+			return (const_iterator (_array + _size));
 		}
 
 		reverse_iterator rbegin(){
@@ -504,8 +518,7 @@ template <>
 		}
 
 		void swap (vector& x){
-			vector temporary ;
-			temporary = x;
+			vector temporary = x;
 			x = *this;
 			*this = temporary;
 		}

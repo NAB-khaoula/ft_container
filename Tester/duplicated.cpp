@@ -348,19 +348,19 @@ int main()
     // myvector.get_allocator().deallocate(p,5);
     
     //NOTE - Relational operators for vector
-    ft::vector<int> foo (1,200);   // three ints with a value of 100
-    ft::vector<int> bar (1,100);   // two ints with a value of 200
+    // ft::vector<int> foo (1,200);   // three ints with a value of 100
+    // ft::vector<int> bar (1,100);   // two ints with a value of 200
 
-    if (foo==bar) std::cout << "foo and bar are equal\n";
-    if (foo!=bar) std::cout << "foo and bar are not equal\n";
-    if (foo< bar) std::cout << "foo is less than bar\n";
-    if (foo> bar) std::cout << "foo is greater than bar\n";
-    if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
-    if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+    // if (foo==bar) std::cout << "foo and bar are equal\n";
+    // if (foo!=bar) std::cout << "foo and bar are not equal\n";
+    // if (foo< bar) std::cout << "foo is less than bar\n";
+    // if (foo> bar) std::cout << "foo is greater than bar\n";
+    // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+    // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
  
     //NOTE - Exchange contents of vectors
-    // ft::vector<int> foo (3,100);   // three ints with a value of 100
-    // ft::vector<int> bar (5,200);   // five ints with a value of 200
+    // ft::vector<int> foo(3,100);   // three ints with a value of 100
+    // ft::vector<int> bar(5,200);   // five ints with a value of 200
     // std::swap(foo, bar);
     // std::cout << "foo contains:";
     // for (ft::vector<int>::iterator it = foo.begin(); it!=foo.end(); ++it)
