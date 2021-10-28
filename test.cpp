@@ -125,16 +125,16 @@ int main(){
   	// ft::vector<int> bar (3,100);   // two ints with a value of 200
 
   	// if (foo==bar) std::cout << "foo and bar are equal\n";
-	std::allocator<int> alloc;
-	int *tab = alloc.allocate(5);
-	for (int i = 0; i < 5; i++)
-	 	tab[i] = i;
-	for (int i = 0; i < 5; i++){
-	 	std::cout << tab[i] << "\n";
-		// alloc.destroy(&tab[i]);
-	}
-	alloc.deallocate(tab, 5);
+	// std::allocator<int> alloc;
+	// int *tab = alloc.allocate(5);
 	// for (int i = 0; i < 5; i++)
 	//  	tab[i] = i;
-
+	// for (int i = 0; i < 5; i++){
+	//  	std::cout << tab[i] << "\n";
+	// 	// alloc.destroy(&tab[i]);
+	// }
+	// alloc.deallocate(tab, 5);
+	// for (int i = 0; i < 5; i++)
+	//  	tab[i] = i;
+  return 0;
 }

@@ -1,6 +1,7 @@
 #include "../iterator.hpp"
 #include "../reverse_iterator.hpp"
 #include "../vector.hpp"
+#include "../stack.hpp"
 
 typedef struct data
 {
@@ -375,17 +376,17 @@ int main()
                                 //NOTE - Stack
     // *************************************************************************
 
-    //NOTE - std::stack::stack
+    //NOTE - ft::stack::stack
     // ft::vector<int> myvector (2,200);        // vector with 2 elements
-    // std::stack<int> first;                    // empty stack
-    // std::stack<int,ft::vector<int> > third;  // empty stack using vector
-    // std::stack<int,ft::vector<int> > fourth (myvector);
+    // ft::stack<int> first;                    // empty stack
+    // ft::stack<int,ft::vector<int> > third;  // empty stack using vector
+    // ft::stack<int,ft::vector<int> > fourth (myvector);
     // std::cout << "size of first: " << first.size() << '\n';
     // std::cout << "size of third: " << third.size() << '\n';
     // std::cout << "size of fourth: " << fourth.size() << '\n';
 
-    //NOTE - std::stack::empty
-    // std::stack<int> mystack;
+    //NOTE - ft::stack::empty
+    // ft::stack<int> mystack;
     // int sum (0);
     // for (int i=1;i<=10;i++) mystack.push(i);
     // while (!mystack.empty())
@@ -395,23 +396,23 @@ int main()
     // }
     // std::cout << "total: " << sum << '\n';
 
-    //NOTE - std::stack::size
-    // std::stack<int> myints;
+    //NOTE - ft::stack::size
+    // ft::stack<int> myints;
     // std::cout << "0. size: " << myints.size() << '\n';
     // for (int i=0; i<5; i++) myints.push(i);
     // std::cout << "1. size: " << myints.size() << '\n';
     // myints.pop();
     // std::cout << "2. size: " << myints.size() << '\n';
 
-    //NOTE - std::stack::top
-    // std::stack<int> mystack;
+    //NOTE - ft::stack::top
+    // ft::stack<int> mystack;
     // mystack.push(10);
     // mystack.push(20);
     // mystack.top() -= 5;
     // std::cout << "mystack.top() is now " << mystack.top() << '\n';
 
-    //NOTE - std::stack::push
-    // std::stack<int> mystack;
+    //NOTE - ft::stack::push
+    // ft::stack<int> mystack;
     // for (int i=0; i<5; ++i) mystack.push(i);
     // std::cout << "Popping out elements...";
     // while (!mystack.empty())
@@ -421,8 +422,8 @@ int main()
     // }
     // std::cout << '\n';
 
-    //NOTE - std::stack::pop
-    // std::stack<int> mystack;
+    //NOTE - ft::stack::pop
+    // ft::stack<int> mystack;
     // for (int i=0; i<5; ++i) mystack.push(i);
     // std::cout << "Popping out elements...";
     // while (!mystack.empty())
@@ -433,7 +434,7 @@ int main()
     // std::cout << '\n';
 
     //NOTE - operator==
-    // std::stack <int, ft::vector<int> > s1, s2, s3;
+    // ft::stack <int, ft::vector<int> > s1, s2, s3;
     // s1.push( 1 );
     // s2.push( 2 );
     // s3.push( 1 );
@@ -448,7 +449,7 @@ int main()
     //     std::cout << "The stacks s1 and s3 are not equal." << std::endl;
 
     //NOTE - operator!=
-    // std::stack <int, ft::vector<int> > s1, s2, s3;
+    // ft::stack <int, ft::vector<int> > s1, s2, s3;
     // s1.push( 1 );
     // s2.push( 2 );
     // s3.push( 1 );
@@ -462,7 +463,7 @@ int main()
     //     std::cout << "The stacks s1 and s3 are equal." << std::endl;
 
     //NOTE - operator<
-    // std::stack <int, ft::vector<int> > s1, s2, s3;
+    // ft::stack <int, ft::vector<int> > s1, s2, s3;
     // s1.push( 2 );
     // s1.push( 4 );
     // s1.push( 6 );
@@ -486,7 +487,7 @@ int main()
     // else
     //     std::cout << "The stack s1 is greater than to "
     //         << "the stack s3." << std::endl;
-    // std::stack <int>::size_type i_size_s1 = s1.size( );
+    // ft::stack <int>::size_type i_size_s1 = s1.size( );
     // std::cout << "The stack s1 from the top down is: ( ";
     // unsigned int i;
     // for ( i = 1 ; i <= i_size_s1 ; i++ )
@@ -497,7 +498,7 @@ int main()
     // std::cout << ")." << std::endl;
 
     //NOTE - operator<=
-    // std::stack <int> s1, s2, s3;
+    // ft::stack <int> s1, s2, s3;
     // s1.push( 5 );
     // s1.push( 10 );
     // s2.push( 1 );
@@ -519,7 +520,7 @@ int main()
     //         << "the stack s3." << std::endl;
 
     //NOTE - operator>
-    // std::stack <int, ft::vector<int> > s1, s2, s3;
+    // ft::stack <int, ft::vector<int> > s1, s2, s3;
     // s1.push( 1 );
     // s1.push( 2 );
     // s1.push( 3 );
@@ -542,7 +543,7 @@ int main()
     //         << "the stack s3." << std::endl;
 
     //NOTE - operator>=
-    // std::stack <int, ft::vector<int> > s1, s2, s3;
+    // ft::stack <int, ft::vector<int> > s1, s2, s3;
     // s1.push( 1 );
     // s1.push( 2 );
     // s2.push( 5 );
