@@ -3,6 +3,8 @@
 #include <memory>
 #include <iterator>
 #include "vector.hpp"
+#include <utility>
+#include "map.hpp"
 
 struct data
 {
@@ -75,8 +77,18 @@ int main(){
 	// std::cout << emptyData.capacity() << std::endl;
 	// std::cout << emptyData.size() << std::endl;
 	// std::cout << emptyData.max_size() << std::endl;
-	// ft::vector<int> vec;
-
+	ft::vector<int> vec;
+	std::vector<int> _vec;
+	ft::vector<char> vecChar;
+	std::vector<char> _vecChar;
+	ft::vector<char *> vecCharet;
+	std::vector<char *> _vecCharet;
+	std::cout << vec.max_size() << std::endl;
+	std::cout << _vec.max_size() << std::endl;
+	std::cout << vecChar.max_size() << std::endl;
+	std::cout << _vecChar.max_size() << std::endl;
+	std::cout << vecCharet.max_size() << std::endl;
+	std::cout << _vecCharet.max_size() << std::endl;
    	// vec.push_back(10);
    	// vec.push_back(2);
    	// vec.push_back(3);
@@ -136,5 +148,18 @@ int main(){
 	// alloc.deallocate(tab, 5);
 	// for (int i = 0; i < 5; i++)
 	//  	tab[i] = i;
+
+// 	std::pair<std::string,double> product1;                     // default constructor
+//   	std::pair<std::string,double> product2 ("tomatoes",2.30);   // value init
+//   	std::pair<std::string,double> product3 (product2);          // copy constructor
+
+//   product1 = std::make_pair(std::string("lightbulbs"),0.99);   // using make_pair (move)
+
+//   product2.first = "shoes";                  // the type of first is string
+//   product2.second = 39.90;                   // the type of second is double
+
+//   std::cout << "The price of " << product1.first << " is $" << product1.second << '\n';
+//   std::cout << "The price of " << product2.first << " is $" << product2.second << '\n';
+//   std::cout << "The price of " << product3.first << " is $" << product3.second << '\n';
   return 0;
 }

@@ -131,7 +131,7 @@ namespace ft
 		}
 
 		size_type max_size() const{
-			return (_allocator.max_size());
+			return (std::min<size_type>(std::numeric_limits<difference_type>::max(), _allocator.max_size()));
 		}
 		
 		void resize (size_type n, value_type val = value_type())
