@@ -27,7 +27,7 @@ namespace ft
 		typedef	reverse_iterator<const_iterator>						const_reverse_iterator;
 		typedef	reverse_iterator<iterator>								reverse_iterator;
 		typedef	typename iterator_traits<iterator>::difference_type		difference_type;
-		typedef size_t 													size_type;
+		typedef typename allocator_type::size_type 						size_type;
 		//****************** member Type ******************************
 		//******************constructor******************
 		vector(const allocator_type &alloc = allocator_type())

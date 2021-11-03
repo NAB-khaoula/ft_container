@@ -4,162 +4,171 @@
 #include <iterator>
 #include "vector.hpp"
 #include <utility>
-#include "map.hpp"
+// #include "map.hpp"
+#include <map>
 
-struct data
-{
-	int a;
-	int b;
-	data(int a = 1337, int b = 42) : a(a), b(b)
-	{}
-	data(const data& dt) {*this = dt;}
-	data& operator= (const data& dt)
-	{
-		if (this != &dt)
-		{
-			this->a = dt.a;
-			this->b = dt.b;
+// struct data
+// {
+// 	int a;
+// 	int b;
+// 	data(int a = 1337, int b = 42) : a(a), b(b)
+// 	{}
+// 	data(const data& dt) {*this = dt;}
+// 	data& operator= (const data& dt)
+// 	{
+// 		if (this != &dt)
+// 		{
+// 			this->a = dt.a;
+// 			this->b = dt.b;
+// 		}
+// 		return (*this);
+// 	}
+// };
+	template <class T1, class T2> 
+	struct pair{
+		typedef T1  first_type;
+		typedef T2  second_type;
+		first_type first;
+		second_type second;
+		pair():first(first_type()), second(second_type()){}
+		pair (const first_type& a, const second_type& b): first(a), second(b){}
+		template<class U, class V>
+		pair (const pair<U,V>& pr){
+			first = pr.first;
+			second = pr.second;
 		}
-		return (*this);
-	}
-};
+		pair& operator= (const pair& pr){
+				first = pr.first;
+				second = pr.second;
+				return (*this);
+		}
+		template <class U, class V>
+			friend bool operator== (const pair<U,V>& lhs, const pair<U,V>& rhs)
+			{
+				return(lhs.first == rhs.first && lhs.first == rhs.second);
+			}
+		
+		template <class U, class V>
+			friend bool operator!= (const pair<U,V>& lhs, const pair<U,V>& rhs)
+			{
+				return(!(lhs == rhs));
+			}
+		
+		template <class U, class V>
+			friend bool operator<  (const pair<U,V>& lhs, const pair<U,V>& rhs)
+			{
+				return (lhs.first<rhs.first && lhs.second<rhs.second); 
+			}
+
+		template <class U, class V>
+			friend bool operator<= (const pair<U,V>& lhs, const pair<U,V>& rhs)
+			{ 
+				return (!(rhs<lhs)); 
+			}
+
+		template <class U, class V>
+			friend bool operator>  (const pair<U,V>& lhs, const pair<U,V>& rhs)
+			{ 
+				return rhs<lhs;
+			}
+
+		template <class U, class V>
+			friend bool operator>= (const pair<U,V>& lhs, const pair<U,V>& rhs)
+			{
+				return !(lhs<rhs);
+			}
+	};
+	template <class T1,class T2>
+  		pair<T1,T2> make_pair (T1 x, T2 y)
+  		{
+    		return ( pair<T1,T2>(x,y) );
+  		}
+
+	template <class T>
+	struct binaryTreeNode{
+		T				_data;
+		binaryTreeNode*	_left;
+		binaryTreeNode*	_right;
+	};
+
+	template <class T, class Alloc = std::allocator<binaryTreeNode<T> >, class Compare = std::less<T> >
+	class binarySearchTree{
+		binaryTreeNode<T>*	_root;
+		Alloc				_allocator;
+		Compare				_compare;
+		public:
+		binarySearchTree()
+		{
+			_root = NULL;
+			_allocator = Alloc();
+			_compare = Compare();
+		}
+		int isempty()
+		{
+			return(_root == NULL);
+		}
+		void insert(T item){
+			binaryTreeNode<T> *p = _allocator.allocate(1);
+			binaryTreeNode<T> *parent;
+			p->_data = item;
+			p->_left = NULL;
+			p->_right = NULL;
+			parent = NULL;
+			if(isempty())
+				_root = p;
+			else
+			{
+				binaryTreeNode<T> *ptr;
+				ptr = _root;
+				while(ptr != NULL)
+				{
+					parent = ptr;
+					if(item > ptr->_data)
+						ptr = ptr->_right;
+					else
+						ptr = ptr->_left;
+				}
+				if(item < parent->_data)
+					parent->_left = p;
+				else
+					parent->_right = p;
+			}
+		}
+		void	printNode(binaryTreeNode<T> *child)
+		{
+			if(child->_left != NULL)
+				printNode(child->_left);
+			std::cout << child->_data << std::endl;
+			if (child->_right != NULL)
+				printNode(child->_right);
+		}
+
+		void	printTree()
+		{
+			if(_root != NULL)
+				printNode(_root);
+			else
+				std::cout << "empty tree!" << std::endl;
+		}
+	};
 
 int main(){
-	// ft::vector<int> vect;
-	// vect.push_back(1337);
-	// vect.push_back(42);
-	// vect.push_back(1997);
-	// vect.push_back(1962);
-	// vect.push_back(1963);
-	// vect.resize(2);
-	// ft::vector<int>::iterator iter(vect.begin());
-	// std::cout << *iter << std::endl;
-	// std::cout << *(iter + 1) << std::endl;
-	// std::cout << *(iter + 2) << std::endl;
-	// std::cout << *(iter + 3) << std::endl;
-	// std::cout << *(iter + 3) << std::endl;
-	// std::cout << "****" << vect.capacity() << std::endl; 
-	// ft::vector<data> emptyData(2);
-	// data tab(1997, 1996);
-	// emptyData.resize(1, tab);
-	// ft::vector<data>::iterator iterTest(emptyData.begin());
-	// std::cout << iterTest[0].a << std::endl;
-	// std::cout << iterTest[1].a << std::endl;
-	// std::cout << iterTest[2].a << std::endl;
-	// std::cout << emptyData.capacity() << std::endl;
-	// std::cout << emptyData.size() << std::endl;
-	// emptyData.resize(4);
-	// std::cout << emptyData.capacity() << std::endl;
-	// std::cout << iterTest[0].a << std::endl;
-	// std::cout << iterTest[1].a << std::endl;
-	// std::cout << iterTest[2].a << std::endl;
-	// emptyData.push_back(tab);
-	// std::cout << emptyData.capacity() << std::endl;
-	// std::cout << emptyData.size() << std::endl;
-	// ft::vector<data> emptyData;
-	// std::cout << "Testing Capacity functions" << std::endl;
-	// std::cout << emptyData.capacity()  << std::endl;
-	// std::cout << emptyData.size() << std::endl;
-	// std::cout << emptyData.max_size() << std::endl;
-	// data tab(1337, 42);
-	// emptyData.resize(3, tab);
-	// ft::vector<data>::iterator iterTest(emptyData.begin());
-	// std::cout << iterTest[0].a << std::endl;
-	// std::cout << iterTest[1].a << std::endl;
-	// std::cout << iterTest[2].a << std::endl;
-	// std::cout << emptyData.capacity() << std::endl;
-	// std::cout << emptyData.size() << std::endl;
-	// std::cout << emptyData.max_size() << std::endl;
-	// emptyData.resize(4);
-	// std::cout << iterTest[0].a << std::endl;
-	// std::cout << iterTest[1].a << std::endl;
-	// std::cout << iterTest[2].a << std::endl;
-	// std::cout << emptyData.capacity() << std::endl;
-	// std::cout << emptyData.size() << std::endl;
-	// std::cout << emptyData.max_size() << std::endl;
-	ft::vector<int> vec;
-	std::vector<int> _vec;
-	ft::vector<char> vecChar;
-	std::vector<char> _vecChar;
-	ft::vector<char *> vecCharet;
-	std::vector<char *> _vecCharet;
-	std::cout << vec.max_size() << std::endl;
-	std::cout << _vec.max_size() << std::endl;
-	std::cout << vecChar.max_size() << std::endl;
-	std::cout << _vecChar.max_size() << std::endl;
-	std::cout << vecCharet.max_size() << std::endl;
-	std::cout << _vecCharet.max_size() << std::endl;
-   	// vec.push_back(10);
-   	// vec.push_back(2);
-   	// vec.push_back(3);
-   	// vec.push_back(24);
-   	// vec.push_back(42);
-   	// vec.push_back(43);
-   	// vec.push_back(44);
-	// std::cout << "**" << vec.capacity() << std::endl;
-	// std::cout <<  "**" << vec.size() << std::endl;
-	// std::cout << "return " << *(vec.erase(vec.begin(), vec.begin() + 4)) << std::endl;
-	// for(int i = 0; i < vec.size() ; i++)
-	// 	std::cout << "element:" << vec[i] << std::endl;
-	// std::cout << "**" << vec.capacity() << std::endl;
-	// std::cout <<  "**" << vec.size() << std::endl;
-	// std::cout << "*********" << std::endl;
-	// std::cout << vec.capacity() << std::endl;
-	// std::cout << vec.size() << std::endl;
-	// std::cout << "*********" << std::endl;
-	// // std::cout << vec[0] << std::endl;
-	// std::cout << vec[1] << std::endl;
-	// std::cout << vec[2] << std::endl;
-	// std::cout << vec[3] << std::endl;
-	// std::cout << vec[4] << std::endl;
-	// std::cout << vec[5] << std::endl;
-	// vec.pop_back();
-	// vec.erase(vec.begin());
-	// std::cout << vec.capacity() << std::endl;
-	// std::cout << vec.size() << std::endl;
-
-	// ft::vector<int> foo (3,100);   // three ints with a value of 100
-	// ft::vector<int> bar (5,200);   // five ints with a value of 200
-	
-	// foo.swap(bar);
-		
-	// std::cout << "foo contains:";
-	// for (unsigned i=0; i<foo.size(); i++)
-	// 	std::cout << ' ' << foo[i];
-	// std::cout << '\n';
-	
-	// std::cout << "bar contains:";
-	// for (unsigned i=0; i<bar.size(); i++)
-	// 	std::cout << ' ' << bar[i];
-	// std::cout << '\n';
-	
-	// ft::vector<int> foo (3,100);   // three ints with a value of 100
-  	// ft::vector<int> bar (3,100);   // two ints with a value of 200
-
-  	// if (foo==bar) std::cout << "foo and bar are equal\n";
-	// std::allocator<int> alloc;
-	// int *tab = alloc.allocate(5);
-	// for (int i = 0; i < 5; i++)
-	//  	tab[i] = i;
-	// for (int i = 0; i < 5; i++){
-	//  	std::cout << tab[i] << "\n";
-	// 	// alloc.destroy(&tab[i]);
-	// }
-	// alloc.deallocate(tab, 5);
-	// for (int i = 0; i < 5; i++)
-	//  	tab[i] = i;
-
-// 	std::pair<std::string,double> product1;                     // default constructor
-//   	std::pair<std::string,double> product2 ("tomatoes",2.30);   // value init
-//   	std::pair<std::string,double> product3 (product2);          // copy constructor
-
-//   product1 = std::make_pair(std::string("lightbulbs"),0.99);   // using make_pair (move)
-
-//   product2.first = "shoes";                  // the type of first is string
-//   product2.second = 39.90;                   // the type of second is double
-
-//   std::cout << "The price of " << product1.first << " is $" << product1.second << '\n';
-//   std::cout << "The price of " << product2.first << " is $" << product2.second << '\n';
-//   std::cout << "The price of " << product3.first << " is $" << product3.second << '\n';
-  return 0;
+	binarySearchTree<int> bst;
+	bst.insert(10);
+	bst.insert(5);
+	bst.insert(1);
+	bst.insert(7);
+	bst.insert(8);
+	bst.insert(9);
+	bst.insert(12);
+	bst.insert(45);
+	bst.insert(11);
+	bst.insert(17);
+	bst.insert(44);
+	bst.insert(50);
+	bst.insert(30);
+	bst.printTree();
+	std::less<int> less;
+	return 0;
 }
+

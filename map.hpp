@@ -71,10 +71,83 @@ namespace ft{
   		{
     		return ( pair<T1,T2>(x,y) );
   		}
-	
+
+	template <class T>
+	struct binaryTreeNode{
+		T data;
+		binaryTreeNode *left;
+		binaryTreeNode *right;
+	};
+
+	template <class T, class Alloc>
+	class bst{
+		binaryTreeNode<T> *root;
+		public:
+		bst(){
+			root=NULL;
+		}
+		int isempty(){
+			return(root==NULL);
+		}
+		void insert(T item){
+			binaryTreeNode *p = new binaryTreeNode;
+			binaryTreeNode *parent;
+			p->data = item;
+			p->left = NULL;
+			p->right = NULL;
+			parent = NULL;
+			if(isempty())
+				root=p;
+			else{
+				binaryTreeNode *ptr;
+				ptr=root;
+				while(ptr!=NULL)
+				{
+					parent=ptr;
+					if(item > ptr->data)
+						ptr = ptr->right;
+					else
+						ptr=ptr->left;
+				}
+				if(item < parent->data)
+					parent->left=p;
+				else
+					parent->right=p;
+			}
+		}
+	};
+
 	template < class Key, class T, class Compare = std::less<Key>,class Alloc = std::allocator<pair<const Key,T> > >
 	class map{
+		// protected:
 		
+		public:
+		typedef Key											key_type;
+		typedef T											mapped_type;
+		typedef pair<const key_type, const mapped_type> 	value_type;
+		typedef Compare										key_compare;
+		// typedef	class map<Key,T,Compare,Alloc>::value_compare
+		// {
+		// 	friend class map;
+		// protected:
+		// 	Compare comp;
+		// 	value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+		// public:
+		// 	typedef bool result_type;
+		// 	typedef value_type first_argument_type;
+		// 	typedef value_type second_argument_type;
+		// 	bool operator() (const value_type& x, const value_type& y) const
+		// 	{
+		// 	  return comp(x.first, y.first);
+		// 	}
+		// }													value_compare;
+		typedef Alloc										allocator_type;
+		typedef typename allocator_type::reference 			reference;
+		typedef typename allocator_type::const_reference	const_reference;
+		typedef typename allocator_type::pointer			pointer;
+		typedef typename allocator_type::const_pointer		const_pointer;
+		typedef typename allocator_type::size_type			size_type;
+		typedef typename allocator_type::difference_type	difference_type;
 	};
 }
 #endif
