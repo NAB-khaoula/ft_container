@@ -85,14 +85,16 @@
   		}
 
 	template <class T>
-	struct binaryTreeNode{
+	struct binaryTreeNode
+	{
 		T				_data;
 		binaryTreeNode*	_left;
 		binaryTreeNode*	_right;
 	};
 
-	template <class T, class Alloc = std::allocator<binaryTreeNode<T> >, class Compare = std::less<T> >
-	class binarySearchTree{
+	template <class T, class Compare, class Alloc = std::allocator<binaryTreeNode<T> > >
+	class binarySearchTree
+	{
 		binaryTreeNode<T>*	_root;
 		Alloc				_allocator;
 		Compare				_compare;
@@ -123,13 +125,17 @@
 				while(ptr != NULL)
 				{
 					parent = ptr;
-					if(item > ptr->_data)
-						ptr = ptr->_right;
-					else
+					if(_compare(item.first, parent->_data.first))
 						ptr = ptr->_left;
+					else if (item.first == parent->_data.first)
+						break;
+					else
+						ptr = ptr->_right;
 				}
-				if(item < parent->_data)
+				if (_compare(item, parent->_data))
 					parent->_left = p;
+				else if (item.first == parents)
+					parent->_data.value = item.value;
 				else
 					parent->_right = p;
 			}
@@ -153,20 +159,20 @@
 	};
 
 int main(){
-	binarySearchTree<int> bst;
-	bst.insert(10);
-	bst.insert(5);
-	bst.insert(1);
-	bst.insert(7);
-	bst.insert(8);
-	bst.insert(9);
-	bst.insert(12);
-	bst.insert(45);
-	bst.insert(11);
-	bst.insert(17);
-	bst.insert(44);
-	bst.insert(50);
-	bst.insert(30);
+	binarySearchTree<pair<std::string, int>, std::less<int> > bst;
+	bst.insert(make_pair<std::string, int>("afirst", 13));
+	bst.insert(make_pair<std::string, int>("bsecond", 12));
+	bst.insert(make_pair<std::string, int>("cthird",11));
+	bst.insert(make_pair<std::string, int>("fourth",10));
+	bst.insert(make_pair<std::string, int>("dfifth",9));
+	bst.insert(make_pair<std::string, int>("esixth",8));
+	bst.insert(make_pair<std::string, int>("fseventh",7));
+	bst.insert(make_pair<std::string, int>("geighth",6));
+	bst.insert(make_pair<std::string, int>("h",5));
+	bst.insert(make_pair<std::string, int>("i",4));
+	bst.insert(make_pair<std::string, int>("j",3));
+	bst.insert(make_pair<std::string, int>("k",2));
+	bst.insert(make_pair<std::string, int>("l",1));
 	bst.printTree();
 	std::less<int> less;
 	return 0;
