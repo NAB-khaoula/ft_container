@@ -151,6 +151,8 @@
 
 		void	printTree()
 		{
+
+			
 			if(_root != NULL)
 				printNode(_root);
 			else
