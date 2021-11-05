@@ -73,47 +73,76 @@ namespace ft{
   		}
 
 	template <class T>
-	struct binaryTreeNode{
-		T data;
-		binaryTreeNode *left;
-		binaryTreeNode *right;
+	struct binaryTreeNode
+	{
+		T				_data;
+		binaryTreeNode*	_left;
+		binaryTreeNode*	_right;
 	};
 
-	template <class T, class Alloc>
-	class bst{
-		binaryTreeNode<T> *root;
+	template <class T, class Compare, class Alloc = std::allocator<binaryTreeNode<T> > >
+	class binarySearchTree
+	{
+		binaryTreeNode<T>*	_root;
+		Alloc				_allocator;
+		Compare				_compare;
 		public:
-		bst(){
-			root=NULL;
+		binarySearchTree()
+		{
+			_root = NULL;
+			_allocator = Alloc();
+			_compare = Compare();
 		}
-		int isempty(){
-			return(root==NULL);
+		int isempty()
+		{
+			return(_root == NULL);
 		}
 		void insert(T item){
-			binaryTreeNode *p = new binaryTreeNode;
-			binaryTreeNode *parent;
-			p->data = item;
-			p->left = NULL;
-			p->right = NULL;
+			binaryTreeNode<T> *p = _allocator.allocate(1);
+			binaryTreeNode<T> *parent;
+			p->_data = item;
+			p->_left = NULL;
+			p->_right = NULL;
 			parent = NULL;
 			if(isempty())
-				root=p;
-			else{
-				binaryTreeNode *ptr;
-				ptr=root;
-				while(ptr!=NULL)
+				_root = p;
+			else
+			{
+				binaryTreeNode<T> *ptr;
+				ptr = _root;
+				while(ptr != NULL)
 				{
-					parent=ptr;
-					if(item > ptr->data)
-						ptr = ptr->right;
+					parent = ptr;
+					if(_compare(item.first, parent->_data.first))
+						ptr = ptr->_left;
+					else if (item.first == parent->_data.first)
+						break;
 					else
-						ptr=ptr->left;
+						ptr = ptr->_right;
 				}
-				if(item < parent->data)
-					parent->left=p;
+				if (_compare(item.first, parent->_data.first))
+					parent->_left = p;
+				else if (item == parent->_data)
+					parent->_data = item;
 				else
-					parent->right=p;
+					parent->_right = p;
 			}
+		}
+		void	printNode(binaryTreeNode<T> *child)
+		{
+			if(child->_left != NULL)
+				printNode(child->_left);
+			std::cout << child->_data.first << ":" << child->_data.second << std::endl;
+			if (child->_right != NULL)
+				printNode(child->_right);
+		}
+
+		void	printTree()
+		{
+			if(_root != NULL)
+				printNode(_root);
+			else
+				std::cout << "empty tree!" << std::endl;
 		}
 	};
 
@@ -126,21 +155,21 @@ namespace ft{
 		typedef T											mapped_type;
 		typedef pair<const key_type, const mapped_type> 	value_type;
 		typedef Compare										key_compare;
-		// typedef	class map<Key,T,Compare,Alloc>::value_compare
-		// {
-		// 	friend class map;
-		// protected:
-		// 	Compare comp;
-		// 	value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
-		// public:
-		// 	typedef bool result_type;
-		// 	typedef value_type first_argument_type;
-		// 	typedef value_type second_argument_type;
-		// 	bool operator() (const value_type& x, const value_type& y) const
-		// 	{
-		// 	  return comp(x.first, y.first);
-		// 	}
-		// }													value_compare;
+		typedef	class map<Key,T,Compare,Alloc>::value_compare : public binary_function<value_type, value_type, bool>
+		{
+				friend class map;
+			protected:
+				Compare comp;
+				value_compare(Compare c) : comp(c) {}  // constructed with map's comparison object
+			public:
+				typedef bool result_type;
+				typedef value_type first_argument_type;
+				typedef value_type second_argument_type;
+				result_type operator() (const first_argument_type& x, const second_argument_type& y) const
+				{
+				  return comp(x.first, y.first);
+				}
+		}													value_compare;
 		typedef Alloc										allocator_type;
 		typedef typename allocator_type::reference 			reference;
 		typedef typename allocator_type::const_reference	const_reference;
