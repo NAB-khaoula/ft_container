@@ -27,7 +27,7 @@ template<class T, class _node>
 			_tree_iterator& operator++(){
 				if (_iter->right == nullptr)
 					_iter = _iter->_parent;
-				else (_iter-right)
+				else (_iter->right)
 				{
 					// look for the leftmost node in that subtree;
 				}

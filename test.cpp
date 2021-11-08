@@ -4,7 +4,7 @@
 #include <iterator>
 #include "vector.hpp"
 #include <utility>
-#include "map.hpp"
+// #include "map.hpp"
 #include <map>
 
 // struct data
@@ -200,20 +200,20 @@ int main(){
 	_map.insert(std::make_pair<int, int>(15,15));
 	_map.insert(std::make_pair<int, int>(30,30));
 	_map.insert(std::make_pair<int, int>(50,50));
-	std::map<int, int>::iterator it = _map.begin();
+	std::map<int, int>::iterator it = _map.end();
 	std::cout << it->first << std::endl;
-	it++;
+	it--;
 	std::cout << it->first << std::endl;
-	it++;
-	std::cout << it->first << std::endl;
-	it++;
-	std::cout << it->first << std::endl;
-	it++;
-	std::cout << it->first << std::endl;
-	it++;
-	std::cout << it->first << std::endl;
-	it++;
-	std::cout << it->first << std::endl;
+	// it++;
+	// std::cout << it->first << std::endl;
+	// it++;
+	// std::cout << it->first << std::endl;
+	// it++;
+	// std::cout << it->first << std::endl;
+	// it++;
+	// std::cout << it->first << std::endl;
+	// it++;
+	// std::cout << it->first << std::endl;
 	return 0;
 }
 
