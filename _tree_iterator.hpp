@@ -2,37 +2,137 @@
 #define _TREE_ITERATOR_HPP
 #include <iostream>
 #include <cstddef>
+#include "__tree.hpp"
 
 
 namespace ft{
-template<class T, class _node>
-	class _tree_iterator
+
+	//******************iterator_traits that convert normal pointer***************************
+	template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
+	struct iterator
+	{
+		typedef T         value_type;
+		typedef Distance  difference_type;
+		typedef Pointer   pointer;
+		typedef Reference reference;
+		typedef Category  iterator_category;
+	};
+
+	template<typename Iterator>
+		struct iterator_traits
+		{
+			typedef typename Iterator::difference_type		difference_type;
+			typedef typename Iterator::value_type 			value_type;
+			typedef typename Iterator::pointer				pointer;
+			typedef typename Iterator::reference			reference;
+			typedef typename Iterator::iterator_category	iterator_category;
+		};
+
+	template<class T>
+	struct iterator_traits<T*>
+	{
+		typedef ptrdiff_t							difference_type;
+		typedef T									value_type;
+		typedef T*									pointer;
+		typedef T&									reference;
+		typedef std::bidirectional_iterator_tag		iterator_category;
+	};
+
+	template<class T>
+	struct iterator_traits<const T*>
+	{
+		typedef ptrdiff_t							difference_type;
+		typedef T									value_type;
+		typedef const T*							pointer;
+		typedef const T&							reference;
+		typedef std::bidirectional_iterator_tag		iterator_category;
+	};
+	//******************iterator_traits that convert normal pointer/ const pointer***************************
+
+	template<class T, class _node>
+	class _tree_iterator : public iterator<std::bidirectional_iterator_tag, typename iterator_traits<T *>::value_type >
 	{
 		public:
-			typedef T			value_type;
-			typedef value_type&	reference;
-			typedef	value_type*	pointer;
-			typedef	_node*		_treePointerNode;		
+			typedef	_node*											_treePointerNode;
+			typedef typename iterator_traits<T*>::iterator_category	iterator_category;
+			typedef typename iterator_traits<T*>::value_type		value_type;
+			typedef typename iterator_traits<T*>::reference			reference;
+			typedef typename iterator_traits<T*>::pointer			pointer;
+			typedef typename iterator_traits<T*>::difference_type	difference_type;
 			// NOTE constructor;			
-			explicit _tree_iterator(): _iter(NULL) {}
-			explicit _tree_iterator(_treePointerNode iter) : _iter(iter) {}
-			explicit _tree_iterator(_tree_iterator const& iter) : _iter(iter._iter){}
-			~_tree_iterator();
+			_tree_iterator(): _iter(NULL) {}
+			_tree_iterator(_treePointerNode iter) : _iter(iter) {}
+			_tree_iterator(_tree_iterator const& iter) : _iter(iter._iter){}
+			~_tree_iterator(){}
 			reference operator*() const{
 				return _iter->_data;
 			}
 			pointer operator->() const{
-				return &(_iter->data);
+				return &(_iter->_data);
 			}
-			_tree_iterator& operator++(){
-				if (_iter->right == nullptr)
-					_iter = _iter->_parent;
-				else (_iter->right)
+			_treePointerNode leftMostNode(_treePointerNode rightNode){
+				while(rightNode->_left)
+					rightNode = rightNode->_left;
+				return rightNode;
+			}
+
+			_treePointerNode operator++(int)
+			{
+				_treePointerNode result = this->_iter;
+				++(*this);
+				return result;
+			}
+
+			_treePointerNode operator++()
+			{
+				_treePointerNode parent = _iter->_parent;
+				if (_iter->_right) // look for the leftmost node in that subtree;
 				{
-					// look for the leftmost node in that subtree;
+					_iter = leftMostNode(_iter->_right);
+					return _iter;
 				}
-				return (*this);
+				while(parent != nullptr && parent->_right == _iter)
+				{
+					_iter = parent;
+					parent = parent->_parent;
+				}
+				_iter = parent;
+				return _iter;
 			}
+
+			_treePointerNode rightMostNode(_treePointerNode rightNode){
+				while(rightNode->_right)
+					rightNode = rightNode->_right;
+				return rightNode;
+			}
+
+			_treePointerNode operator--(int)
+			{
+				_treePointerNode result = this->_iter;
+				--(*this);
+				return result;
+			}
+
+			_treePointerNode operator--()
+			{
+				_treePointerNode parent = _iter->_parent;
+				if (_iter->_left) // look for the leftmost node in that subtree;
+				{
+					_iter = rightMostNode(_iter->_left);
+					return _iter;
+				}
+				while(parent != nullptr && parent->_left == _iter)
+				{
+					_iter = parent;
+					parent = parent->_parent;
+				}
+				_iter = parent;
+				return _iter;
+			}
+			friend bool operator== (const _tree_iterator& __x, const _tree_iterator& __y)
+				{return __x._iter == __y._iter;}
+			friend bool operator!= (const _tree_iterator& __x, const _tree_iterator& __y)
+				{return !(__x == __y);}
 		private:
 			_treePointerNode	_iter;
 	};

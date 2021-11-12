@@ -1,11 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <memory>
-#include <iterator>
-#include "vector.hpp"
+// #include <iterator>
+// #include "vector.hpp"
 #include <utility>
-// #include "map.hpp"
-#include <map>
+#include "map.hpp"
+#include "reverse_iterator.hpp"
+// #include <map>
 
 // struct data
 // {
@@ -191,29 +192,43 @@ int main(){
 	// _map.insert(ft::make_pair<int, std::string>(46, "right right right left"));
 	// _map.insert(ft::make_pair<int, std::string>(60, "right right right right"));
 	// _map.printTree();
-	std::vector<int> vec;
-	std::map<int, int> _map;
-	_map.insert(std::make_pair<int, int>(20,20));
-	_map.insert(std::make_pair<int, int>(10,10));
-	_map.insert(std::make_pair<int, int>(45,45));
-	_map.insert(std::make_pair<int, int>(5,5));
-	_map.insert(std::make_pair<int, int>(15,15));
-	_map.insert(std::make_pair<int, int>(30,30));
-	_map.insert(std::make_pair<int, int>(50,50));
-	std::map<int, int>::iterator it = _map.end();
-	std::cout << it->first << std::endl;
-	it--;
-	std::cout << it->first << std::endl;
-	// it++;
+	// ft::map<int, int>::binarySearchTree _map;
+	// _map.insert(ft::make_pair<int, int>(20,20));
+	// _map.insert(ft::make_pair<int, int>(10,10));
+	// _map.insert(ft::make_pair<int, int>(45,45));
+	// _map.insert(ft::make_pair<int, int>(5,5));
+	// _map.insert(ft::make_pair<int, int>(15,15));
+	// _map.insert(ft::make_pair<int, int>(30,30));
+	// _map.insert(ft::make_pair<int, int>(50,50));
+	// _map.printTree();
+	// ft::map<int, int>::iterator it(_map.get_max());
 	// std::cout << it->first << std::endl;
-	// it++;
+	// it--;
 	// std::cout << it->first << std::endl;
-	// it++;
+	// it--;
 	// std::cout << it->first << std::endl;
-	// it++;
+	// it--;
 	// std::cout << it->first << std::endl;
-	// it++;
+	// it--;
 	// std::cout << it->first << std::endl;
+	// it--;
+	// std::cout << it->first << std::endl;
+	ft::map<int, int>::binarySearchTree _map;
+	_map.insert(ft::make_pair<int, int>(20,20));
+	_map.insert(ft::make_pair<int, int>(10,10));
+	_map.insert(ft::make_pair<int, int>(45,45));
+	_map.insert(ft::make_pair<int, int>(5,5));
+	_map.insert(ft::make_pair<int, int>(15,15));
+	_map.insert(ft::make_pair<int, int>(30,30));
+	_map.insert(ft::make_pair<int, int>(50,50));
+	ft::map<int, int>::iterator it(_map.get_max());
+	// ft::map<int, int>::iterator it2(_map.get_max());
+	// ft::map<int, int> testMap(it, it2);
+	ft::map<int, int>::reverse_iterator it3(it);
+	std::cout << it3->first << std::endl;
+	// it3--;
+	// std::cout << it3->first << std::endl;
+	// it3--;
+	// std::cout << it3->first << std::endl;
 	return 0;
 }
-

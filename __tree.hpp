@@ -4,6 +4,7 @@
 #include <iostream>
 #include <math.h>
 #include <cstddef>
+// #include "_tree_iterator.hpp"
 
 namespace ft{
     template <class T>
@@ -19,6 +20,8 @@ namespace ft{
 	template <class T, class Compare, class Alloc = std::allocator<binaryTreeNode<T> > >
 	class binarySearchTree
 	{
+		typedef typename Alloc::difference_type	difference_type;
+		
 		binaryTreeNode<T>*	_root;
 		Alloc				_allocator;
 		Compare				_compare;
@@ -30,30 +33,78 @@ namespace ft{
 		void insert(T item){
 			binaryTreeNode<T> *p = _allocator.allocate(1);
 			_allocator.construct(p, item);
+			binaryTreeNode<T> *parent;
 			if(isempty())
+			{
+				binaryTreeNode<T> *endNode = _allocator.allocate(1);
 				_root = p;
+				_root->_parent = endNode;
+				endNode->_left = _root;
+			}
 			else
 			{
 				binaryTreeNode<T> *ptr;
 				ptr = _root;
 				while(ptr != NULL)
 				{
-					_parent = ptr;
-					if(_compare(item.first, _parent->_data.first))
+					parent = ptr;
+					if(_compare(item.first, ptr->_data.first))
 						ptr = ptr->_left;
-					else if (item.first == _parent->_data.first)
+					else if (item.first == ptr->_data.first)
 						break;
 					else
 						ptr = ptr->_right;
 				}
-				if (_compare(item.first, _parent->_data.first))
-					_parent->_left = p;
-				else if (item == _parent->_data)
-					_parent->_data.second = item.second;
+				if (_compare(item.first, parent->_data.first))
+				{
+					p->_parent = parent;
+					parent->_left = p;
+					// parent->_parent = parent;
+				}
+				else if (item == parent->_data)
+				{
+					// parent->_parent = parent;
+					parent->_data.second = item.second;
+				}
 				else
-					_parent->_right = p;
+				{
+					parent->_right = p;
+					p->_parent = parent;
+					// parent->_parent = parent;
+				}
 			}
 		}
+
+		binaryTreeNode<T> *search(T data){
+			binaryTreeNode<T> *ptr = _root;
+			while(ptr)
+			{
+				if(_compare(data.first, ptr->_data.first))
+					ptr = ptr->_left;
+				else if (data.first == ptr->_data.first)
+					break;
+				else
+					ptr = ptr->_right;
+			}
+			return ptr;
+		}
+
+		binaryTreeNode<T> *get_min()
+		{
+			binaryTreeNode<T> *ptr = _root;
+			while(ptr->_left)
+				ptr = ptr->_left;
+			return ptr;
+		}
+
+		binaryTreeNode<T> *get_max()
+		{
+			binaryTreeNode<T> *ptr = _root;
+			while(ptr->_right)
+				ptr = ptr->_right;
+			return ptr;
+		}
+
 		void	printNode(binaryTreeNode<T> *child)
 		{
 			if(child->_left != NULL)

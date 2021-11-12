@@ -2,11 +2,12 @@
 #define REVERSE_ITERATOR_HPP
 
 #include "iterator.hpp"
+#include "_tree_iterator.hpp"
 
 //****************** reverse_iterator struct***************************
 
 template <class Iterator>
-	class reverse_iterator : public iterator<std::random_access_iterator_tag, typename iterator_traits<Iterator>::value_type >
+	class reverse_iterator : public iterator<typename iterator_traits<Iterator>::iterator_category, typename iterator_traits<Iterator>::value_type >
 	{
 		public:
 
@@ -23,8 +24,8 @@ template <class Iterator>
 			reverse_iterator() : _iter(nullptr){
 			}
 
-			explicit reverse_iterator (iterator_type it){
-				_iter = it;
+			explicit reverse_iterator (iterator_type it): _iter(it){
+				// _iter = it;
 			}
 
 			reverse_iterator(const reverse_iterator& iter) : _iter(iter._iter){
@@ -59,8 +60,9 @@ template <class Iterator>
 				return (post_increment);
 			}
 
-			reference operator*() const{
-				return(*(_iter - 1));
+			reference operator*() const{  
+				iterator_type tmp = _iter;
+				return(*(tmp - 1));
 			}
 
 			reverse_iterator operator+(difference_type n) const{				
@@ -86,8 +88,9 @@ template <class Iterator>
 				return(*this);
 			}
 
-			pointer operator->() const {
-  				return &(operator*());
+			pointer operator->() const{
+				iterator_type tmp = _iter;
+  				return &(*(--tmp));
 			}
 
 			reference operator[] (difference_type n) const{

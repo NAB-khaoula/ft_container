@@ -626,5 +626,5 @@ int main()
 			std::cout << "The stack s1 is less than "
 				<< "the stack s3." << std::endl;
 	}
-
+	//NOTE:
 }	

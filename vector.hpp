@@ -323,6 +323,8 @@ namespace ft
 		}
 
 		void insert (iterator position, size_type n, const value_type& val){
+			if (!_capacity)
+				return;
 			if(_size + n < _capacity)
 			{
 				iterator temporaryIterator = this->end() + n;
