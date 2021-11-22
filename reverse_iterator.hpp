@@ -10,7 +10,6 @@ template <class Iterator>
 	class reverse_iterator : public iterator<typename iterator_traits<Iterator>::iterator_category, typename iterator_traits<Iterator>::value_type >
 	{
 		public:
-
 			//****************** reverse_iterator member types ***************************
 			typedef Iterator													iterator_type;
     		typedef typename iterator_traits<iterator_type>::iterator_category	iterator_category;
@@ -24,12 +23,9 @@ template <class Iterator>
 			reverse_iterator() : _iter(nullptr){
 			}
 
-			explicit reverse_iterator (iterator_type it): _iter(it){
-				// _iter = it;
-			}
+			explicit reverse_iterator (iterator_type it): _iter(it){}
 
-			reverse_iterator(const reverse_iterator& iter) : _iter(iter._iter){
-			}
+			reverse_iterator(const reverse_iterator& iter) : _iter(iter._iter){}
 
 			//****************** constructors ***************************
 
@@ -62,7 +58,8 @@ template <class Iterator>
 
 			reference operator*() const{  
 				iterator_type tmp = _iter;
-				return(*(tmp - 1));
+				return (*--tmp);
+				// return (*(--tmp));
 			}
 
 			reverse_iterator operator+(difference_type n) const{				
@@ -89,8 +86,8 @@ template <class Iterator>
 			}
 
 			pointer operator->() const{
-				iterator_type tmp = _iter;
-  				return &(*(--tmp));
+				// iterator_type tmp = _iter;
+  				return &(operator*());
 			}
 
 			reference operator[] (difference_type n) const{

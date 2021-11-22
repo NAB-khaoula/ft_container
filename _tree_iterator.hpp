@@ -53,12 +53,12 @@ namespace ft{
 	class _tree_iterator : public iterator<std::bidirectional_iterator_tag, typename iterator_traits<T *>::value_type >
 	{
 		public:
-			typedef	_node*											_treePointerNode;
-			typedef typename iterator_traits<T*>::iterator_category	iterator_category;
-			typedef typename iterator_traits<T*>::value_type		value_type;
-			typedef typename iterator_traits<T*>::reference			reference;
-			typedef typename iterator_traits<T*>::pointer			pointer;
-			typedef typename iterator_traits<T*>::difference_type	difference_type;
+			typedef	_node*												_treePointerNode;
+			typedef typename iterator_traits<T *>::iterator_category	iterator_category;
+			typedef typename iterator_traits<T *>::value_type		value_type;
+			typedef typename iterator_traits<T *>::reference			reference;
+			typedef typename iterator_traits<T *>::pointer			pointer;
+			typedef typename iterator_traits<T *>::difference_type	difference_type;
 			// NOTE constructor;			
 			_tree_iterator(): _iter(NULL) {}
 			_tree_iterator(_treePointerNode iter) : _iter(iter) {}
@@ -76,14 +76,14 @@ namespace ft{
 				return rightNode;
 			}
 
-			_treePointerNode operator++(int)
+			_tree_iterator operator++(int)
 			{
 				_treePointerNode result = this->_iter;
 				++(*this);
 				return result;
 			}
 
-			_treePointerNode operator++()
+			_tree_iterator operator++()
 			{
 				_treePointerNode parent = _iter->_parent;
 				if (_iter->_right) // look for the leftmost node in that subtree;
@@ -106,14 +106,14 @@ namespace ft{
 				return rightNode;
 			}
 
-			_treePointerNode operator--(int)
+			_tree_iterator operator--(int)
 			{
 				_treePointerNode result = this->_iter;
 				--(*this);
 				return result;
 			}
 
-			_treePointerNode operator--()
+			_tree_iterator operator--()
 			{
 				_treePointerNode parent = _iter->_parent;
 				if (_iter->_left) // look for the leftmost node in that subtree;

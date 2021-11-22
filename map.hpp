@@ -73,41 +73,41 @@ namespace ft{
 		~map(){}
 
 		//NOTE iterator function
-		iterator begin(){
-			return (iterator (_tree.get_min()));
-		}
+		// iterator begin(){
+		// 	return (iterator (_tree.get_min()));
+		// }
 
-		const_iterator begin() const{
-			return (const_iterator (_tree.get_min()));
-		}
+		// const_iterator begin() const{
+		// 	return (const_iterator (_tree.get_min()));
+		// }
 
-		iterator end(){
-			iterator it(_tree.get_max());
-			it++;
-			return (it);
-		}
+		// iterator end(){
+		// 	// iterator it(_tree.get_max());
+		// 	// it++;
+		// 	// return (it);
+		// 	return (iterator _root->parent);
+		// }
 
-		const_iterator end() const{
-			const_iterator it(_tree.get_max());
-			it++;
-			return (it);
-		}
+		// const_iterator end() const{
+		// 	// const_iterator it(_root->parent);
+		// 	return (const_iterator _root->parent);
+		// }
 
-		reverse_iterator rbegin(){
-			return (reverse_iterator (end()));
-		}
+		// reverse_iterator rbegin(){
+		// 	return (reverse_iterator (end()));
+		// }
 
-		const_reverse_iterator rbegin() const{
-			return (const_reverse_iterator (end()));
-		}
+		// const_reverse_iterator rbegin() const{
+		// 	return (const_reverse_iterator (end()));
+		// }
 
-		reverse_iterator rend(){
-			return (reverse_iterator (begin()));
-		}
+		// reverse_iterator rend(){
+		// 	return (reverse_iterator (begin()));
+		// }
 
-		const_reverse_iterator rend() const{
-			return (const_reverse_iterator (begin()));
-		}
+		// const_reverse_iterator rend() const{
+		// 	return (const_reverse_iterator (begin()));
+		// }
 
 		protected:
 			binarySearchTree _tree;
