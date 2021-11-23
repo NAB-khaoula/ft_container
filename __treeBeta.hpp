@@ -6,7 +6,7 @@
 #include <cstddef>
 
 namespace ft{
-    template <class T>
+	template <class T>
 	struct binaryTreeNode
 	{
 		T				_data;
@@ -14,26 +14,28 @@ namespace ft{
 		binaryTreeNode*	_parent;
 		binaryTreeNode*	_left;
 		binaryTreeNode*	_right;
-		binaryTreeNode(T& data) : _data(data), _left(NULL), _right(NULL), _parent(NULL), height(1) {}
+		// NOTE check it T() works well, no segfault
+		binaryTreeNode(T& data = T()) : _data(data), _left(NULL), _right(NULL), _parent(NULL), height(1) {}
 	};
 
-    template <class T, class Compare, class Alloc = std::allocator<binaryTreeNode<T> > >
+	template <class T, class Compare, class Alloc = std::allocator<binaryTreeNode<T> > >
 	class binarySearchTree
 	{
 		typedef typename Alloc::difference_type	difference_type;
+		typedef binaryTreeNode<T>		_node;
 		Alloc				_allocator;
 		Compare				_compare;
-		binaryTreeNode<T>*	_root;
+		_node*	_root;
 		public:
 
 		binarySearchTree() : _root(NULL), _allocator(Alloc()), _compare(Compare()){
-        }
+		}
 		
-        int isempty(){
+		int isempty(){
 			return(_root == NULL);
 		}
 
-        void	printNode(binaryTreeNode<T> *child)
+		void	printNode(_node *child)
 		{
 			if(child->_left != NULL)
 				printNode(child->_left);
@@ -50,22 +52,114 @@ namespace ft{
 				std::cout << "empty tree!" << std::endl;
 		}
 
-        binaryTreeNode<T> *insert(T& item){
-            // NOTE to create the node;
-            // binaryTreeNode<T> *p = _allocator.allocate(1);
-			// _allocator.construct(p, item);
-            if(isempty())
-            {
-                binaryTreeNode<T> *endNode = _allocator.allocate(1);
-				
-				_root = p;
-				_root->height = 0 ;
+		_node *get_min()
+		{
+			_node *ptr = _root;
+			while(ptr->_left)
+				ptr = ptr->_left;
+			return ptr;
+		}
+
+		_node *get_max()
+		{
+			_node *ptr = _root;
+			while(ptr->_right)
+				ptr = ptr->_right;
+			return ptr;
+		}
+		_node *getSubtreeMaximum(_node *subtree)
+		{
+			while(subtree->_right)
+				subtree = subtree->_right;
+			return subtree;
+		}
+		int		getHeight(_node *node)
+		{
+			if (node)
+				return node->height;
+			return 0;
+		}
+
+		int		max(int a, int b)
+		{
+			return (a > b ? a : b);
+		}
+
+		void	rightRotation(binaryTreeNode<T> *node){
+			binaryTreeNode<T> *temp;
+
+			temp = node->_left;
+			node->_left = temp->_right;
+			temp->_right->_parent = node;
+			temp->_right = node;
+			node->_parent = temp;
+			// FIXME not always the root!!
+			if(node == _root)
+				_root = temp;
+			else if (node->_parent->_left == node){
+				node->_parent->_left = temp;
+			}
+			else
+				node->_parent->_right = temp;
+		}
+
+		void	leftRotation(binaryTreeNode<T> *node){
+			binaryTreeNode<T> *temp;
+
+			temp = node->_right;
+			node->_right = temp->_left;
+			temp->_left->_parent = node;
+			temp->_left = node;
+			node->_parent = temp;
+			// FIXME not always the root!!
+			if(node == _root)
+				_root = temp;
+			else if (node->_parent->_left == node){
+				node->_parent->_left = temp;
+			}
+			else
+				node->_parent->_right = temp;
+		}
+
+		_node   *insert_node(_node *node, T item){
+			if (node == NULL)
+			{
+				_node *p = _allocator.allocate(1);
+				_allocator.construct(p, item);
+				std::cout << h
+				return p;
+			}
+			if(_compare(item.first, node->_data.first))
+			{
+				node->_left = insert_node(node->_left, item);
+				node->_left->_parent = node;
+			}
+			else if (item.first == node->_data.first)
+				return node;
+			else
+			{
+				node->_right = insert_node(node->_right, item);
+				node->_right->_parent = node;
+			}
+			node->height = 1 + (max(getHeight(node->_left), getHeight(node->_left)));
+
+			std::cout << "node: " << node->_data.first << "height "<< node->height << std::endl;
+			return node;
+		}
+
+		void insert(T item){
+		   if(isempty())
+			{
+				_node *endNode = _allocator.allocate(1);
+				_root = _allocator.allocate(1);
+				_allocator.construct(_root, item);
 				_root->_parent = endNode;
 				endNode->_left = _root;
-            }
-
-        }
-    }
+			}
+			else
+				_root = insert_node(_root, item);
+		}
+	};
 }
 
 

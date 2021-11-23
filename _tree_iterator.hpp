@@ -2,7 +2,7 @@
 #define _TREE_ITERATOR_HPP
 #include <iostream>
 #include <cstddef>
-#include "__tree.hpp"
+#include "__treeBeta.hpp"
 
 
 namespace ft{

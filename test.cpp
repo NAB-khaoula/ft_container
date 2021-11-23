@@ -201,8 +201,6 @@ int main(){
 	// _map.insert(ft::make_pair<int, int>(30,30));
 	// _map.insert(ft::make_pair<int, int>(50,50));
 	// _map.printTree();
-	// ft::map<int, int>::iterator it(_map.get_max());
-	// std::cout << it->first << std::endl;
 	// it--;
 	// std::cout << it->first << std::endl;
 	// it--;
@@ -223,8 +221,16 @@ int main(){
 	_map.insert(ft::make_pair<int, int>(50,0));
 	_map.insert(ft::make_pair<int, int>(55,0));
 	_map.insert(ft::make_pair<int, int>(22,0));
+	_map.insert(ft::make_pair<int, int>(22,0));
 	ft::map<int, int>::iterator it(_map.get_min());
 	_map.printTree();
+	// ft::map<int, int>::iterator it(_map.get_max());
+	std::cout << it->first << std::endl;
+	it++;
+	it++;
+	it++;
+	it++;
+	std::cout << it->first << std::endl;
 	// std::cout << "******************" << std::endl;
 	// _map.delete_node(ft::pair<int, int>(45,0));
 	// _map.printTree();
