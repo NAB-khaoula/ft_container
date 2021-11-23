@@ -6,7 +6,7 @@
 #include <utility>
 #include "map.hpp"
 #include "reverse_iterator.hpp"
-// #include <map>
+#include <map>
 
 // struct data
 // {
@@ -221,16 +221,16 @@ int main(){
 	_map.insert(ft::make_pair<int, int>(50,0));
 	_map.insert(ft::make_pair<int, int>(55,0));
 	_map.insert(ft::make_pair<int, int>(22,0));
-	_map.insert(ft::make_pair<int, int>(22,0));
-	ft::map<int, int>::iterator it(_map.get_min());
+
+	// ft::map<int, int>::iterator it(_map.get_min());
 	_map.printTree();
 	// ft::map<int, int>::iterator it(_map.get_max());
-	std::cout << it->first << std::endl;
-	it++;
-	it++;
-	it++;
-	it++;
-	std::cout << it->first << std::endl;
+	// std::cout << it->first << std::endl;
+	// it--;
+	// it--;
+	// it--;
+	// it--;
+	// std::cout << it->first << std::endl;
 	// std::cout << "******************" << std::endl;
 	// _map.delete_node(ft::pair<int, int>(45,0));
 	// _map.printTree();
@@ -246,5 +246,5 @@ int main(){
 	// std::cout << "******************" << std::endl;
 	// _map.leftRotation(_map.search(ft::pair<int, int>(10,0)));
 	// _map.printTree();
-	return 0;
 }
+

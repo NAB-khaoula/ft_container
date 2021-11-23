@@ -126,7 +126,6 @@ namespace ft{
 			{
 				_node *p = _allocator.allocate(1);
 				_allocator.construct(p, item);
-				std::cout << h
 				return p;
 			}
 			if(_compare(item.first, node->_data.first))
@@ -141,9 +140,7 @@ namespace ft{
 				node->_right = insert_node(node->_right, item);
 				node->_right->_parent = node;
 			}
-			node->height = 1 + (max(getHeight(node->_left), getHeight(node->_left)));
-
-			std::cout << "node: " << node->_data.first << "height "<< node->height << std::endl;
+			node->height = 1 + (max(getHeight(node->_left), getHeight(node->_right)));
 			return node;
 		}
 
@@ -157,10 +154,11 @@ namespace ft{
 				endNode->_left = _root;
 			}
 			else
+			{
 				_root = insert_node(_root, item);
+			}
 		}
 	};
 }
-
 
 #endif

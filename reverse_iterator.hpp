@@ -59,7 +59,6 @@ template <class Iterator>
 			reference operator*() const{  
 				iterator_type tmp = _iter;
 				return (*--tmp);
-				// return (*(--tmp));
 			}
 
 			reverse_iterator operator+(difference_type n) const{				
