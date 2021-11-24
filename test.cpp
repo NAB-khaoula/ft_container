@@ -213,17 +213,17 @@ int main(){
 	// std::cout << it->first << std::endl;
 	ft::map<int, int>::binarySearchTree _map;
 	_map.insert(ft::make_pair<int, int>(20,0));
-	_map.insert(ft::make_pair<int, int>(10,0));
-	_map.insert(ft::make_pair<int, int>(45,0));
-	_map.insert(ft::make_pair<int, int>(5,0));
-	_map.insert(ft::make_pair<int, int>(15,0));
 	_map.insert(ft::make_pair<int, int>(30,0));
+	_map.insert(ft::make_pair<int, int>(40,0));
 	_map.insert(ft::make_pair<int, int>(50,0));
-	_map.insert(ft::make_pair<int, int>(55,0));
-	_map.insert(ft::make_pair<int, int>(22,0));
+	// _map.insert(ft::make_pair<int, int>(60,0));
+	// _map.insert(ft::make_pair<int, int>(70,0));
+	// _map.insert(ft::make_pair<int, int>(80,0));
+	// _map.insert(ft::make_pair<int, int>(95,0));
+	// _map.insert(ft::make_pair<int, int>(100,0));
 
 	// ft::map<int, int>::iterator it(_map.get_min());
-	_map.printTree();
+	// _map.printTree();
 	// ft::map<int, int>::iterator it(_map.get_max());
 	// std::cout << it->first << std::endl;
 	// it--;

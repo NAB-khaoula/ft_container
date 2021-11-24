@@ -2,7 +2,7 @@
 #define __TREEBETA_HPP
 #include <memory>
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include <cstddef>
 
 namespace ft{
@@ -87,8 +87,8 @@ namespace ft{
 
 		void	rightRotation(binaryTreeNode<T> *node){
 			binaryTreeNode<T> *temp;
-
 			temp = node->_left;
+			std::cout << "debugging" << std::endl;
 			node->_left = temp->_right;
 			temp->_right->_parent = node;
 			temp->_right = node;
@@ -121,6 +121,38 @@ namespace ft{
 				node->_parent->_right = temp;
 		}
 
+		int	balanceFactor(_node *node){
+			if (node)
+				return std::abs(getHeight(node->_left) - getHeight(node->_right));
+			return (0); 
+		}
+
+		bool	leftheavy(_node *node){
+			int _balanceFactor = 0;
+			_balanceFactor = balanceFactor(node);
+			return (_balanceFactor > 1 && getHeight(node->_left) > getHeight(node->_right));
+		}
+
+		bool	rightheavy(_node *node){
+			int _balanceFactor = 0;
+			_balanceFactor = balanceFactor(node);
+			return (_balanceFactor > 1 && getHeight(node->_right) > getHeight(node->_left));
+		}
+
+		void	balanceTree(_node *node){
+			if (leftheavy(node))
+			{
+				// leftRotation(node);
+				// std::cout << node->_data.first << std::endl;
+			}
+			else if (rightheavy(node))
+			{
+				std::cout << node->_right->_data.first << std::endl;
+				// rightRotation(node->_right);
+
+			}
+		}
+
 		_node   *insert_node(_node *node, T item){
 			if (node == NULL)
 			{
@@ -141,13 +173,17 @@ namespace ft{
 				node->_right->_parent = node;
 			}
 			node->height = 1 + (max(getHeight(node->_left), getHeight(node->_right)));
+			balanceTree(node);
 			return node;
 		}
 
 		void insert(T item){
 		   if(isempty())
 			{
+				// FIXME  need to call the constructor;
+				T nothing = T();
 				_node *endNode = _allocator.allocate(1);
+				_allocator.construct(endNode, nothing);
 				_root = _allocator.allocate(1);
 				_allocator.construct(_root, item);
 				_root->_parent = endNode;
