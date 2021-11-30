@@ -54,7 +54,7 @@ namespace ft{
 		map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()){
 			while(first != last)
 			{
-				_tree.insert(*first);
+				_tree.insert(first->_data);
 				first++;
 			}
 		}
@@ -109,8 +109,8 @@ namespace ft{
 		// 	return (const_reverse_iterator (begin()));
 		// }
 
-		protected:
 			binarySearchTree _tree;
+		protected:
 	};
 		
 }

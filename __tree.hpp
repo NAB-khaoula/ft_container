@@ -1,13 +1,12 @@
-#ifndef __TREE_HPP
-#define __TREE_HPP
+#ifndef __TREEBETA_HPP
+#define __TREEBETA_HPP
 #include <memory>
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include <cstddef>
-// #include "_tree_iterator.hpp"
 
 namespace ft{
-    template <class T>
+	template <class T>
 	struct binaryTreeNode
 	{
 		T				_data;
@@ -15,193 +14,28 @@ namespace ft{
 		binaryTreeNode*	_parent;
 		binaryTreeNode*	_left;
 		binaryTreeNode*	_right;
-		binaryTreeNode(T& data) : _data(data), _left(NULL), _right(NULL), _parent(NULL), height(1) {}
+		// NOTE check if T() works well, no segfault
+		binaryTreeNode(T& data = T()) : _data(data), _left(NULL), _right(NULL), _parent(NULL), height(1) {}
 	};
 
 	template <class T, class Compare, class Alloc = std::allocator<binaryTreeNode<T> > >
 	class binarySearchTree
 	{
 		typedef typename Alloc::difference_type	difference_type;
+		typedef binaryTreeNode<T>		_node;
 		Alloc				_allocator;
 		Compare				_compare;
-		binaryTreeNode<T>*	_root;
+		_node*	_root;
 		public:
-		binarySearchTree() : _root(NULL), _allocator(Alloc()), _compare(Compare()){}
+
+		binarySearchTree() : _root(NULL), _allocator(Alloc()), _compare(Compare()){
+		}
+		
 		int isempty(){
 			return(_root == NULL);
 		}
 
-		void insert(T item){
-			//FIXME -  mem leak in one block (32 bytes)
-			binaryTreeNode<T> *p = _allocator.allocate(1);
-			_allocator.construct(p, item);
-			binaryTreeNode<T> *parent;
-			binaryTreeNode<T> *ptr;
-			if(isempty())
-			{
-				binaryTreeNode<T> *endNode = _allocator.allocate(1);
-				
-				_root = p;
-				_root->height = 0 ;
-				_root->_parent = endNode;
-				endNode->_left = _root;
-			}
-			else
-			{
-				ptr = _root;
-				while(ptr != NULL)
-				{
-					parent = ptr;
-					if(_compare(item.first, ptr->_data.first))
-						ptr = ptr->_left;
-					else if (item.first == ptr->_data.first)
-					{
-						_allocator.deallocate(p, 1);
-						return;
-					}
-					else
-						ptr = ptr->_right;
-					parent->height += 1;
-				}
-				if (_compare(item.first, parent->_data.first))
-				{
-					p->_parent = parent;
-					parent->_left = p;
-				}
-				else
-				{
-					parent->_right = p;
-					p->_parent = parent;
-				}
-			}
-		}
-
-		binaryTreeNode<T> *search(T data){
-			binaryTreeNode<T> *ptr = _root;
-			while(ptr)
-			{
-				if(_compare(data.first, ptr->_data.first))
-					ptr = ptr->_left;
-				else if (data.first == ptr->_data.first)
-					break;
-				else
-					ptr = ptr->_right;
-			}
-			return ptr;
-		}
-
-		binaryTreeNode<T> *get_min()
-		{
-			binaryTreeNode<T> *ptr = _root;
-			while(ptr->_left)
-				ptr = ptr->_left;
-			return ptr;
-		}
-
-		binaryTreeNode<T> *get_max()
-		{
-			binaryTreeNode<T> *ptr = _root;
-			while(ptr->_right)
-				ptr = ptr->_right;
-			return ptr;
-		}
-		binaryTreeNode<T> *getSubtreeMaximum(binaryTreeNode<T> *subtree)
-		{
-			while(subtree->_right)
-				subtree = subtree->_right;
-			return subtree;
-		}
-
-		void	rightRotation(binaryTreeNode<T> *node){
-			binaryTreeNode<T> *temp;
-
-			temp = node->_left;
-			node->_left = temp->_right;
-			temp->_right->_parent = node;
-			temp->_right = node;
-			node->_parent = temp;
-			// FIXME not always the root!!
-			if(node == _root)
-				_root = temp;
-			else if (node->_parent->_left == node){
-				node->_parent->_left = temp;
-			}
-			else
-				node->_parent->_right = temp;
-		}
-
-		void	leftRotation(binaryTreeNode<T> *node){
-			binaryTreeNode<T> *temp;
-
-			temp = node->_right;
-			node->_right = temp->_left;
-			temp->_left->_parent = node;
-			temp->_left = node;
-			node->_parent = temp;
-			// FIXME not always the root!!
-			if(node == _root)
-				_root = temp;
-			else if (node->_parent->_left == node){
-				node->_parent->_left = temp;
-			}
-			else
-				node->_parent->_right = temp;
-		}
-		void	delete_node(T data)
-		{
-			if(isempty())
-				return;
-			else
-			{
-				binaryTreeNode<T> *tmp;
-				binaryTreeNode<T> *tmp2;
-				binaryTreeNode<T> *ptr = search(data);
-				if(ptr)
-				{
-					if(!ptr->_left && !ptr->_right)
-					{
-						if(ptr->_parent->_left == ptr)
-							ptr->_parent->_left = NULL;
-						else
-							ptr->_parent->_right = NULL;
-						_allocator.deallocate(ptr, 1);
-					}
-					else if (!ptr->_left)
-					{
-						tmp = ptr;
-						ptr = ptr->_right;
-						_allocator.deallocate(tmp, 1);
-					}
-					else if (!ptr->_right)
-					{
-						tmp = ptr;
-						ptr = ptr->_left;
-						_allocator.deallocate(tmp, 1);
-					}
-					else
-					{
-						//NOTE:
-						/*
-							temp take the ptr;
-							look for the maximum number of the subtree;
-							the maximum node take the left and the right of ptr;
-							ptr point on the last node
-							dallocate temp;
-						*/
-						tmp2 = ptr;
-						tmp = getSubtreeMaximum(ptr->_left);
-						tmp->_right = ptr->_right;
-						if(ptr->_parent->_left == ptr)
-							ptr->_parent->_left = tmp;
-						else
-							ptr->_parent->_right = tmp;
-						_allocator.deallocate(tmp2, 1);
-					}
-				}
-			}
-		}
-
-		void	printNode(binaryTreeNode<T> *child)
+		void	printNode(_node *child)
 		{
 			if(child->_left != NULL)
 				printNode(child->_left);
@@ -217,8 +51,206 @@ namespace ft{
 			else
 				std::cout << "empty tree!" << std::endl;
 		}
+
+		_node *get_min()
+		{
+			_node *ptr = _root;
+			while(ptr->_left)
+				ptr = ptr->_left;
+			return ptr;
+		}
+
+		_node *get_max()
+		{
+			_node *ptr = _root;
+			while(ptr->_right)
+				ptr = ptr->_right;
+			return ptr;
+		}
+
+		int		getHeight(_node *node)
+		{
+			if (node)
+				return node->height;
+			return 0;
+		}
+
+		int		max(int a, int b)
+		{
+			return (a > b ? a : b);
+		}
+
+		_node	*leftRotation(_node *node){
+			_node *temp;
+
+			temp = node;
+			node = temp->_right;
+			temp->_right = node->_left;
+			node->_left = temp;
+			temp->_parent = node;
+			node->_parent = temp->_parent;
+			if (temp->_right)
+			 	temp->_right->_parent = temp;
+			temp->height = 1 + (max(getHeight(temp->_left), getHeight(temp->_right)));
+			node->height = 1 + (max(getHeight(node->_left), getHeight(node->_right)));
+			return node;
+		}
+
+		_node	*rightRotation(_node *node){
+			_node *temp;
+			temp = node;
+			node = temp->_left;
+			temp->_left = node->_right;
+			node->_right = temp;
+			temp->_parent = node;
+			if (temp->_left)
+			 	temp->_left->_parent = temp;
+			temp->height = 1 + (max(getHeight(temp->_left), getHeight(temp->_right)));
+			node->height = 1 + (max(getHeight(node->_left), getHeight(node->_right)));
+			return node;
+		}
+
+		int	balanceFactor(_node *node){
+			if (node)
+				return (getHeight(node->_left) - getHeight(node->_right));
+			return (0); 
+		}
+
+		_node	*balanceTree(_node *node){
+			if (balanceFactor(node) > 1 && balanceFactor(node->_left) >= 0)
+				return (rightRotation(node));
+			else if (balanceFactor(node) > 1 && balanceFactor(node->_left) < 0)
+			{
+				node->_left = leftRotation(node->_left);
+				return (rightRotation(node));
+			}
+			else if (balanceFactor(node) < -1 && balanceFactor(node->_right) < 0)
+			{
+
+				return (leftRotation(node));
+			}
+			else if (balanceFactor(node) < -1 && balanceFactor(node->_right) >= 0)
+			{
+				node->_right = rightRotation(node->_right);
+				return (leftRotation(node));
+			}
+			return node;
+		}
+
+		_node   *insert_node(_node *node, T item){
+			if (node == NULL)
+			{
+				_node *p = _allocator.allocate(1);
+				_allocator.construct(p, item);
+				return p;
+			}
+			if(_compare(item.first, node->_data.first))
+			{
+				node->_left = insert_node(node->_left, item);
+				node->_left->_parent = node;
+			}
+			else if (item.first == node->_data.first)
+				return node;
+			else
+			{
+				node->_right = insert_node(node->_right, item);
+				node->_right->_parent = node;
+			}
+			node->height = 1 + (max(getHeight(node->_left), getHeight(node->_right)));
+			node = balanceTree(node);
+			return node;
+		}
+
+		void	insert(T item){
+		   if(isempty())
+			{
+				T nothing = T();
+				_node *endNode = _allocator.allocate(1);
+				_allocator.construct(endNode, nothing);
+				_root = _allocator.allocate(1);
+				_allocator.construct(_root, item);
+				_root->_parent = endNode;
+				endNode->_left = _root;
+			}
+			else
+			{
+				_root = insert_node(_root, item);
+			}
+		}
+		_node *findNode(_node *node, T data)
+		{
+			if(_compare(data.first, node->_data.first))
+				node->_left = findNode(node->_left, data);
+			else if (data.first == node->_data.first)
+				return node;
+			else
+				node->_right = findNode(node->_right, data);
+			return NULL;
+		}
+
+		_node *search(T data){
+			if(isempty())
+				return NULL;
+			else
+				return (findNode(_root, data));
+		}
+
+		T	getSubtreeMinimum(_node *subtree)
+		{
+			while(subtree->_left)
+				subtree = subtree->_left;
+			return subtree->_data;
+		}
+
+		_node	*DeleteNodeWithBalancing(_node *node, T data)
+		{
+			if(_compare(data.first, node->_data.first))
+				node->_left = DeleteNodeWithBalancing(node->_left, data);
+			else if (data.first == node->_data.first)
+			{
+				_node *temp;
+				if (!(node->_left) || !(node->_right))
+				{
+					temp = node->_left ? node->_left : node->_right;
+					if (temp) // there is a child;
+						node = temp;
+					else // there is no child;
+					{
+						temp = node;
+						node = NULL;
+					}	
+					_allocator.deallocate(temp, 1);
+				}
+				else
+				{
+					T item(getSubtreeMinimum(node->_right));
+					_node *replacedNode = _allocator.allocate(1);
+					_allocator.construct(replacedNode, item);
+					replacedNode->_left = node->_left;
+					replacedNode->_right = node->_right;
+					replacedNode->_parent = node->_parent;
+					temp = node;
+					node = replacedNode;
+					_allocator.deallocate(temp, 1);
+					node->_right = DeleteNodeWithBalancing(node->_right, item);
+				}
+			}
+			else
+				node->_right = DeleteNodeWithBalancing(node->_right, data);
+			if (node)
+				node->height = 1 + (max(getHeight(node->_left), getHeight(node->_right)));
+			node = balanceTree(node);
+			return node;
+		}
+
+		void	delete_node(T data)
+		{
+			if (isempty())
+				return;
+			else
+				DeleteNodeWithBalancing(_root, data);
+		}
 	};
 }
-
 
 #endif

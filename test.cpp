@@ -5,6 +5,7 @@
 // #include "vector.hpp"
 #include <utility>
 #include "map.hpp"
+#include "vector.hpp"
 #include "reverse_iterator.hpp"
 #include <map>
 
@@ -211,44 +212,42 @@ int main(){
 	// std::cout << it->first << std::endl;
 	// it--;
 	// std::cout << it->first << std::endl;
-	ft::map<int, int>::binarySearchTree _map;
-	_map.insert(ft::make_pair<int, int>(20,0));
-	_map.insert(ft::make_pair<int, int>(30,0));
-	_map.insert(ft::make_pair<int, int>(40,0));
-	_map.insert(ft::make_pair<int, int>(50,0));
-	_map.insert(ft::make_pair<int, int>(60,0));
-	_map.insert(ft::make_pair<int, int>(70,0));
-	_map.insert(ft::make_pair<int, int>(80,0));
-	_map.insert(ft::make_pair<int, int>(95,0));
-	_map.insert(ft::make_pair<int, int>(100,0));
-	_map.insert(ft::make_pair<int, int>(45,0));
-	_map.insert(ft::make_pair<int, int>(33,0));
-	_map.insert(ft::make_pair<int, int>(25,0));
-	_map.insert(ft::make_pair<int, int>(10,0));
-
-	// ft::map<int, int>::iterator it(_map.get_min());
-	_map.printTree();
-	std::cout << "******************" << std::endl;
-	_map.delete_node(ft::pair<int, int>(30,0));
-	_map.printTree();
-	// ft::map<int, int>::iterator it(_map.get_max());
-	// std::cout << it->first << std::endl;
-	// it--;
-	// it--;
-	// std::cout << it->first << std::endl;
-	// _map.delete_node(ft::pair<int, int>(45,0));
-	// _map.printTree();
 	// _map.insert(ft::make_pair<int, int>(20,0));
 	// _map.insert(ft::make_pair<int, int>(30,0));
+	// _map.insert(ft::make_pair<int, int>(40,0));
+	// _map.insert(ft::make_pair<int, int>(50,0));
+	// _map.insert(ft::make_pair<int, int>(60,0));
+	// _map.insert(ft::make_pair<int, int>(70,0));
+	// _map.insert(ft::make_pair<int, int>(80,0));
+	// _map.insert(ft::make_pair<int, int>(95,0));
+	// _map.insert(ft::make_pair<int, int>(100,0));
+	// _map.insert(ft::make_pair<int, int>(45,0));
+	// _map.insert(ft::make_pair<int, int>(33,0));
+	// _map.insert(ft::make_pair<int, int>(25,0));
 	// _map.insert(ft::make_pair<int, int>(10,0));
-	// _map.insert(ft::make_pair<int, int>(15,0));
-	// _map.insert(ft::make_pair<int, int>(5,0));
+
+	// _map.insert(ft::make_pair<int, int>(30,0));
+	// _map.insert(ft::make_pair<int, int>(20,0));
+	// _map.insert(ft::make_pair<int, int>(21,0));
 	// _map.printTree();
+
+
+	ft::map<int, int>::binarySearchTree test;
+	test.insert(ft::make_pair<int, int>(50,10));
+    test.insert(ft::make_pair<int,int>(40,11));
+    test.insert(ft::make_pair<int,int>(30,12));
+    test.insert(ft::make_pair<int, int>(20,12));
+    test.insert(ft::make_pair<int, int>(61,12));
+    test.insert(ft::make_pair<int, int>(70,12));
+    test.insert(ft::make_pair<int, int>(55,12));
+    test.insert(ft::make_pair<int, int>(41,12));
+    test.insert(ft::make_pair<int, int>(10,12));
+    test.insert(ft::make_pair<int, int>(5,12));
+    test.insert(ft::make_pair<int, int>(2,12));
+	ft::map<int, int> _map(test.get_min(), test.get_max());
+	_map._tree.printTree();
 	// std::cout << "******************" << std::endl;
-	// _map.rightRotation(_map.search(ft::pair<int, int>(20,0)));
-	// _map.printTree();
-	// std::cout << "******************" << std::endl;
-	// _map.leftRotation(_map.search(ft::pair<int, int>(10,0)));
-	// _map.printTree();
+	// test.delete_node(ft::pair<int, int>(20,12));
+	// test.printTree();
 }
 
