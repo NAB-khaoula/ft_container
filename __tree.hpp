@@ -87,8 +87,8 @@ namespace ft{
 			node = temp->_right;
 			temp->_right = node->_left;
 			node->_left = temp;
-			temp->_parent = node;
 			node->_parent = temp->_parent;
+			temp->_parent = node;
 			if (temp->_right)
 			 	temp->_right->_parent = temp;
 			temp->height = 1 + (max(getHeight(temp->_left), getHeight(temp->_right)));
@@ -102,6 +102,7 @@ namespace ft{
 			node = temp->_left;
 			temp->_left = node->_right;
 			node->_right = temp;
+			node->_parent = temp->_parent;
 			temp->_parent = node;
 			if (temp->_left)
 			 	temp->_left->_parent = temp;
@@ -164,9 +165,7 @@ namespace ft{
 		void	insert(T item){
 		   if(isempty())
 			{
-				T nothing = T();
 				_node *endNode = _allocator.allocate(1);
-				_allocator.construct(endNode, nothing);
 				_root = _allocator.allocate(1);
 				_allocator.construct(_root, item);
 				_root->_parent = endNode;

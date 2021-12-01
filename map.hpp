@@ -7,7 +7,7 @@
 #include "algorithm.hpp"
 #include "type_traits.hpp"
 #include "utility.hpp"
-#include "__treeBeta.hpp"
+#include "__tree.hpp"
 #include "_tree_iterator.hpp"
 #include "reverse_iterator.hpp"
 
@@ -54,7 +54,7 @@ namespace ft{
 		map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()){
 			while(first != last)
 			{
-				_tree.insert(first->_data);
+				_tree.insert(*first);
 				first++;
 			}
 		}
@@ -65,52 +65,61 @@ namespace ft{
 
 		map& operator=(const map& x)
 		{
-			_tree._root = x._tree._root;
-			_tree._compare = x._tree._compare;
-			_tree._allocator = x._tree._compare;
+			_tree = x._tree;
+			return (*this);
 		}
 		//FIXME need to destroy the object in my destructor;
 		~map(){}
 
 		//NOTE iterator function
-		// iterator begin(){
-		// 	return (iterator (_tree.get_min()));
-		// }
+		iterator begin(){
+			return (iterator (_tree.get_min()));
+		}
 
-		// const_iterator begin() const{
-		// 	return (const_iterator (_tree.get_min()));
-		// }
+		const_iterator begin() const{
+			return (const_iterator (_tree.get_min()));
+		}
 
-		// iterator end(){
-		// 	// iterator it(_tree.get_max());
-		// 	// it++;
-		// 	// return (it);
-		// 	return (iterator _root->parent);
-		// }
+		iterator end(){
+			iterator it(_tree.get_max());
+			it++;
+			return (it);
+		}
 
-		// const_iterator end() const{
-		// 	// const_iterator it(_root->parent);
-		// 	return (const_iterator _root->parent);
-		// }
+		const_iterator end() const{
+			const_iterator it(_tree.get_max());
+			it++;
+			return (it);
+		}
 
-		// reverse_iterator rbegin(){
-		// 	return (reverse_iterator (end()));
-		// }
+		reverse_iterator rbegin(){
+			return (reverse_iterator (end()));
+		}
 
-		// const_reverse_iterator rbegin() const{
-		// 	return (const_reverse_iterator (end()));
-		// }
+		const_reverse_iterator rbegin() const{
+			return (const_reverse_iterator (end()));
+		}
 
-		// reverse_iterator rend(){
-		// 	return (reverse_iterator (begin()));
-		// }
+		reverse_iterator rend(){
+			return (reverse_iterator (begin()));
+		}
 
-		// const_reverse_iterator rend() const{
-		// 	return (const_reverse_iterator (begin()));
-		// }
+		const_reverse_iterator rend() const{
+			return (const_reverse_iterator (begin()));
+		}
 
-			binarySearchTree _tree;
+		pair<iterator,bool> insert (const value_type& val)
+		{
+			
+		}
+
+		void Treeprint()
+		{
+			_tree.printTree();
+		}
+
 		protected:
+			binarySearchTree _tree;
 	};
 		
 }

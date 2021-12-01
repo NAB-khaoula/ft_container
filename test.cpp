@@ -1,9 +1,9 @@
 #include <iostream>
-#include <vector>
-#include <memory>
+// #include <vector>
+// #include <memory>
 // #include <iterator>
 // #include "vector.hpp"
-#include <utility>
+// #include <utility>
 #include "map.hpp"
 #include "vector.hpp"
 #include "reverse_iterator.hpp"
@@ -27,136 +27,13 @@
 // 	}
 // };
 
-// template <class T1, class T2> 
-// 	struct pair{
-// 		typedef T1  first_type;
-// 		typedef T2  second_type;
-// 		first_type first;
-// 		second_type second;
-// 		pair():first(first_type()), second(second_type()){}
-// 		pair (const first_type& a, const second_type& b): first(a), second(b){}
-// 		template<class U, class V>
-// 		pair (const pair<U,V>& pr): first(pr.first), second(pr.second){}
-// 		pair& operator= (const pair& pr){
-// 				first = pr.first;
-// 				second = pr.second;
-// 				return (*this);
-// 		}
-// 		template <class U, class V>
-// 			friend bool operator== (const pair<U,V>& lhs, const pair<U,V>& rhs)
-// 			{
-// 				return(lhs.first == rhs.first && lhs.second == rhs.second);
-// 			}
-		
-// 		template <class U, class V>
-// 			friend bool operator!= (const pair<U,V>& lhs, const pair<U,V>& rhs)
-// 			{
-// 				return(!(lhs == rhs));
-// 			}
-		
-// 		template <class U, class V>
-// 			friend bool operator<  (const pair<U,V>& lhs, const pair<U,V>& rhs)
-// 			{
-// 				return (lhs.first<rhs.first && lhs.second<rhs.second); 
-// 			}
-
-// 		template <class U, class V>
-// 			friend bool operator<= (const pair<U,V>& lhs, const pair<U,V>& rhs)
-// 			{ 
-// 				return (!(rhs<lhs)); 
-// 			}
-
-// 		template <class U, class V>
-// 			friend bool operator>  (const pair<U,V>& lhs, const pair<U,V>& rhs)
-// 			{ 
-// 				return rhs<lhs;
-// 			}
-
-// 		template <class U, class V>
-// 			friend bool operator>= (const pair<U,V>& lhs, const pair<U,V>& rhs)
-// 			{
-// 				return !(lhs<rhs);
-// 			}
-// 	};
-// 	template <class T1,class T2>
-//   		pair<T1,T2> make_pair (T1 x, T2 y)
-//   		{
-//     		return ( pair<T1,T2>(x,y) );
-//   		}
-
-// 	template <class T>
-// 	struct binaryTreeNode
-// 	{
-// 		T				_data;
-// 		binaryTreeNode*	_left;
-// 		binaryTreeNode*	_right;
-// 	};
-
-// 	template <class T, class Compare, class Alloc = std::allocator<binaryTreeNode<T> > >
-// 	class binarySearchTree
-// 	{
-// 		binaryTreeNode<T>*	_root;
-// 		Alloc				_allocator;
-// 		Compare				_compare;
-// 		public:
-// 		binarySearchTree() : _root(NULL), _allocator(Alloc()), _compare(Compare())
-// 		{
-// 			// _root = NULL;
-// 			// _allocator = Alloc();
-// 			// _compare = Compare();
-// 		}
-// 		int isempty()
-// 		{
-// 			return(_root == NULL);
-// 		}
-// 		void insert(T item){
-// 			binaryTreeNode<T> *p = _allocator.allocate(1);
-// 			binaryTreeNode<T> *parent;
-// 			p->_data = item;
-// 			p->_left = NULL;
-// 			p->_right = NULL;
-// 			parent = NULL;
-// 			if(isempty())
-// 				_root = p;
-// 			else
-// 			{
-// 				binaryTreeNode<T> *ptr;
-// 				ptr = _root;
-// 				while(ptr != NULL)
-// 				{
-// 					parent = ptr;
-// 					if(_compare(item.first, parent->_data.first))
-// 						ptr = ptr->_left;
-// 					else if (item.first == parent->_data.first)
-// 						break;
-// 					else
-// 						ptr = ptr->_right;
-// 				}
-// 				if (_compare(item.first, parent->_data.first))
-// 					parent->_left = p;
-// 				else if (item == parent->_data)
-// 					parent->_data = item;
-// 				else
-// 					parent->_right = p;
-// 			}
-// 		}
-// 		void	printNode(binaryTreeNode<T> *child)
-// 		{
-// 			if(child->_left != NULL)
-// 				printNode(child->_left);
-// 			std::cout << child->_data.first << ":" << child->_data.second << std::endl;
-// 			if (child->_right != NULL)
-// 				printNode(child->_right);
-// 		}
-
-// 		void	printTree()
-// 		{
-// 			if(_root != NULL)
-// 				printNode(_root);
-// 			else
-// 				std::cout << "empty tree!" << std::endl;
-// 		}
-// 	};
+void	printOriginalMap(std::map<int, int>::iterator it_begin, std::map<int, int>::iterator it_end){
+	while(it_begin != it_end )
+	{
+		std::cout << it_begin->first << " : " << it_begin->second << std::endl;
+		it_begin++;
+	}
+}
 
 int main(){
 	// binarySearchTree<pair<std::string, int>, std::less<std::string> > bst;
@@ -229,25 +106,62 @@ int main(){
 	// _map.insert(ft::make_pair<int, int>(30,0));
 	// _map.insert(ft::make_pair<int, int>(20,0));
 	// _map.insert(ft::make_pair<int, int>(21,0));
-	// _map.printTree();
 
 
-	ft::map<int, int>::binarySearchTree test;
-	test.insert(ft::make_pair<int, int>(50,10));
-    test.insert(ft::make_pair<int,int>(40,11));
-    test.insert(ft::make_pair<int,int>(30,12));
-    test.insert(ft::make_pair<int, int>(20,12));
-    test.insert(ft::make_pair<int, int>(61,12));
-    test.insert(ft::make_pair<int, int>(70,12));
-    test.insert(ft::make_pair<int, int>(55,12));
-    test.insert(ft::make_pair<int, int>(41,12));
-    test.insert(ft::make_pair<int, int>(10,12));
-    test.insert(ft::make_pair<int, int>(5,12));
-    test.insert(ft::make_pair<int, int>(2,12));
-	ft::map<int, int> _map(test.get_min(), test.get_max());
-	_map._tree.printTree();
-	// std::cout << "******************" << std::endl;
-	// test.delete_node(ft::pair<int, int>(20,12));
-	// test.printTree();
+	{	
+		ft::map<int, int>::binarySearchTree test;
+
+		test.insert(ft::make_pair<int, int>(50,10));
+    	test.insert(ft::make_pair<int,int>(40,11));
+    	test.insert(ft::make_pair<int,int>(30,12));
+    	test.insert(ft::make_pair<int, int>(20,12));
+    	test.insert(ft::make_pair<int, int>(61,12));
+    	test.insert(ft::make_pair<int, int>(70,12));
+    	test.insert(ft::make_pair<int, int>(55,12));
+    	test.insert(ft::make_pair<int, int>(41,12));
+    	test.insert(ft::make_pair<int, int>(10,12));
+    	test.insert(ft::make_pair<int, int>(5,12));
+    	test.insert(ft::make_pair<int, int>(2,12));
+		ft::map<int, int>::iterator it_begin(test.get_min());
+		ft::map<int, int>::iterator it_end(test.get_max());
+		it_end++;
+		ft::map<int, int> _map(it_begin, it_end);
+		ft::map<int, int> _map2(_map.begin(), _map.end());
+		// _map2 = _map;
+		// _map2.Treeprint();
+		std::cout << "*********************" << std::endl;
+		ft::map<int, int>::iterator it_test = _map2.begin();
+		std::cout << it_test->first << " : " << it_test->second << std::endl;
+		it_test++;
+		std::cout << it_test->first << " : " << it_test->second << std::endl;
+		it_test--;
+		std::cout << it_test->first << " : " << it_test->second << std::endl;
+		it_test = _map2.end();
+		std::cout << it_test->first << " : " << it_test->second << std::endl;
+	}
+	std::cout << "*********************************" << std::endl;
+	{
+		std::map<int, int> origin_map;
+		origin_map.insert(std::make_pair<int, int>(50,10));
+    	origin_map.insert(std::make_pair<int,int>(40,11));
+    	origin_map.insert(std::make_pair<int,int>(30,12));
+    	origin_map.insert(std::make_pair<int, int>(20,12));
+    	origin_map.insert(std::make_pair<int, int>(61,12));
+    	origin_map.insert(std::make_pair<int, int>(70,12));
+    	origin_map.insert(std::make_pair<int, int>(55,12));
+    	origin_map.insert(std::make_pair<int, int>(41,12));
+    	origin_map.insert(std::make_pair<int, int>(10,12));
+    	origin_map.insert(std::make_pair<int, int>(5,12));
+    	origin_map.insert(std::make_pair<int, int>(2,12));
+		std::map<int, int>::iterator it_test = origin_map.begin();
+		// printOriginalMap(origin_map.begin(), origin_map.end());
+		std::cout << it_test->first << " : " << it_test->second << std::endl;
+		it_test++;
+		std::cout << it_test->first << " : " << it_test->second << std::endl;
+		it_test--;
+		std::cout << it_test->first << " : " << it_test->second << std::endl;
+		it_test = origin_map.end();
+		std::cout << it_test->first << " : " << it_test->second << std::endl;
+	}
 }
 
