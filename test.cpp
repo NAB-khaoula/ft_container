@@ -107,38 +107,32 @@ int main(){
 	// _map.insert(ft::make_pair<int, int>(20,0));
 	// _map.insert(ft::make_pair<int, int>(21,0));
 
-
-	{	
-		ft::map<int, int>::binarySearchTree test;
-
-		test.insert(ft::make_pair<int, int>(50,10));
-    	test.insert(ft::make_pair<int,int>(40,11));
-    	test.insert(ft::make_pair<int,int>(30,12));
-    	test.insert(ft::make_pair<int, int>(20,12));
-    	test.insert(ft::make_pair<int, int>(61,12));
-    	test.insert(ft::make_pair<int, int>(70,12));
-    	test.insert(ft::make_pair<int, int>(55,12));
-    	test.insert(ft::make_pair<int, int>(41,12));
-    	test.insert(ft::make_pair<int, int>(10,12));
-    	test.insert(ft::make_pair<int, int>(5,12));
-    	test.insert(ft::make_pair<int, int>(2,12));
-		ft::map<int, int>::iterator it_begin(test.get_min());
-		ft::map<int, int>::iterator it_end(test.get_max());
-		it_end++;
-		ft::map<int, int> _map(it_begin, it_end);
-		ft::map<int, int> _map2(_map.begin(), _map.end());
-		// _map2 = _map;
-		// _map2.Treeprint();
-		std::cout << "*********************" << std::endl;
-		ft::map<int, int>::iterator it_test = _map2.begin();
+	{
+		ft::map<int, int> origin_map;
+		origin_map.insert(ft::make_pair<int, int>(50,10));
+    	origin_map.insert(ft::make_pair<int, int>(50,11));
+    	origin_map.insert(ft::make_pair<int, int>(40,11));
+    	origin_map.insert(ft::make_pair<int,int>(30,12));
+    	origin_map.insert(ft::make_pair<int, int>(20,12));
+    	origin_map.insert(ft::make_pair<int, int>(61,12));
+    	origin_map.insert(ft::make_pair<int, int>(70,12));
+    	origin_map.insert(ft::make_pair<int, int>(55,12));
+    	origin_map.insert(ft::make_pair<int, int>(41,12));
+    	origin_map.insert(ft::make_pair<int, int>(10,12));
+    	origin_map.insert(ft::make_pair<int, int>(5,12));
+    	origin_map.insert(ft::make_pair<int, int>(2,12));
+		ft::map<int, int>::iterator it_test = origin_map.begin();
+		std::cout << "******* print tree *********" << std::endl;
+		origin_map.Treeprint();
 		std::cout << it_test->first << " : " << it_test->second << std::endl;
 		it_test++;
 		std::cout << it_test->first << " : " << it_test->second << std::endl;
 		it_test--;
 		std::cout << it_test->first << " : " << it_test->second << std::endl;
-		it_test = _map2.end();
+		it_test = origin_map.end();
 		std::cout << it_test->first << " : " << it_test->second << std::endl;
 	}
+	
 	std::cout << "*********************************" << std::endl;
 	{
 		std::map<int, int> origin_map;
@@ -154,7 +148,7 @@ int main(){
     	origin_map.insert(std::make_pair<int, int>(5,12));
     	origin_map.insert(std::make_pair<int, int>(2,12));
 		std::map<int, int>::iterator it_test = origin_map.begin();
-		// printOriginalMap(origin_map.begin(), origin_map.end());
+		printOriginalMap(origin_map.begin(), origin_map.end());
 		std::cout << it_test->first << " : " << it_test->second << std::endl;
 		it_test++;
 		std::cout << it_test->first << " : " << it_test->second << std::endl;

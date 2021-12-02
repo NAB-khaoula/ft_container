@@ -108,9 +108,15 @@ namespace ft{
 			return (const_reverse_iterator (begin()));
 		}
 
-		pair<iterator,bool> insert (const value_type& val)
-		{
-			
+		pair<iterator,bool> insert (const value_type& val){
+			binaryTreeNode<value_type> *foundNode = _tree.search(val);
+			if (!foundNode)
+			{
+				_tree.insert(val);
+				return (make_pair<iterator, bool>(_tree.search(val), true));
+			}
+			else
+				return (make_pair<iterator, bool>(foundNode, false));
 		}
 
 		void Treeprint()

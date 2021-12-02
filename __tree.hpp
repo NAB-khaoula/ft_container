@@ -22,10 +22,10 @@ namespace ft{
 	class binarySearchTree
 	{
 		typedef typename Alloc::difference_type	difference_type;
-		typedef binaryTreeNode<T>		_node;
+		typedef binaryTreeNode<T>				_node;
 		Alloc				_allocator;
 		Compare				_compare;
-		_node*	_root;
+		_node*				_root;
 		public:
 
 		binarySearchTree() : _root(NULL), _allocator(Alloc()), _compare(Compare()){
@@ -172,26 +172,21 @@ namespace ft{
 				endNode->_left = _root;
 			}
 			else
-			{
 				_root = insert_node(_root, item);
-			}
-		}
-		_node *findNode(_node *node, T data)
-		{
-			if(_compare(data.first, node->_data.first))
-				node->_left = findNode(node->_left, data);
-			else if (data.first == node->_data.first)
-				return node;
-			else
-				node->_right = findNode(node->_right, data);
-			return NULL;
 		}
 
-		_node *search(T data){
-			if(isempty())
-				return NULL;
-			else
-				return (findNode(_root, data));
+		binaryTreeNode<T> *search(T data){
+			binaryTreeNode<T> *ptr = _root;
+			while(ptr)
+			{
+				if(_compare(data.first, ptr->_data.first))
+					ptr = ptr->_left;
+				else if (data.first == ptr->_data.first)
+					break;
+				else
+					ptr = ptr->_right;
+			}
+			return ptr;
 		}
 
 		T	getSubtreeMinimum(_node *subtree)
