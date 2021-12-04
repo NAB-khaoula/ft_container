@@ -48,13 +48,14 @@ namespace ft{
 		typedef typename allocator_type::difference_type						difference_type;
 		typedef binarySearchTree<value_type, key_compare>						binarySearchTree;
 		// NOTE constructors
-		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _tree(){}
+		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _tree(), _size(0){}
 		
 		template <class InputIterator>
 		map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()){
 			while(first != last)
 			{
 				_tree.insert(*first);
+				_size++;
 				first++;
 			}
 		}
@@ -66,6 +67,7 @@ namespace ft{
 		map& operator=(const map& x)
 		{
 			_tree = x._tree;
+			_size = x._size;
 			return (*this);
 		}
 		//FIXME need to destroy the object in my destructor;
@@ -108,16 +110,86 @@ namespace ft{
 			return (const_reverse_iterator (begin()));
 		}
 
+		// NOTE **************** insert *******************
+
 		pair<iterator,bool> insert (const value_type& val){
 			binaryTreeNode<value_type> *foundNode = _tree.search(val);
 			if (!foundNode)
 			{
 				_tree.insert(val);
+				_size++;
 				return (make_pair<iterator, bool>(_tree.search(val), true));
 			}
 			else
 				return (make_pair<iterator, bool>(foundNode, false));
 		}
+
+		// FIXME need to review the algorithm;
+		iterator insert (iterator position, const value_type& val){
+			_tree.insert(val);
+			_size++;
+			return (_tree.search(val));
+		}
+
+		template <class InputIterator>
+  		void insert (InputIterator first, InputIterator last){
+			while(first != last)
+			{
+				_tree.insert(*first);
+				_size++;
+				first++;
+			}
+		}
+
+		void clear(){
+			while(_size--)
+				_tree.delete_node(_tree.get_min()->_data);
+		}
+
+		size_type erase (const key_type& k){
+			_tree.delete_node(make_pair(k, mapped_type()));
+			return (1);
+		}
+
+		void erase (iterator position){
+			_tree.delete_node(*position);
+			_size--;
+		}
+
+		void erase (iterator first, iterator last){
+			while (first != last)
+			{
+				_tree.delete_node(*first);
+				first++;
+				_size--;
+			}
+		}
+
+		void swap (map& x){
+			map temp = x;
+			x = (*this);
+			(*this) = temp;
+		}
+
+		// NOTE **************** capacity *******************
+		bool empty() const{
+			return (_tree.isempty());
+		}
+
+		size_type size() const{
+			return (_size);
+		}
+
+		size_type max_size() const{
+			return (std::min(std::numeric_limits<difference_type>::max(), _allocator.max_size()));
+		}
+
+		// NOTE **************** Element access *******************
+		mapped_type& operator[] (const key_type& k){
+			return ((*((this->insert(make_pair(k,mapped_type()))).first)).second);
+		}
+
+		// NOTE **************** Operations: *******************
 
 		void Treeprint()
 		{
@@ -125,7 +197,9 @@ namespace ft{
 		}
 
 		protected:
-			binarySearchTree _tree;
+			binarySearchTree	_tree;
+			size_type			_size;
+			allocator_type		_allocator;
 	};
 		
 }

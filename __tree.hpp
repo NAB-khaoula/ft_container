@@ -30,7 +30,9 @@ namespace ft{
 
 		binarySearchTree() : _root(NULL), _allocator(Alloc()), _compare(Compare()){
 		}
-		
+		const _node*	getRoot() const{
+			return _root;
+		}
 		int isempty(){
 			return(_root == NULL);
 		}
@@ -138,6 +140,12 @@ namespace ft{
 			return node;
 		}
 
+		_node   *createNode(T item){
+			_node *p = _allocator.allocate(1);
+			_allocator.construct(p, item);
+			return p;
+		}
+
 		_node   *insert_node(_node *node, T item){
 			if (node == NULL)
 			{
@@ -175,13 +183,27 @@ namespace ft{
 				_root = insert_node(_root, item);
 		}
 
-		binaryTreeNode<T> *search(T data){
+		binaryTreeNode<T> *search(T const &data){
 			binaryTreeNode<T> *ptr = _root;
 			while(ptr)
 			{
 				if(_compare(data.first, ptr->_data.first))
 					ptr = ptr->_left;
 				else if (data.first == ptr->_data.first)
+					break;
+				else
+					ptr = ptr->_right;
+			}
+			return ptr;
+		}
+
+		binaryTreeNode<T> *searchTest(typename T::first_type const &data){
+			binaryTreeNode<T> *ptr = _root;
+			while(ptr)
+			{
+				if(_compare(data, ptr->_data.first))
+					ptr = ptr->_left;
+				else if (data == ptr->_data.first)
 					break;
 				else
 					ptr = ptr->_right;
@@ -212,8 +234,8 @@ namespace ft{
 					{
 						temp = node;
 						node = NULL;
+						_allocator.deallocate(temp, 1);
 					}	
-					_allocator.deallocate(temp, 1);
 				}
 				else
 				{
@@ -242,8 +264,9 @@ namespace ft{
 			if (isempty())
 				return;
 			else
-				DeleteNodeWithBalancing(_root, data);
+				_root = DeleteNodeWithBalancing(_root, data);
 		}
+
 	};
 }
 
