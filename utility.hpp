@@ -21,25 +21,25 @@ namespace ft{
 		template <class U, class V>
 			friend bool operator== (const pair<U,V>& lhs, const pair<U,V>& rhs)
 			{
-				return(lhs.first == rhs.first && lhs.second == rhs.second);
+				return (lhs.first==rhs.first && lhs.second==rhs.second);
 			}
 		
 		template <class U, class V>
 			friend bool operator!= (const pair<U,V>& lhs, const pair<U,V>& rhs)
 			{
-				return(!(lhs == rhs));
+				return (!(lhs==rhs));
 			}
 		
 		template <class U, class V>
 			friend bool operator<  (const pair<U,V>& lhs, const pair<U,V>& rhs)
 			{
-				return (lhs.first<rhs.first && lhs.second<rhs.second); 
+				return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second<rhs.second); 
 			}
 
 		template <class U, class V>
 			friend bool operator<= (const pair<U,V>& lhs, const pair<U,V>& rhs)
 			{ 
-				return (!(rhs<lhs)); 
+				return !(rhs<lhs);
 			}
 
 		template <class U, class V>

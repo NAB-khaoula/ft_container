@@ -63,6 +63,11 @@ namespace ft{
 			_tree_iterator(): _iter(NULL) {}
 			_tree_iterator(_treePointerNode iter) : _iter(iter) {}
 			_tree_iterator(_tree_iterator const& iter) : _iter(iter._iter){}
+			//REVIEW - need to look if the iterator got an assignement operator
+			_tree_iterator	&operator=(_tree_iterator const& iter){
+				this->_iter = iter._iter;
+				return (*this);
+			}
 			~_tree_iterator(){}
 			reference operator*() const{
 				return _iter->_data;

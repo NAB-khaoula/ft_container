@@ -15,7 +15,7 @@ namespace ft{
 		binaryTreeNode*	_left;
 		binaryTreeNode*	_right;
 		// NOTE check if T() works well, no segfault
-		binaryTreeNode(T& data = T()) : _data(data), _left(NULL), _right(NULL), _parent(NULL), height(1) {}
+		binaryTreeNode(T& data = T()) : _data(data), height(1), _parent(NULL), _left(NULL), _right(NULL){}
 	};
 
 	template <class T, class Compare, class Alloc = std::allocator<binaryTreeNode<T> > >
@@ -26,13 +26,11 @@ namespace ft{
 		Alloc				_allocator;
 		Compare				_compare;
 		_node*				_root;
+		_node*				endNode;
 		public:
 
-		binarySearchTree() : _root(NULL), _allocator(Alloc()), _compare(Compare()){
-		}
-		const _node*	getRoot() const{
-			return _root;
-		}
+		binarySearchTree() :  _allocator(Alloc()), _compare(Compare()), _root(NULL), endNode(NULL){}
+		
 		int isempty(){
 			return(_root == NULL);
 		}
@@ -173,17 +171,20 @@ namespace ft{
 		void	insert(T item){
 		   if(isempty())
 			{
-				_node *endNode = _allocator.allocate(1);
+				endNode = _allocator.allocate(1);
 				_root = _allocator.allocate(1);
 				_allocator.construct(_root, item);
 				_root->_parent = endNode;
 				endNode->_left = _root;
 			}
 			else
+			{
 				_root = insert_node(_root, item);
+				endNode->_left = _root;
+			}
 		}
 
-		binaryTreeNode<T> *search(T const &data){
+		binaryTreeNode<T> *search(T const &data) const{
 			binaryTreeNode<T> *ptr = _root;
 			while(ptr)
 			{

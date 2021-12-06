@@ -35,155 +35,47 @@ void	printOriginalMap(std::map<int, int>::iterator it_begin, std::map<int, int>:
 	}
 }
 
-int main(){
-	// binarySearchTree<pair<std::string, int>, std::less<std::string> > bst;
-	// bst.insert(make_pair<std::string, int>("esixth",8));
-	// bst.insert(make_pair<std::string, int>("afirst", 13));
-	// bst.insert(make_pair<std::string, int>("l",1));
-	// bst.insert(make_pair<std::string, int>("bsecond", 12));
-	// bst.insert(make_pair<std::string, int>("cthird",11));
-	// bst.insert(make_pair<std::string, int>("j",3));
-	// bst.insert(make_pair<std::string, int>("fourth",10));
-	// bst.insert(make_pair<std::string, int>("i",4));
-	// bst.insert(make_pair<std::string, int>("dfifth",9));
-	// bst.insert(make_pair<std::string, int>("fseventh",7));
-	// bst.insert(make_pair<std::string, int>("geighth",6));
-	// bst.insert(make_pair<std::string, int>("h",5));
-	// bst.insert(make_pair<std::string, int>("k",2));
-	// bst.printTree();
-	// **********************
-	// ft::map<int, std::string> _map;
-	// _map.insert(ft::make_pair<int, std::string>(10, "root"));
-	// _map.insert(ft::make_pair<int, std::string>(30, "right"));
-	// _map.insert(ft::make_pair<int, std::string>(5, "left"));
-	// _map.insert(ft::make_pair<int, std::string>(7, "left right"));
-	// _map.insert(ft::make_pair<int, std::string>(1, "left left"));
-	// _map.insert(ft::make_pair<int, std::string>(45, "right right"));
-	// _map.insert(ft::make_pair<int, std::string>(12, "right left"));
-	// _map.insert(ft::make_pair<int, std::string>(8, "left right left"));
-	// _map.insert(ft::make_pair<int, std::string>(9, "left right right"));
-	// _map.insert(ft::make_pair<int, std::string>(12, "right left"));
-	// _map.insert(ft::make_pair<int, std::string>(11, "right left left"));
-	// _map.insert(ft::make_pair<int, std::string>(17, "right left right"));
-	// _map.insert(ft::make_pair<int, std::string>(44, "right right left"));
-	// _map.insert(ft::make_pair<int, std::string>(50, "right right right"));
-	// _map.insert(ft::make_pair<int, std::string>(46, "right right right left"));
-	// _map.insert(ft::make_pair<int, std::string>(60, "right right right right"));
-	// _map.printTree();
-	// ft::map<int, int>::binarySearchTree _map;
-	// _map.insert(ft::make_pair<int, int>(20,20));
-	// _map.insert(ft::make_pair<int, int>(10,10));
-	// _map.insert(ft::make_pair<int, int>(45,45));
-	// _map.insert(ft::make_pair<int, int>(5,5));
-	// _map.insert(ft::make_pair<int, int>(15,15));
-	// _map.insert(ft::make_pair<int, int>(30,30));
-	// _map.insert(ft::make_pair<int, int>(50,50));
-	// _map.printTree();
-	// it--;
-	// std::cout << it->first << std::endl;
-	// it--;
-	// std::cout << it->first << std::endl;
-	// it--;
-	// std::cout << it->first << std::endl;
-	// it--;
-	// std::cout << it->first << std::endl;
-	// it--;
-	// std::cout << it->first << std::endl;
-	// _map.insert(ft::make_pair<int, int>(20,0));
-	// _map.insert(ft::make_pair<int, int>(30,0));
-	// _map.insert(ft::make_pair<int, int>(40,0));
-	// _map.insert(ft::make_pair<int, int>(50,0));
-	// _map.insert(ft::make_pair<int, int>(60,0));
-	// _map.insert(ft::make_pair<int, int>(70,0));
-	// _map.insert(ft::make_pair<int, int>(80,0));
-	// _map.insert(ft::make_pair<int, int>(95,0));
-	// _map.insert(ft::make_pair<int, int>(100,0));
-	// _map.insert(ft::make_pair<int, int>(45,0));
-	// _map.insert(ft::make_pair<int, int>(33,0));
-	// _map.insert(ft::make_pair<int, int>(25,0));
-	// _map.insert(ft::make_pair<int, int>(10,0));
+int main()
+{
+	std::cout << "****** original *******" << std::endl;
+	{  
+	  	std::map<char,int> mymap;
+  		std::map<char,int>::iterator itlow,itup;
 
-	// _map.insert(ft::make_pair<int, int>(30,0));
-	// _map.insert(ft::make_pair<int, int>(20,0));
-	// _map.insert(ft::make_pair<int, int>(21,0));
+  		mymap['a']=20;
+  		mymap['b']=40;
+  		mymap['c']=60;
+  		mymap['d']=80;
+  		mymap['e']=100;
 
-	std::cout << "************** duplicated *******************" << std::endl;
-	{
-		ft::map<int, int> origin_map;
-		origin_map.insert(ft::make_pair<int, int>(50,10));
-    	origin_map.insert(ft::make_pair<int, int>(40,11));
-    	origin_map.insert(ft::make_pair<int, int>(30,12));
-		ft::map<int, int>::iterator it = origin_map.begin();
-		// it++;
-    	// origin_map.insert(it, ft::make_pair<int, int>(20,12));
-    	// origin_map.insert(it, ft::make_pair<int, int>(15,12));
-    	// origin_map.insert(origin_map.end(), ft::make_pair<int, int>(15,12));
-		// ft::map<int, int> anothermap(origin_map.begin(), origin_map.end());
-    	// origin_map.insert(ft::make_pair<int,int>(30,12));
-    	// origin_map.insert(ft::make_pair<int, int>(20,12));
-    	// origin_map.insert(ft::make_pair<int, int>(61,12));
-    	// origin_map.insert(ft::make_pair<int, int>(70,12));
-    	// origin_map.insert(ft::make_pair<int, int>(55,12));
-    	// origin_map.insert(ft::make_pair<int, int>(41,12));
-    	// origin_map.insert(ft::make_pair<int, int>(10,12));
-    	// origin_map.insert(ft::make_pair<int, int>(5,12));
-    	// origin_map.insert(ft::make_pair<int, int>(2,12));
-		// ft::map<int, int>::iterator it_test = origin_map.begin();
-		// std::cout << "******* print tree *********" << std::endl;
-		// std::cout << origin_map[70] << std::endl;
-		// origin_map.Treeprint();
-		ft::map<int, int> anothermap;
-		anothermap.insert(ft::make_pair<int, int>(500,10));
-    	anothermap.insert(ft::make_pair<int, int>(400,11));
-    	anothermap.insert(ft::make_pair<int, int>(300,12));
-		origin_map.Treeprint();
-		std::cout << "***************************" << std::endl;
-		anothermap.Treeprint();
-		origin_map.swap(anothermap);
-		std::cout << "***** after swaping *******" << std::endl;
-		origin_map.Treeprint();
-		std::cout << "***************************" << std::endl;
-		anothermap.Treeprint();
-		// anothermap.Treeprint();
-		// std::cout << origin_map.size() << std::endl;
-		// std::cout << it->first << " : " << it->second << std::endl;
-		// it_test++;
-		// std::cout << it_test->first << " : " << it_test->second << std::endl;
-		// it_test--;
-		// std::cout << it_test->first << " : " << it_test->second << std::endl;
-		// it_test = origin_map.end();
-		// std::cout << it_test->first << " : " << it_test->second << std::endl;
+  		itlow=mymap.lower_bound ('b');  // itlow points to b
+  		itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+
+  		mymap.erase(itlow,itup);        // erases [itlow,itup)
+
+  		// print content:
+  		for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+  		  std::cout << it->first << " => " << it->second << '\n';
 	}
-	
-	// std::cout << "************** original *******************" << std::endl;
-	// {
-	// 	std::map<int, int> origin_map;
-	// 	origin_map.insert(std::make_pair<int, int>(50,10));
-    // 	origin_map.insert(std::make_pair<int,int>(40,11));
-    // 	origin_map.insert(std::make_pair<int,int>(30,12));
-	// 	std::map<int, int>::iterator it = origin_map.begin();
-		// it++;
-    	// origin_map.insert(it , std::make_pair<int, int>(15,12));
-    	// origin_map.insert(std::make_pair<int, int>(61,12));
-    	// origin_map.insert(std::make_pair<int, int>(70,12));
-    	// origin_map.insert(std::make_pair<int, int>(55,12));
-    	// origin_map.insert(std::make_pair<int, int>(41,12));
-    	// origin_map.insert(std::make_pair<int, int>(10,12));
-    	// origin_map.insert(std::make_pair<int, int>(5,12));
-    	// origin_map.insert(std::make_pair<int, int>(2,12));
-		// std::map<int, int>::iterator it_test = origin_map.begin();
-		// std::cout << origin_map[70] << std::endl;
-		// printOriginalMap(origin_map.begin(), origin_map.end());
-		// origin_map.clear();
-		// std::cout << "***** after deletion *******" << std::endl;
-		// printOriginalMap(origin_map.begin(), origin_map.end());
-		// std::cout << origin_map.size() << std::endl;
-		// it_test++;
-		// std::cout << it_test->first << " : " << it_test->second << std::endl;
-		// it_test--;
-		// std::cout << it_test->first << " : " << it_test->second << std::endl;
-		// it_test = origin_map.end();
-		// std::cout << it_test->first << " : " << it_test->second << std::endl;
-	// }
+	std::cout << "****** duplicated *******" << std::endl;
+	{
+		ft::map<char,int> mymap;
+  		ft::map<char,int>::iterator itlow,itup;
+
+  		mymap['a']=20;
+  		mymap['b']=40;
+  		mymap['c']=60;
+  		mymap['d']=80;
+  		mymap['e']=100;
+
+  		itlow=mymap.lower_bound ('b');  // itlow points to b
+  		itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+
+  		mymap.erase(itlow,itup);        // erases [itlow,itup)
+
+  		// print content:
+  		for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+  		  std::cout << it->first << " => " << it->second << '\n';
+	}
 }
 

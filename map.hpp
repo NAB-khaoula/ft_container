@@ -1,9 +1,9 @@
 #ifndef MAP_HPP
 #define MAP_HPP
-#include <memory>
-#include <iostream>
-#include <math.h>
-#include <cstddef>
+// #include <memory>
+// #include <iostream>
+// #include <math.h>
+// #include <cstddef>
 #include "algorithm.hpp"
 #include "type_traits.hpp"
 #include "utility.hpp"
@@ -48,7 +48,10 @@ namespace ft{
 		typedef typename allocator_type::difference_type						difference_type;
 		typedef binarySearchTree<value_type, key_compare>						binarySearchTree;
 		// NOTE constructors
-		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _tree(), _size(0){}
+		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _tree(), _size(0){
+			static_cast<void>(comp);
+			static_cast<void>(alloc);
+		}
 		
 		template <class InputIterator>
 		map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()){
@@ -58,6 +61,8 @@ namespace ft{
 				_size++;
 				first++;
 			}
+			static_cast<void>(comp);
+			static_cast<void>(alloc);
 		}
 		
 		map (const map& x){
@@ -128,6 +133,7 @@ namespace ft{
 		iterator insert (iterator position, const value_type& val){
 			_tree.insert(val);
 			_size++;
+			static_cast<void>(position);
 			return (_tree.search(val));
 		}
 
@@ -146,6 +152,7 @@ namespace ft{
 				_tree.delete_node(_tree.get_min()->_data);
 		}
 
+		//FIXME - returning either 0 or 1;
 		size_type erase (const key_type& k){
 			_tree.delete_node(make_pair(k, mapped_type()));
 			return (1);
@@ -186,10 +193,83 @@ namespace ft{
 
 		// NOTE **************** Element access *******************
 		mapped_type& operator[] (const key_type& k){
-			return ((*((this->insert(make_pair(k,mapped_type()))).first)).second);
+			// return ((*((this->insert(ft::make_pair(k,mapped_type()))).first)).second);
+			iterator	findNode = _tree.search(make_pair<key_type, mapped_type>(k, mapped_type()));
+			if(findNode)
+				return findNode->second;
+			else
+			{
+				_tree.insert(make_pair<key_type, mapped_type>(k, mapped_type()));
+				_size++;
+				findNode = _tree.search(make_pair<key_type, mapped_type>(k, mapped_type()));
+				return findNode->second;
+			}
+
 		}
 
 		// NOTE **************** Operations: *******************
+		
+		iterator find (const key_type& k){
+			return (_tree.search(make_pair<key_type, mapped_type>(k, mapped_type())));
+		}
+
+		//FIXME - have a problem with const!!!!!!!
+		const_iterator find (const key_type& k) const{
+			const_iterator it = _tree.search(make_pair<key_type, mapped_type>(k, mapped_type()));
+			return it;
+			// return (_tree.search(make_pair<key_type, mapped_type>(k, mapped_type())));
+		}
+
+		size_type count (const key_type& k) const{
+			if (_tree.search(make_pair<key_type, mapped_type>(k, mapped_type())))
+				return 1;
+			return 0;
+		}
+
+		iterator lower_bound (const key_type& k){
+			iterator it = this->begin();
+			key_compare comparing;
+			while(it != this->end())
+			{
+				if (!(comparing(it->first,k)))
+					return (it); 
+				it++;
+			}
+			return it;
+		}
+
+		iterator upper_bound (const key_type& k){
+			iterator it = this->begin();
+			key_compare comparing;
+			while(it != this->end())
+			{
+				if (it->first == k)
+					return (++it);
+				if (!(comparing(it->first,k)))
+					return (it); 
+				it++;
+			}
+			return it;
+		}
+
+		pair<iterator,iterator>	equal_range (const key_type& k){
+			return(make_pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
+		}
+
+		// NOTE **************** Observers: *******************
+
+		key_compare key_comp() const{
+			return (key_compare());
+		}
+
+		value_compare value_comp() const{
+			// value_compare test();
+			return (value_compare(key_compare()));
+		}
+		// NOTE **************** Allocator:: *******************
+		allocator_type get_allocator() const{
+			return (allocator_type());
+		}
 
 		void Treeprint()
 		{

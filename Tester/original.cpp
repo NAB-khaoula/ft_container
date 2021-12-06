@@ -1,5 +1,6 @@
 #include <vector>
 #include <stack>
+#include <map>
 #include <iterator>
 #include <iostream>
 
@@ -27,9 +28,9 @@ typedef struct data
 
 int main()
 {
-	// *************************************************************************
-	//                             NOTE - Vector
-	// *************************************************************************
+	std::cout << "*************************************************************************" << std::endl;
+    std::cout << "\t\t\t\tVECTOR" << std::endl;
+    std::cout << "*************************************************************************" << std::endl;
 
 	// NOTE - Constructor
 	{
@@ -413,9 +414,9 @@ int main()
 		std::cout << '\n';
 	}
 
-	// *************************************************************************
-	// 							NOTE - Stack
-	// *************************************************************************
+	std::cout << "*************************************************************************" << std::endl;
+    std::cout << "\t\t\t\tSTACK" << std::endl;
+    std::cout << "*************************************************************************" << std::endl;
 
 	// NOTE - std::stack::stack
 	{
@@ -627,4 +628,357 @@ int main()
 				<< "the stack s3." << std::endl;
 	}
 	//NOTE:
+
+	 std::cout << "*************************************************************************" << std::endl;
+    std::cout << "\t\t\t\tMap" << std::endl;
+    std::cout << "*************************************************************************" << std::endl;
+
+    // NOTE - Construct pair
+    {
+        std::cout << "------------- Library FT -------------" << std::endl;
+        std::pair<std::string, double> product1;
+        std::pair<std::string, double> product2("tomatoes", 2.30);
+        std::pair<std::string, double> product3(product2);
+        product1 = std::make_pair(std::string("lightbulbs"), 0.99); // using make_pair (move)
+        product2.first = "shoes";
+        product2.second = 39.90;
+        std::cout << "The price of " << product1.first << " is $" << product1.second << '\n';
+        std::cout << "The price of " << product2.first << " is $" << product2.second << '\n';
+        std::cout << "The price of " << product3.first << " is $" << product3.second << '\n';
+    }
+
+    // NOTE - pair::operator= example
+    {
+        std::cout << "------------- Library FT -------------" << std::endl;
+        std::pair<std::string, int> planet("Earth", 6371), homeplanet;
+        planet = std::make_pair("Earth", 6371);
+        homeplanet = planet;
+        std::cout << "Home planet: " << homeplanet.first << '\n';
+        std::cout << "Planet size: " << homeplanet.second << '\n';
+    }
+
+    // NOTE - make_pair example
+    {
+        std::cout << "------------- Library FT -------------" << std::endl;
+        std::pair<int, int> foo;
+        std::pair<int, int> bar;
+        foo = std::make_pair(10, 20);
+        bar = std::make_pair(10.5, 'A'); // ok: implicit conversion from pair<double,char>
+        std::cout << "foo: " << foo.first << ", " << foo.second << '\n';
+        std::cout << "bar: " << bar.first << ", " << bar.second << '\n';
+    }
+
+    // NOTE - Relational operators for pair
+    {
+        std::cout << "------------- Library FT -------------" << std::endl;
+        std::pair<int, char> foo(10, 'z');
+        std::pair<int, char> bar(90, 'a');
+        if (foo == bar)
+            std::cout << "foo and bar are equal\n";
+        if (foo != bar)
+            std::cout << "foo and bar are not equal\n";
+        if (foo < bar)
+            std::cout << "foo is less than bar\n";
+        if (foo > bar)
+            std::cout << "foo is greater than bar\n";
+        if (foo <= bar)
+            std::cout << "foo is less than or equal to bar\n";
+        if (foo >= bar)
+            std::cout << "foo is greater than or equal to bar\n";
+    }
+
+    // NOTE - Construct map
+    {
+        std::cout << "------------- Library FT -------------" << std::endl;
+        std::map<char, int> first;
+        first['a'] = 10;
+        first['b'] = 30;
+        first['c'] = 50;
+        first['d'] = 70;
+        std::map<char, int> second(first.begin(), first.end());
+        for (std::map<char, int>::iterator i = second.begin(); i != second.end(); i++)
+            std::cout << i->first << "\t" << i->second << std::endl;
+    }
+
+    // // NOTE - Access element
+    {
+        std::cout << "------------- Library FT -------------" << std::endl;
+        std::map<char, std::string> mymap;
+        mymap['a'] = "an element";
+        mymap['b'] = "another element";
+        mymap['c'] = mymap['b'];
+        std::cout << "mymap['a'] is " << mymap['a'] << '\n';
+        std::cout << "mymap['b'] is " << mymap['b'] << '\n';
+        std::cout << "mymap['c'] is " << mymap['c'] << '\n';
+        std::cout << "mymap['d'] is " << mymap['d'] << '\n';
+        std::cout << "mymap now contains " << mymap.size() << " elements.\n";
+    }
+
+    // // NOTE - Test whether container is empty
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     std::map<char, int> mymap;
+    //     mymap['a'] = 10;
+    //     mymap['b'] = 20;
+    //     mymap['c'] = 30;
+    //     while (!mymap.empty())
+    //     {
+    //         std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
+    //         mymap.erase(mymap.begin());
+    //     }
+    // }
+
+    // // NOTE - Return maximum size
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     int i;
+    //     std::map<int, int> mymap;
+    //     if (mymap.max_size() > 1000)
+    //     {
+    //         for (i = 0; i < 1000; i++)
+    //             mymap[i] = i;
+    //         std::cout << "The map contains 1000 elements.\n";
+    //     }
+    //     std::cout << mymap.max_size() << std::endl;
+    // }
+
+    // // NOTE - Insert elements
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     // first insert function version (single parameter):
+    //     std::map<char, int> mymap;
+    //     mymap.insert(std::pair<char, int>('a', 100));
+    //     mymap.insert(std::pair<char, int>('z', 200));
+    //     std::pair<std::map<char, int>::iterator, bool> ret;
+    //     ret = mymap.insert(std::pair<char, int>('z', 500));
+    //     if (ret.second == false)
+    //     {
+    //         std::cout << "element 'z' already existed";
+    //         std::cout << " with a value of " << ret.first->second << '\n';
+    //     }
+    //     std::cout << mymap.size() << std::endl;
+    //     // second insert function version (with hint position):
+    //     std::map<char, int>::iterator it = mymap.begin();
+    //     mymap.insert(it, std::pair<char, int>('b', 300)); // max efficiency inserting
+    //     mymap.insert(it, std::pair<char, int>('c', 400));
+    //     std::cout << "mymap contains:\n";
+    //     for (it = mymap.begin(); it != mymap.end(); ++it)
+    //         std::cout << it->first << " => " << it->second << '\n';
+    //     // third insert function version (range insertion):
+    //     std::map<char, int> anothermap;
+    //     anothermap.insert(mymap.begin(), mymap.end());
+    //     for (std::map<char, int>::iterator i = anothermap.begin(); i != anothermap.end(); i++)
+    //     {
+    //         std::cout << i->first << "\t" << i->second << std::endl;
+    //     }
+    // }
+
+    // // NOTE - Clear content
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     std::map<char, int> mymap;
+    //     mymap['x'] = 100;
+    //     mymap['y'] = 200;
+    //     mymap['z'] = 300;
+    //     std::cout << "mymap contains:\n";
+    //     for (std::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
+    //         std::cout << it->first << " => " << it->second << '\n';
+    //     mymap.clear();
+    //     mymap['a'] = 1101;
+    //     mymap['b'] = 2202;
+    //     std::cout << "mymap contains:\n";
+    //     for (std::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
+    //         std::cout << it->first << " => " << it->second << '\n';
+    // }
+
+    // // NOTE - Assignement Operator (new_map = old_map)
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     std::map<char, int> first;
+    //     std::map<char, int> second;
+    //     first['x'] = 8;
+    //     first['y'] = 16;
+    //     first['z'] = 32;
+    //     second = first;               // second now contains 3 ints
+    //     first = std::map<char, int>(); // and first is now empty
+    //     std::cout << "Size of first: " << first.size() << '\n';
+    //     std::cout << "Size of second: " << second.size() << '\n';
+    // }
+
+    // // NOTE - Erase elements
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     std::map<char, int> mymap;
+    //     // insert some values:
+    //     mymap['a'] = 10;
+    //     mymap['b'] = 20;
+    //     mymap['c'] = 30;
+    //     mymap['d'] = 40;
+    //     mymap['e'] = 50;
+    //     mymap['f'] = 60;
+    //     std::map<char, int>::iterator it = mymap.begin();
+    //     it = mymap.find('b');
+    //     mymap.erase(it);  // erasing by iterator
+    //     mymap.erase('c'); // erasing by key
+    //     it = mymap.find('e');
+    //     mymap.erase(it, mymap.end()); // erasing by range
+    //     // show content:
+    //     for (it = mymap.begin(); it != mymap.end(); ++it)
+    //     {
+    //         std::cout << it->first << " => " << it->second << '\n';
+    //     }
+    // }
+
+    // // NOTE - Swap content
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     std::map<char, int> foo, bar;
+    //     foo['x'] = 100;
+    //     foo['y'] = 200;
+
+    //     bar['a'] = 11;
+    //     bar['b'] = 22;
+    //     bar['c'] = 33;
+    //     foo.swap(bar);
+    //     std::cout << "foo contains:\n";
+    //     for (std::map<char, int>::iterator it = foo.begin(); it != foo.end(); ++it)
+    //     {
+    //         std::cout << it->first << " => " << it->second << '\n';
+    //     }
+    //     std::cout << "bar contains:\n";
+    //     for (std::map<char, int>::iterator it = bar.begin(); it != bar.end(); ++it)
+    //         std::cout << it->first << " => " << it->second << '\n';
+    // }
+
+    // // NOTE - Return key comparison object
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     std::map<char, int> mymap;
+    //     mymap['a'] = 100;
+    //     mymap['b'] = 200;
+    //     mymap['c'] = 300;
+    //     std::cout << "mymap contains:\n";
+    //     char highest = mymap.rbegin()->first; // key value of last element
+    //     std::map<char, int>::iterator it = mymap.begin();
+    //     do
+    //     {
+    //         std::cout << it->first << " => " << it->second << '\n';
+    //     } while (mymap.key_comp()((*it++).first, highest));
+    //     std::cout << '\n';
+    // }
+
+    // // NOTE - Return value comparison object
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     std::map<char, int, std::greater<char> > mymap;
+    //     mymap['x'] = 1001;
+    //     mymap['y'] = 2002;
+    //     mymap['z'] = 3003;
+    //     std::cout << "mymap contains:\n";
+    //     std::pair<char, int> highest = *mymap.rbegin(); // last element
+    //     std::map<char, int, std::greater<char> >::iterator it = mymap.begin();
+    //     do
+    //     {
+    //         std::cout << it->first << " => " << it->second << '\n';
+    //     } while (mymap.value_comp()(*it++, highest));
+    // }
+
+    // // NOTE - Get iterator to element
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     std::map<char, int> mymap;
+    //     std::map<char, int>::iterator it;
+    //     mymap['a'] = 50;
+    //     mymap['b'] = 100;
+    //     mymap['c'] = 150;
+    //     mymap['d'] = 200;
+    //     it = mymap.find('b');
+    //     if (it != mymap.end())
+    //         mymap.erase(it);
+    //     // print content:
+    //     std::cout << "elements in mymap:" << '\n';
+    //     std::cout << "a => " << mymap.find('a')->second << '\n';
+    //     std::cout << "c => " << mymap.find('c')->second << '\n';
+    //     std::cout << "d => " << mymap.find('d')->second << '\n';
+    // }
+
+    // // NOTE - Count elements with a specific key
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     std::map<char, int> mymap;
+    //     char c;
+    //     mymap['a'] = 101;
+    //     mymap['c'] = 202;
+    //     mymap['f'] = 303;
+    //     for (c = 'a'; c < 'h'; c++)
+    //     {
+    //         std::cout << c;
+    //         if (mymap.count(c) > 0)
+    //             std::cout << " is an element of mymap.\n";
+    //         else
+    //             std::cout << " is not an element of mymap.\n";
+    //     }
+    // }
+
+    // // NOTE - Return iterator to lower bound
+    // // NOTE - Return iterator to upper bound
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     std::map<char, int> mymap;
+    //     std::map<char, int>::iterator itlow, itup;
+    //     mymap['a'] = 20;
+    //     mymap['b'] = 40;
+    //     mymap['c'] = 60;
+    //     mymap['d'] = 80;
+    //     mymap['e'] = 100;
+    //     itlow = mymap.lower_bound('b'); // itlow points to b
+    //     itup = mymap.upper_bound('d');  // itup points to e (not d!)
+    //     mymap.erase(itlow, itup);       // erases [itlow,itup)
+    //     // print content:
+    //     for (std::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
+    //         std::cout << it->first << " => " << it->second << '\n';
+    // }
+
+    // // NOTE - Get range of equal elements
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     std::map<char, int> mymap;
+    //     mymap['a'] = 10;
+    //     mymap['b'] = 20;
+    //     mymap['c'] = 30;
+    //     std::pair<std::map<char, int>::iterator, std::map<char, int>::iterator> ret;
+    //     ret = mymap.equal_range('b');
+    //     std::cout << "lower bound points to: ";
+    //     std::cout << ret.first->first << " => " << ret.first->second << '\n';
+    //     std::cout << "upper bound points to: ";
+    //     std::cout << ret.second->first << " => " << ret.second->second << '\n';
+    // }
+
+    // // NOTE - Get allocator
+    // {
+    //     std::cout << "------------- Library FT -------------" << std::endl;
+    //     int psize;
+    //     std::map<char, int> mymap;
+    //     std::pair<const char, int> *p;
+    //     // allocate an array of 5 elements using mymap's allocator:
+    //     p = mymap.get_allocator().allocate(5);
+    //     // assign some values to array
+    //     psize = sizeof(std::map<char, int>::value_type) * 5;
+    //     std::cout << "The allocated array has a size of " << psize << " bytes.\n";
+    //     mymap.get_allocator().deallocate(p, 5);
+
+    //     std::map<int, std::string> m;
+    //     m.insert(std::make_pair(1, "mojahid"));
+    //     m.insert(std::make_pair(2, "yassir"));
+    //     m.insert(std::make_pair(3, "zakaria"));
+    //     std::map<int, std::string>::iterator it = m.begin();
+    //     m[3] = "khaoula";
+    //     for (; it != m.end(); it++)
+    //     {
+    //         std::cout << it->first << "\t" << it->second << std::endl;
+    //     }
+    // }
+
+    // std::map<int, int> m;
+
 }	
