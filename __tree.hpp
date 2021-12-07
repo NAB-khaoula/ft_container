@@ -22,6 +22,7 @@ namespace ft{
 	class binarySearchTree
 	{
 		typedef typename Alloc::difference_type	difference_type;
+		typedef typename Alloc::size_type		size_type;
 		typedef binaryTreeNode<T>				_node;
 		Alloc				_allocator;
 		Compare				_compare;
@@ -31,7 +32,7 @@ namespace ft{
 
 		binarySearchTree() :  _allocator(Alloc()), _compare(Compare()), _root(NULL), endNode(NULL){}
 		
-		int isempty(){
+		int isempty() const{
 			return(_root == NULL);
 		}
 
@@ -267,7 +268,9 @@ namespace ft{
 			else
 				_root = DeleteNodeWithBalancing(_root, data);
 		}
-
+		size_type max_size() const{
+			return (std::min<size_type>(std::numeric_limits<difference_type>::max(), _allocator.max_size()));
+		}
 	};
 }
 

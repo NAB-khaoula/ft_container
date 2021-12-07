@@ -718,32 +718,32 @@ int main()
     }
 
     // // NOTE - Test whether container is empty
-    // {
-    //     std::cout << "------------- Library FT -------------" << std::endl;
-    //     ft::map<char, int> mymap;
-    //     mymap['a'] = 10;
-    //     mymap['b'] = 20;
-    //     mymap['c'] = 30;
-    //     while (!mymap.empty())
-    //     {
-    //         std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
-    //         mymap.erase(mymap.begin());
-    //     }
-    // }
+    {
+        std::cout << "------------- Library FT -------------" << std::endl;
+        ft::map<char, int> mymap;
+        mymap['a'] = 10;
+        mymap['b'] = 20;
+        mymap['c'] = 30;
+        while (!mymap.empty())
+        {
+            std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
+            mymap.erase(mymap.begin());
+        }
+    }
 
     // // NOTE - Return maximum size
-    // {
-    //     std::cout << "------------- Library FT -------------" << std::endl;
-    //     int i;
-    //     ft::map<int, int> mymap;
-    //     if (mymap.max_size() > 1000)
-    //     {
-    //         for (i = 0; i < 1000; i++)
-    //             mymap[i] = i;
-    //         std::cout << "The map contains 1000 elements.\n";
-    //     }
-    //     std::cout << mymap.max_size() << std::endl;
-    // }
+    {
+        std::cout << "------------- Library FT -------------" << std::endl;
+        int i;
+        ft::map<int, int> mymap;
+        // if (mymap.max_size() > 1000)
+        // {
+        //     for (i = 0; i < 1000; i++)
+        //         mymap[i] = i;
+        //     std::cout << "The map contains 1000 elements.\n";
+        // }
+        std::cout << mymap.max_size() << std::endl;
+    }
 
     // // NOTE - Insert elements
     // {

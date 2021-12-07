@@ -123,10 +123,10 @@ namespace ft{
 			{
 				_tree.insert(val);
 				_size++;
-				return (make_pair<iterator, bool>(_tree.search(val), true));
+				return (pair<iterator, bool>(_tree.search(val), true));
 			}
 			else
-				return (make_pair<iterator, bool>(foundNode, false));
+				return (pair<iterator, bool>(foundNode, false));
 		}
 
 		// FIXME need to review the algorithm;
@@ -188,23 +188,12 @@ namespace ft{
 		}
 
 		size_type max_size() const{
-			return (std::min(std::numeric_limits<difference_type>::max(), _allocator.max_size()));
+			return (_tree.max_size());
 		}
 
 		// NOTE **************** Element access *******************
 		mapped_type& operator[] (const key_type& k){
-			// return ((*((this->insert(ft::make_pair(k,mapped_type()))).first)).second);
-			iterator	findNode = _tree.search(make_pair<key_type, mapped_type>(k, mapped_type()));
-			if(findNode)
-				return findNode->second;
-			else
-			{
-				_tree.insert(make_pair<key_type, mapped_type>(k, mapped_type()));
-				_size++;
-				findNode = _tree.search(make_pair<key_type, mapped_type>(k, mapped_type()));
-				return findNode->second;
-			}
-
+			return ((*((this->insert(pair<key_type, mapped_type>(k,mapped_type()))).first)).second);
 		}
 
 		// NOTE **************** Operations: *******************
