@@ -61,14 +61,23 @@ namespace ft{
 			typedef typename iterator_traits<T *>::difference_type	difference_type;
 			// NOTE constructor;			
 			_tree_iterator(): _iter(NULL) {}
+
 			_tree_iterator(_treePointerNode iter) : _iter(iter) {}
-			_tree_iterator(_tree_iterator const& iter) : _iter(iter._iter){}
+
+			template<class T1, class Node>
+			_tree_iterator(const _tree_iterator<T1, Node> & iter) : _iter(iter.base()){}
+
 			//REVIEW - need to look if the iterator got an assignement operator
-			_tree_iterator	&operator=(_tree_iterator const& iter){
+			_tree_iterator	&operator=(const _tree_iterator& iter){
 				this->_iter = iter._iter;
 				return (*this);
 			}
+			
 			~_tree_iterator(){}
+
+			_treePointerNode	base() const {
+				return _iter;
+			}
 			reference operator*() const{
 				return _iter->_data;
 			}

@@ -37,45 +37,22 @@ void	printOriginalMap(std::map<int, int>::iterator it_begin, std::map<int, int>:
 
 int main()
 {
-	std::cout << "****** original *******" << std::endl;
-	{  
-	  	std::map<char,int> mymap;
-  		std::map<char,int>::iterator itlow,itup;
-
-  		mymap['a']=20;
-  		mymap['b']=40;
-  		mymap['c']=60;
-  		mymap['d']=80;
-  		mymap['e']=100;
-
-  		itlow=mymap.lower_bound ('b');  // itlow points to b
-  		itup=mymap.upper_bound ('d');   // itup points to e (not d!)
-
-  		mymap.erase(itlow,itup);        // erases [itlow,itup)
-
-  		// print content:
-  		for (std::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-  		  std::cout << it->first << " => " << it->second << '\n';
-	}
-	std::cout << "****** duplicated *******" << std::endl;
-	{
-		ft::map<char,int> mymap;
-  		ft::map<char,int>::iterator itlow,itup;
-
-  		mymap['a']=20;
-  		mymap['b']=40;
-  		mymap['c']=60;
-  		mymap['d']=80;
-  		mymap['e']=100;
-
-  		itlow=mymap.lower_bound ('b');  // itlow points to b
-  		itup=mymap.upper_bound ('d');   // itup points to e (not d!)
-
-  		mymap.erase(itlow,itup);        // erases [itlow,itup)
-
-  		// print content:
-  		for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-  		  std::cout << it->first << " => " << it->second << '\n';
-	}
+	ft::map<int, int> mymap;
+    // insert some values:
+    mymap[10] = 10;
+    mymap[20] = 20;
+    mymap[30] = 30;
+    mymap[40] = 40;
+    mymap[50] = 50;
+    mymap[60] = 60;
+    ft::map<int, int>::iterator it = mymap.begin();
+    it = mymap.find(20);
+    mymap.erase(it);  // erasing by iterator
+    // mymap.erase(30); // erasing by key
+    // it = mymap.find(50);
+    // mymap.erase(it, mymap.end()); // erasing by range
+    // show content:
+    for (it = mymap.begin(); it != mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
 }
 

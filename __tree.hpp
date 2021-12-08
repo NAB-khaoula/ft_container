@@ -30,8 +30,19 @@ namespace ft{
 		_node*				endNode;
 		public:
 
-		binarySearchTree() :  _allocator(Alloc()), _compare(Compare()), _root(NULL), endNode(NULL){}
-		
+		binarySearchTree() :  _allocator(Alloc()), _compare(Compare()), _root(NULL), endNode(NULL){
+		}
+
+		~binarySearchTree(){
+			// FIXME - need to delete the endnode!!!!!
+			// while(_root)
+			// {
+			// 	delete_node(_root->_data);
+			// }
+		}
+
+		//FIXME - need to add assignment operator;
+
 		int isempty() const{
 			return(_root == NULL);
 		}
@@ -53,19 +64,21 @@ namespace ft{
 				std::cout << "empty tree!" << std::endl;
 		}
 
-		_node *get_min()
+		_node *get_min() const
 		{
 			_node *ptr = _root;
-			while(ptr->_left)
-				ptr = ptr->_left;
+			if (ptr)
+				while(ptr->_left)
+					ptr = ptr->_left;
 			return ptr;
 		}
 
-		_node *get_max()
+		_node *get_max() const
 		{
 			_node *ptr = _root;
-			while(ptr->_right)
-				ptr = ptr->_right;
+			if (ptr)
+				while(ptr->_right)
+					ptr = ptr->_right;
 			return ptr;
 		}
 
@@ -145,7 +158,7 @@ namespace ft{
 			return p;
 		}
 
-		_node   *insert_node(_node *node, T item){
+		_node   *insert_node(_node *node, T& item){
 			if (node == NULL)
 			{
 				_node *p = _allocator.allocate(1);

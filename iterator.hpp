@@ -71,7 +71,8 @@ template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T
 			customizedIterator(iterator_type iter): _iter(iter){	
 			}
 
-			customizedIterator(const customizedIterator& iter): _iter(iter._iter){
+			template<class Iterator1>
+			customizedIterator(const customizedIterator<Iterator1>& iter): _iter(iter.base()){
 			}
 
 			//****************** constructors ***************************
