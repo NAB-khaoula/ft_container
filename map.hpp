@@ -183,17 +183,22 @@ namespace ft{
 		}
 
 		void erase (iterator position){
-			_tree.delete_node(*position);
-			_size--;
+			if (_tree.search(*position))
+			{
+				_tree.delete_node(*position);
+				_size--;
+			}
 		}
 
 		void erase (iterator first, iterator last){
+			last--;
 			while (first != last)
 			{
 				_tree.delete_node(*first);
 				first++;
-				_size--;
 			}
+			_tree.delete_node(*first);
+			_size--;
 		}
 
 		void swap (map& x){

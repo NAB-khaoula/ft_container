@@ -101,8 +101,8 @@ namespace ft{
 			node = temp->_right;
 			temp->_right = node->_left;
 			node->_left = temp;
-			node->_parent = temp->_parent;
 			temp->_parent = node;
+			node->_parent = temp->_parent;
 			if (temp->_right)
 			 	temp->_right->_parent = temp;
 			temp->height = 1 + (max(getHeight(temp->_left), getHeight(temp->_right)));
@@ -116,8 +116,8 @@ namespace ft{
 			node = temp->_left;
 			temp->_left = node->_right;
 			node->_right = temp;
-			node->_parent = temp->_parent;
 			temp->_parent = node;
+			node->_parent = temp->_parent;
 			if (temp->_left)
 			 	temp->_left->_parent = temp;
 			temp->height = 1 + (max(getHeight(temp->_left), getHeight(temp->_right)));
@@ -195,6 +195,7 @@ namespace ft{
 			{
 				_root = insert_node(_root, item);
 				endNode->_left = _root;
+				_root->_parent = endNode;
 			}
 		}
 
@@ -226,11 +227,11 @@ namespace ft{
 			return ptr;
 		}
 
-		T	getSubtreeMinimum(_node *subtree)
+		_node	*getSubtreeMinimum(_node *subtree)
 		{
 			while(subtree->_left)
 				subtree = subtree->_left;
-			return subtree->_data;
+			return subtree;
 		}
 
 		_node	*DeleteNodeWithBalancing(_node *node, T data)
@@ -254,22 +255,25 @@ namespace ft{
 				}
 				else
 				{
-					T item(getSubtreeMinimum(node->_right));
-					_node *replacedNode = _allocator.allocate(1);
-					_allocator.construct(replacedNode, item);
-					replacedNode->_left = node->_left;
-					replacedNode->_right = node->_right;
-					replacedNode->_parent = node->_parent;
-					temp = node;
-					node = replacedNode;
-					_allocator.deallocate(temp, 1);
-					node->_right = DeleteNodeWithBalancing(node->_right, item);
+					_node *replaceNode = getSubtreeMinimum(node->_right);
+					// _node *replacedNode = _allocator.allocate(1);
+					_allocator.construct(node, replaceNode->_data);
+					// replacedNode->_left = node->_left;
+					// replacedNode->_right = node->_right;
+					// replacedNode->_parent = node->_parent;
+					// temp = node;
+					// node = replacedNode;
+					// // _allocator.deallocate(temp, 1);
+					// node->_data = item;
+					node->_right = DeleteNodeWithBalancing(node->_right, replaceNode->_data);
 				}
 			}
 			else
 				node->_right = DeleteNodeWithBalancing(node->_right, data);
 			if (node)
+			{
 				node->height = 1 + (max(getHeight(node->_left), getHeight(node->_right)));
+			}
 			node = balanceTree(node);
 			return node;
 		}
@@ -279,7 +283,16 @@ namespace ft{
 			if (isempty())
 				return;
 			else
+			{
 				_root = DeleteNodeWithBalancing(_root, data);
+				if (_root == NULL)
+					_allocator.deallocate(endNode, 1);
+				else
+				{
+					_root->_parent = endNode;
+					endNode->_left = _root;
+				}
+			}
 		}
 		size_type max_size() const{
 			return (std::min<size_type>(std::numeric_limits<difference_type>::max(), _allocator.max_size()));
