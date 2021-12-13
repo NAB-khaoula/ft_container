@@ -810,7 +810,7 @@ int main()
 
     // NOTE - Erase elements
     {
-    	std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Library FT -------------" << std::endl;
         ft::map<int, int> mymap;
         // insert some values:
         mymap[10] = 10;
@@ -822,89 +822,89 @@ int main()
         ft::map<int, int>::iterator it = mymap.begin();
         it = mymap.find(20);
         mymap.erase(it);  // erasing by iterator
-        // mymap.erase(30); // erasing by key
-        // it = mymap.find(50);
-        // mymap.erase(it, mymap.end()); // erasing by range
-        // // show content:
-        // for (it = mymap.begin(); it != mymap.end(); ++it)
-        // {
-        //     std::cout << it->first << " => " << it->second << '\n';
-        // }
-		mymap.Treeprint();
+        mymap.erase(30); // erasing by key
+        it = mymap.find(50);
+        mymap.erase(it, mymap.end()); // erasing by range
+        // show content:
+        for (it = mymap.begin(); it != mymap.end(); ++it)
+        {
+            std::cout << it->first << " => " << it->second << '\n';
+        }
     }
 
-    // // NOTE - Swap content
-    // {
-    //     std::cout << "------------- Library FT -------------" << std::endl;
-    //     ft::map<char, int> foo, bar;
-    //     foo['x'] = 100;
-    //     foo['y'] = 200;
+    // NOTE - Swap content
+    {
+        std::cout << "------------- Library FT -------------" << std::endl;
+        ft::map<char, int> foo, bar;
+        foo['x'] = 100;
+        foo['y'] = 200;
 
-    //     bar['a'] = 11;
-    //     bar['b'] = 22;
-    //     bar['c'] = 33;
-    //     foo.swap(bar);
-    //     std::cout << "foo contains:\n";
-    //     for (ft::map<char, int>::iterator it = foo.begin(); it != foo.end(); ++it)
-    //     {
-    //         std::cout << it->first << " => " << it->second << '\n';
-    //     }
-    //     std::cout << "bar contains:\n";
-    //     for (ft::map<char, int>::iterator it = bar.begin(); it != bar.end(); ++it)
-    //         std::cout << it->first << " => " << it->second << '\n';
-    // }
+        bar['a'] = 11;
+        bar['b'] = 22;
+        bar['c'] = 33;
+        foo.swap(bar);
+        std::cout << "foo contains:\n";
+        for (ft::map<char, int>::iterator it = foo.begin(); it != foo.end(); ++it)
+        {
+            std::cout << it->first << " => " << it->second << '\n';
+        }
+        std::cout << "bar contains:\n";
+        for (ft::map<char, int>::iterator it = bar.begin(); it != bar.end(); ++it)
+            std::cout << it->first << " => " << it->second << '\n';
+    }
 
-    // // NOTE - Return key comparison object
-    // {
-    //     std::cout << "------------- Library FT -------------" << std::endl;
-    //     ft::map<char, int> mymap;
-    //     mymap['a'] = 100;
-    //     mymap['b'] = 200;
-    //     mymap['c'] = 300;
-    //     std::cout << "mymap contains:\n";
-    //     char highest = mymap.rbegin()->first; // key value of last element
-    //     ft::map<char, int>::iterator it = mymap.begin();
-    //     do
-    //     {
-    //         std::cout << it->first << " => " << it->second << '\n';
-    //     } while (mymap.key_comp()((*it++).first, highest));
-    //     std::cout << '\n';
-    // }
+    // NOTE - Return key comparison object
+    {
+        std::cout << "------------- Library FT -------------" << std::endl;
+        ft::map<char, int> mymap;
+        mymap['a'] = 100;
+        mymap['b'] = 200;
+        mymap['c'] = 300;
+        std::cout << "mymap contains:\n";
+        char highest = mymap.rbegin()->first; // key value of last element
+        ft::map<char, int>::iterator it = mymap.begin();
+        do
+        {
+            std::cout << it->first << " => " << it->second << '\n';
+        } while (mymap.key_comp()((*it++).first, highest));
+        std::cout << '\n';
+    }
 
-    // // NOTE - Return value comparison object
-    // {
-    //     std::cout << "------------- Library FT -------------" << std::endl;
-    //     ft::map<char, int, std::greater<char> > mymap;
-    //     mymap['x'] = 1001;
-    //     mymap['y'] = 2002;
-    //     mymap['z'] = 3003;
-    //     std::cout << "mymap contains:\n";
-    //     ft::pair<char, int> highest = *mymap.rbegin(); // last element
-    //     ft::map<char, int, std::greater<char> >::iterator it = mymap.begin();
-    //     do
-    //     {
-    //         std::cout << it->first << " => " << it->second << '\n';
-    //     } while (mymap.value_comp()(*it++, highest));
-    // }
+    // NOTE - Return value comparison object
+    {
+        std::cout << "------------- Library FT -------------" << std::endl;
+        ft::map<char, int, std::greater<char> > mymap;
+        mymap['x'] = 1001;
+        mymap['y'] = 2002;
+        mymap['z'] = 3003;
+        std::cout << "mymap contains:\n";
+        ft::pair<char, int> highest = *mymap.rbegin(); // last element
+        ft::map<char, int, std::greater<char> >::iterator it = mymap.begin();
+        do
+        {
+            std::cout << it->first << " => " << it->second << '\n';
+        } while (mymap.value_comp()(*it++, highest));
+    }
 
-    // // NOTE - Get iterator to element
-    // {
-    //     std::cout << "------------- Library FT -------------" << std::endl;
-    //     ft::map<char, int> mymap;
-    //     ft::map<char, int>::iterator it;
-    //     mymap['a'] = 50;
-    //     mymap['b'] = 100;
-    //     mymap['c'] = 150;
-    //     mymap['d'] = 200;
-    //     it = mymap.find('b');
-    //     if (it != mymap.end())
-    //         mymap.erase(it);
-    //     // print content:
-    //     std::cout << "elements in mymap:" << '\n';
-    //     std::cout << "a => " << mymap.find('a')->second << '\n';
-    //     std::cout << "c => " << mymap.find('c')->second << '\n';
-    //     std::cout << "d => " << mymap.find('d')->second << '\n';
-    // }
+    // NOTE - Get iterator to element
+    {
+        std::cout << "------------- Library FT -------------" << std::endl;
+        ft::map<char, int> mymap;
+        ft::map<char, int>::iterator it;
+        mymap['a'] = 50;
+        mymap['b'] = 100;
+        mymap['c'] = 150;
+        mymap['d'] = 200;
+		mymap.Treeprint();
+        it = mymap.find('b');
+        if (it != mymap.end())
+            mymap.erase(it);
+        // // print content:
+        std::cout << "elements in mymap:" << '\n';
+        // std::cout << "a => " << mymap.find('a')->second << '\n';
+        // std::cout << "c => " << mymap.find('c')->second << '\n';
+        // std::cout << "d => " << mymap.find('d')->first << '\n';
+    }
 
     // // NOTE - Count elements with a specific key
     // {

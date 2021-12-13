@@ -37,22 +37,20 @@ void	printOriginalMap(std::map<int, int>::iterator it_begin, std::map<int, int>:
 
 int main()
 {
-	ft::map<int, int> mymap;
-    // insert some values:
-    mymap[10] = 10;
-    mymap[20] = 20;
-    mymap[30] = 30;
-    mymap[40] = 40;
-    mymap[50] = 50;
-    mymap[60] = 60;
-    ft::map<int, int>::iterator it = mymap.begin();
-    it = mymap.find(20);
-    mymap.erase(it);  // erasing by iterator
-    // mymap.erase(30); // erasing by key
-    // it = mymap.find(50);
-    // mymap.erase(it, mymap.end()); // erasing by range
-    // show content:
-    for (it = mymap.begin(); it != mymap.end(); ++it)
-        std::cout << it->first << " => " << it->second << '\n';
+    std::cout << "------------- Library FT -------------" << std::endl;
+    ft::map<char, int> mymap;
+    ft::map<char, int>::iterator it;
+    mymap['a'] = 50;
+    mymap['b'] = 100;
+    mymap['c'] = 150;
+    mymap['d'] = 200;
+    it = mymap.find('b');
+    if (it != mymap.end())
+        mymap.erase(it);
+    // // print content:
+    std::cout << "elements in mymap:" << '\n';
+    std::cout << "a => " << mymap.find('a')->second << '\n';
+    std::cout << "c => " << mymap.find('c')->second << '\n';
+    std::cout << "d => " << mymap.find('d')->first << '\n';
 }
 

@@ -5,6 +5,7 @@
 // #include <math.h>
 // #include <cstddef>
 #include "algorithm.hpp"
+#include "vector.hpp"
 #include "type_traits.hpp"
 #include "utility.hpp"
 #include "__tree.hpp"
@@ -67,7 +68,7 @@ namespace ft{
 
 		map& operator=(const map& x)
 		{
-			if (_size)
+			if (!(_tree.isempty()))
 				this->clear();
 			this->insert(x.begin(), x.end());
 			_size = x.size();
@@ -190,15 +191,16 @@ namespace ft{
 			}
 		}
 
-		void erase (iterator first, iterator last){
-			last--;
-			while (first != last)
+		//FIXME need to modify the erase!
+		void erase (iterator first, iterator last)
+		{
+			iterator temp;
+			while(first != last)
 			{
-				_tree.delete_node(*first);
+				temp = first;
 				first++;
+				erase(temp);
 			}
-			_tree.delete_node(*first);
-			_size--;
 		}
 
 		void swap (map& x){

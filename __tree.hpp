@@ -236,16 +236,23 @@ namespace ft{
 
 		_node	*DeleteNodeWithBalancing(_node *node, T data)
 		{
+			if (node == NULL)
+				return node;
 			if(_compare(data.first, node->_data.first))
 				node->_left = DeleteNodeWithBalancing(node->_left, data);
 			else if (data.first == node->_data.first)
 			{
 				_node *temp;
-				if (!(node->_left) || !(node->_right))
+				if (!(node->_left) || !(node->_right)) // either leaf node or one child
 				{
 					temp = node->_left ? node->_left : node->_right;
-					if (temp) // there is a child;
+					if (temp) // there is one child;
+					{
+						temp->_parent = node->_parent;
 						node = temp;
+						node->_parent = temp->_parent;
+
+					}
 					else // there is no child;
 					{
 						temp = node;
@@ -256,24 +263,20 @@ namespace ft{
 				else
 				{
 					_node *replaceNode = getSubtreeMinimum(node->_right);
-					// _node *replacedNode = _allocator.allocate(1);
+					temp = node->_left;
+					_node *temp2 = node->_parent;
 					_allocator.construct(node, replaceNode->_data);
-					// replacedNode->_left = node->_left;
-					// replacedNode->_right = node->_right;
-					// replacedNode->_parent = node->_parent;
-					// temp = node;
-					// node = replacedNode;
-					// // _allocator.deallocate(temp, 1);
-					// node->_data = item;
 					node->_right = DeleteNodeWithBalancing(node->_right, replaceNode->_data);
+					node->_left = temp;
+					node->_parent = temp2;
 				}
 			}
 			else
 				node->_right = DeleteNodeWithBalancing(node->_right, data);
+			if (node == NULL)
+				return node;
 			if (node)
-			{
 				node->height = 1 + (max(getHeight(node->_left), getHeight(node->_right)));
-			}
 			node = balanceTree(node);
 			return node;
 		}
@@ -287,11 +290,11 @@ namespace ft{
 				_root = DeleteNodeWithBalancing(_root, data);
 				if (_root == NULL)
 					_allocator.deallocate(endNode, 1);
-				else
-				{
-					_root->_parent = endNode;
-					endNode->_left = _root;
-				}
+				// else
+				// {
+				// 	_root->_parent = endNode;
+				// 	endNode->_left = _root;
+				// }
 			}
 		}
 		size_type max_size() const{
