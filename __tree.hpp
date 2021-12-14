@@ -213,25 +213,25 @@ namespace ft{
 			return ptr;
 		}
 
-		binaryTreeNode<T> *searchTest(typename T::first_type const &data){
-			binaryTreeNode<T> *ptr = _root;
-			while(ptr)
-			{
-				if(_compare(data, ptr->_data.first))
-					ptr = ptr->_left;
-				else if (data == ptr->_data.first)
-					break;
-				else
-					ptr = ptr->_right;
-			}
-			return ptr;
-		}
+		// binaryTreeNode<T> *searchTest(typename T::first_type const &data){
+		// 	binaryTreeNode<T> *ptr = _root;
+		// 	while(ptr)
+		// 	{
+		// 		if(_compare(data, ptr->_data.first))
+		// 			ptr = ptr->_left;
+		// 		else if (data == ptr->_data.first)
+		// 			break;
+		// 		else
+		// 			ptr = ptr->_right;
+		// 	}
+		// 	return ptr;
+		// }
 
-		_node	*getSubtreeMinimum(_node *subtree)
+		T	getSubtreeMinimum(_node *subtree)
 		{
 			while(subtree->_left)
 				subtree = subtree->_left;
-			return subtree;
+			return subtree->_data;
 		}
 
 		_node	*DeleteNodeWithBalancing(_node *node, T data)
@@ -262,13 +262,18 @@ namespace ft{
 				}
 				else
 				{
-					_node *replaceNode = getSubtreeMinimum(node->_right);
-					temp = node->_left;
-					_node *temp2 = node->_parent;
-					_allocator.construct(node, replaceNode->_data);
-					node->_right = DeleteNodeWithBalancing(node->_right, replaceNode->_data);
-					node->_left = temp;
-					node->_parent = temp2;
+					T item(getSubtreeMinimum(node->_right));
+					_node *replacedNode = _allocator.allocate(1);
+					_allocator.construct(replacedNode, item);
+					replacedNode->_left = node->_left;
+					node->_left->_parent = replacedNode;
+					replacedNode->_right = node->_right;
+					node->_right->_parent = replacedNode;
+					replacedNode->_parent = node->_parent;
+					temp = node;
+					node = replacedNode;
+					_allocator.deallocate(temp, 1);
+					node->_right = DeleteNodeWithBalancing(node->_right, item);
 				}
 			}
 			else
@@ -290,12 +295,16 @@ namespace ft{
 				_root = DeleteNodeWithBalancing(_root, data);
 				if (_root == NULL)
 					_allocator.deallocate(endNode, 1);
-				// else
-				// {
-				// 	_root->_parent = endNode;
-				// 	endNode->_left = _root;
-				// }
+				else
+				{
+					_root->_parent = endNode;
+					endNode->_left = _root;
+				}
 			}
+		}
+		_node*	endnode()
+		{
+			return (endNode);
 		}
 		size_type max_size() const{
 			return (std::min<size_type>(std::numeric_limits<difference_type>::max(), _allocator.max_size()));
