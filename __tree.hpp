@@ -15,7 +15,7 @@ namespace ft{
 		binaryTreeNode*	_left;
 		binaryTreeNode*	_right;
 		// NOTE check if T() works well, no segfault
-		binaryTreeNode(T& data = T()) : _data(data), height(1), _parent(NULL), _left(NULL), _right(NULL){}
+		binaryTreeNode(T& data = T()) : _data(data), height(1){}
 	};
 
 	template <class T, class Compare, class Alloc = std::allocator<binaryTreeNode<T> > >
@@ -155,15 +155,19 @@ namespace ft{
 		_node   *createNode(T item){
 			_node *p = _allocator.allocate(1);
 			_allocator.construct(p, item);
+			p->_left = NULL;
+			p->_right = NULL;
+			p->_parent = NULL;
 			return p;
 		}
 
 		_node   *insert_node(_node *node, T& item){
 			if (node == NULL)
 			{
-				_node *p = _allocator.allocate(1);
-				_allocator.construct(p, item);
-				return p;
+				return (createNode(item));
+				// _node *p = _allocator.allocate(1);
+				// _allocator.construct(p, item);
+				// return p;
 			}
 			if(_compare(item.first, node->_data.first))
 			{
@@ -186,8 +190,7 @@ namespace ft{
 		   if(isempty())
 			{
 				endNode = _allocator.allocate(1);
-				_root = _allocator.allocate(1);
-				_allocator.construct(_root, item);
+				_root = createNode(item);
 				_root->_parent = endNode;
 				endNode->_left = _root;
 			}
@@ -206,11 +209,11 @@ namespace ft{
 				if(_compare(data.first, ptr->_data.first))
 					ptr = ptr->_left;
 				else if (data.first == ptr->_data.first)
-					break;
+					return ptr;
 				else
 					ptr = ptr->_right;
 			}
-			return ptr;
+			return endNode;
 		}
 
 		// binaryTreeNode<T> *searchTest(typename T::first_type const &data){
@@ -227,11 +230,11 @@ namespace ft{
 		// 	return ptr;
 		// }
 
-		T	getSubtreeMinimum(_node *subtree)
+		_node*	getSubtreeMinimum(_node *subtree)
 		{
 			while(subtree->_left)
 				subtree = subtree->_left;
-			return subtree->_data;
+			return subtree;
 		}
 
 		_node	*DeleteNodeWithBalancing(_node *node, T data)
@@ -262,25 +265,16 @@ namespace ft{
 				}
 				else
 				{
-					T item(getSubtreeMinimum(node->_right));
-					_node *replacedNode = _allocator.allocate(1);
-					_allocator.construct(replacedNode, item);
-					replacedNode->_left = node->_left;
-					node->_left->_parent = replacedNode;
-					replacedNode->_right = node->_right;
-					node->_right->_parent = replacedNode;
-					replacedNode->_parent = node->_parent;
-					temp = node;
-					node = replacedNode;
-					_allocator.deallocate(temp, 1);
-					node->_right = DeleteNodeWithBalancing(node->_right, item);
+					_node* replaceNode = getSubtreeMinimum(node->_right);
+					_allocator.construct(node, replaceNode->_data);
+					node->_right = DeleteNodeWithBalancing(node->_right, replaceNode->_data);
 				}
 			}
 			else
 				node->_right = DeleteNodeWithBalancing(node->_right, data);
 			if (node == NULL)
 				return node;
-			if (node)
+			else
 				node->height = 1 + (max(getHeight(node->_left), getHeight(node->_right)));
 			node = balanceTree(node);
 			return node;

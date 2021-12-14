@@ -986,10 +986,9 @@ int main()
 	//NOTE - create 10000 map 
 	{
 		ft::map<int,int> mymap;
-		for(size_t i = 0 ; i < 10 ; i++)
+		for(size_t i = 0 ; i< 10000  ; i++)
 			mymap[i] = i;
-		for(ft::map<int,int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
-			mymap.erase(it);
+		mymap.erase(mymap.begin(), mymap.end());
 	}
 
 }	

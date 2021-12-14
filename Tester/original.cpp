@@ -982,12 +982,10 @@ int main()
 
 	//NOTE - create 10000 map 
 	{
-        std::cout << "------------- Library FT -------------" << std::endl;
 		std::map<int,int> mymap;
-		for(size_t i =0 ; i< 100000 ; i++)
+		for(size_t i = 0 ; i< 10000  ; i++)
 			mymap[i] = i;
-		for(std::map<int,int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
-			mymap.erase(it);
+		mymap.erase(mymap.begin(), mymap.end());
 	}
 
 }	

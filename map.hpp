@@ -143,14 +143,14 @@ namespace ft{
 		pair<iterator,bool> insert (const value_type& val){
 			binaryTreeNode<value_type> *foundNode = _tree.search(val);
 
-			if (!foundNode)
+			if (foundNode != end())
+				return (pair<iterator, bool>(foundNode, false));
+			else
 			{
 				_tree.insert(val);
 				_size++;
 				return (pair<iterator, bool>(_tree.search(val), true));
 			}
-			else
-				return (pair<iterator, bool>(foundNode, false));
 		}
 
 		iterator insert (iterator position, const value_type& val){
@@ -194,13 +194,14 @@ namespace ft{
 		//FIXME need to modify the erase!
 		void erase (iterator first, iterator last)
 		{
-			iterator temp;
+			ft::vector<key_type> vect;
 			while(first != last)
 			{
-				temp = first;
+				vect.push_back(first->first);
 				first++;
-				erase(temp);
 			}
+			for(size_t i = 0; i < vect.size(); i++)
+				erase(vect[i]);
 		}
 
 		void swap (map& x){
