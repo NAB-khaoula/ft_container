@@ -26,6 +26,20 @@ typedef struct data
 	}
 } t_data;
 
+template <typename T>
+void print_vector(ft::vector<T> &vect, char const *label)
+{
+	std::cout << "\nvector Size: " << vect.size();
+	std::cout << "\nvector [" << label << "] contains:";
+	if (!vect.size())
+		std::cout << "\tnothing";
+	for (typename ft::vector<T>::iterator it = vect.begin(); it != vect.end(); ++it)
+	{
+		std::cout << "  [ " << *it << " ]";
+	}
+	std::cout << std::endl;
+}
+
 int main()
 {
 	std::cout << "*************************************************************************" << std::endl;
@@ -35,6 +49,7 @@ int main()
 
 	// NOTE - Constructor
 	{
+		std::cout << "------------- Constructor -------------" << std::endl;
 		ft::vector<int> first;                                
 		ft::vector<int> second (4,100);                      
 		ft::vector<int> third (second.begin(),second.end()); 
@@ -49,6 +64,7 @@ int main()
 
 	// NOTE - Assign content (operator=)
 	{
+		std::cout << "------------- Assign content (operator=) -------------" << std::endl;
 		ft::vector<int> foo (3,0);
 		ft::vector<int> bar (5,0);
 		bar = foo;
@@ -59,6 +75,7 @@ int main()
 
 	// NOTE - Return iterator to beginning
 	{
+		std::cout << "------------- Return iterator to beginning -------------" << std::endl;
 		ft::vector<int> myvector;
 		for (int i=1; i<=5; i++) myvector.push_back(i);
 		std::cout << "myvector contains:";
@@ -69,7 +86,7 @@ int main()
 	
 	// NOTE - Return iterator to end
 	{
-
+		std::cout << "------------- Return iterator to end -------------" << std::endl;
 		ft::vector<int> myvector;
 		for (int i=1; i<=5; i++) myvector.push_back(i);
 		std::cout << "myvector contains:";
@@ -80,6 +97,7 @@ int main()
 	
 	// NOTE - Return reverse iterator to reverse beginning
 	{
+		std::cout << "------------- Return reverse iterator to reverse beginning -------------" << std::endl;
 		ft::vector<int> myvector (5);  // 5 default-constructed ints
 		int i=0;
 		ft::vector<int>::reverse_iterator rit = myvector.rbegin();
@@ -93,6 +111,7 @@ int main()
 	
 	// NOTE - Return reverse iterator to reverse end
 	{
+		std::cout << "------------- Return reverse iterator to reverse end -------------" << std::endl;
 		ft::vector<int> myvector (5); 
 		ft::vector<int>::reverse_iterator rit = myvector.rbegin();
 		int i=0;
@@ -106,6 +125,7 @@ int main()
 	
 	// NOTE - Return size
 	{
+		std::cout << "------------- Return size -------------" << std::endl;
 		ft::vector<int> myints;
 		std::cout << "0. size: " << myints.size() << '\n';
 		for (int i=0; i<10; i++) myints.push_back(i);
@@ -117,8 +137,8 @@ int main()
 	}
 	
 	// NOTE - Return maximum size
-
 	{
+		std::cout << "------------- Return maximum size -------------" << std::endl;
 		ft::vector<int> myvector;
 		for (int i=0; i<100; i++) myvector.push_back(i);
 		std::cout << "size: " << myvector.size() << "\n";
@@ -128,6 +148,7 @@ int main()
 	
 	// NOTE - Change size
 	{
+		std::cout << "------------- Change size -------------" << std::endl;
 		ft::vector<int> myvector;
 		for (size_t i=1;i<10;i++) myvector.push_back(i);
 		myvector.resize(5);
@@ -143,6 +164,7 @@ int main()
 	
 	// NOTE - Return size of allocated storage capacity
 	{
+		std::cout << "------------- Return size of allocated storage capacity -------------" << std::endl;
 		ft::vector<int> myvector;
 		for (int i=0; i<100; i++) myvector.push_back(i);
 		std::cout << "size: " << (int) myvector.size() << '\n';
@@ -152,6 +174,7 @@ int main()
 	
 	// NOTE - Test whether vector is empty
 	{
+		std::cout << "------------- Test whether vector is empty -------------" << std::endl;
 		ft::vector<int> myvector;
 		int sum (0);
 		for (int i=1;i<=10;i++) myvector.push_back(i);
@@ -165,6 +188,7 @@ int main()
 	
 	// NOTE - Request a change in capacity
 	{
+		std::cout << "------------- Request a change in capacity -------------" << std::endl;
 		ft::vector<int>::size_type sz;
 		ft::vector<int> foo;
 		sz = foo.capacity();
@@ -191,6 +215,7 @@ int main()
 	
 	// NOTE - Access element
 	{
+		std::cout << "------------- Access element -------------" << std::endl;
 		ft::vector<int> myvector (10);
 		ft::vector<int>::size_type sz = myvector.size();
 		for (unsigned i=0; i<sz; i++) myvector[i]=i;
@@ -209,6 +234,7 @@ int main()
 	
 	// NOTE - Access element
 	{
+		std::cout << "------------- Access element -------------" << std::endl;
 		ft::vector<int> myvector (10);
 		for (unsigned i=0; i<myvector.size(); i++)
 			myvector.at(i)=i;
@@ -220,6 +246,7 @@ int main()
 
 	// NOTE - Access first element
 	{
+		std::cout << "------------- Access first element -------------" << std::endl;
 		ft::vector<int> myvector;
 		myvector.push_back(78);
 		myvector.push_back(16);
@@ -229,6 +256,7 @@ int main()
 	
 	// NOTE - Access last element
 	{
+		std::cout << "------------- Access last element -------------" << std::endl;
 		ft::vector<int> myvector;
 		myvector.push_back(10);
 		while (myvector.back() != 0)
@@ -243,6 +271,7 @@ int main()
 	
 	// NOTE - Assign vector content
 	{
+		std::cout << "------------- Assign vector content -------------" << std::endl;
 		ft::vector<int> first;
 		ft::vector<int> second;
 		ft::vector<int> third;
@@ -259,6 +288,7 @@ int main()
 
 	// NOTE - Delete last element
 	{
+		std::cout << "------------- Delete last element -------------" << std::endl;
 		ft::vector<int> myvector;
 		int sum (0);
 		myvector.push_back (100);
@@ -274,6 +304,7 @@ int main()
 	
 	// NOTE - Clear content
 	{
+		std::cout << "------------- Clear content -------------" << std::endl;
 		ft::vector<int> myvector;
 		myvector.push_back (100);
 		myvector.push_back (200);
@@ -299,6 +330,7 @@ int main()
 	
 	// NOTE - Insert elements
 	{    
+		std::cout << "------------- Insert elements -------------" << std::endl;
 		ft::vector<int> myvector(3, 100);
 		std::cout << myvector.size() << std::endl;
 		std::cout << myvector.capacity() << std::endl;
@@ -337,6 +369,7 @@ int main()
 	
 	// NOTE - Erase elements
 	{
+		std::cout << "------------- Erase elements -------------" << std::endl;
 		ft::vector<int> myvector1;
 		for (int i=1; i<=10; i++) myvector1.push_back(i);
 		std::cout << myvector1.size() << std::endl;
@@ -353,6 +386,7 @@ int main()
 
 	// NOTE - Swap content
 	{ 
+		std::cout << "------------- Swap content -------------" << std::endl;
 		ft::vector<int> foo(3, 100);   // three ints with a value of 100
 		ft::vector<int> bar(5, 200);   // five ints with a value of 200
 		std::cout << "Size foo before " << foo.size() << std::endl;
@@ -376,6 +410,7 @@ int main()
 
 	// NOTE - Get allocator
 	{
+		std::cout << "------------- Get allocator -------------" << std::endl;
 		ft::vector<int> myvector;
 		int * p;
 		unsigned int i;
@@ -387,8 +422,10 @@ int main()
 		for (i=0; i<5; i++) myvector.get_allocator().destroy(&p[i]);
 		myvector.get_allocator().deallocate(p,5);
 	}
+
 	//    NOTE - Relational operators for vector
 	{
+		std::cout << "------------- Relational operators for vector -------------" << std::endl;
 		ft::vector<int> foo (1,200);   // three ints with a value of 100
 		ft::vector<int> bar (1,100);   // two ints with a value of 200
 
@@ -402,6 +439,7 @@ int main()
 	
 	// NOTE - Exchange contents of vectors
 	{
+		std::cout << "------------- Exchange contents of vectors -------------" << std::endl;
 		ft::vector<int> foo(3,100);   // three ints with a value of 100
 		ft::vector<int> bar(5,200);   // five ints with a value of 200
 		std::swap(foo, bar);
@@ -415,6 +453,42 @@ int main()
 		std::cout << '\n';
 	}
 
+	std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Additional vector tests >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n" << std::endl;
+
+	{
+		std::cout << "\nfront() & back()" << std::endl;
+		std::cout << "=======================================" << std::endl;
+		ft::vector<int> myvect;
+		int arr[5] = {1, 2, 3, 4, 5};
+		ft::vector<int> myvect2(arr, arr + 5);
+
+		print_vector(myvect2, "myvect2");
+
+		myvect.push_back(77);
+		myvect.push_back(22);
+
+		print_vector(myvect, "myvect");
+
+		// now front equals 77, and back 22
+
+		myvect.front() -= myvect.back();
+
+		std::cout << "myvect.front() is now " << myvect.front() << '\n';
+		std::cout << "=======================================" << std::endl;
+	}
+
+	{
+		std::cout << "\nmax_size()" << std::endl;
+		std::cout << "=======================================" << std::endl;
+		ft::vector<size_t> myvect;
+
+		myvect.push_back(77);
+		myvect.push_back(22);
+
+		std::cout << "myvect.max_size() is: " << myvect.max_size() << '\n';
+		std::cout << "=======================================" << std::endl;
+	}
+
 	std::cout << "*************************************************************************" << std::endl;
     std::cout << "\t\t\t\tSTACK" << std::endl;
     std::cout << "*************************************************************************" << std::endl;
@@ -422,6 +496,7 @@ int main()
 
 	// NOTE - ft::stack::stack
 	{
+		std::cout << "------------- stack::stack -------------" << std::endl;
 		ft::vector<int> myvector (2,200);        // vector with 2 elements
 		ft::stack<int> first;                    // empty stack
 		ft::stack<int,ft::vector<int> > third;  // empty stack using vector
@@ -433,6 +508,7 @@ int main()
 
 	// NOTE - ft::stack::empty
 	{
+		std::cout << "------------- stack::empty -------------" << std::endl;
 		ft::stack<int> mystack;
 		int sum (0);
 		for (int i=1;i<=10;i++) mystack.push(i);
@@ -446,6 +522,7 @@ int main()
 
 	// NOTE - ft::stack::size
 	{
+		std::cout << "------------- stack::size -------------" << std::endl;
 		ft::stack<int> myints;
 		std::cout << "0. size: " << myints.size() << '\n';
 		for (int i=0; i<5; i++) myints.push(i);
@@ -455,14 +532,18 @@ int main()
 	}
 
 	// NOTE - ft::stack::top
+	{
+		std::cout << "------------- stack::top -------------" << std::endl;
 		ft::stack<int> mystack;
 		mystack.push(10);
 		mystack.push(20);
 		mystack.top() -= 5;
 		std::cout << "mystack.top() is now " << mystack.top() << '\n';
+	}
 
 	// NOTE - ft::stack::push
 	{
+		std::cout << "------------- stack::push -------------" << std::endl;
 		ft::stack<int> mystack;
 		for (int i=0; i<5; ++i) mystack.push(i);
 		std::cout << "Popping out elements...";
@@ -476,6 +557,7 @@ int main()
 
 	// NOTE - ft::stack::pop
 	{
+		std::cout << "------------- stack::pop -------------" << std::endl;
 		ft::stack<int> mystack;
 		for (int i=0; i<5; ++i) mystack.push(i);
 		std::cout << "Popping out elements...";
@@ -489,6 +571,7 @@ int main()
 
 	// NOTE - operator==
 	{
+		std::cout << "------------- operator== -------------" << std::endl;
 		ft::stack <int, ft::vector<int> > s1, s2, s3;
 		s1.push( 1 );
 		s2.push( 2 );
@@ -506,6 +589,7 @@ int main()
 
 	// NOTE - operator!=
 	{
+		std::cout << "------------- operator!= -------------" << std::endl;
 		ft::stack <int, ft::vector<int> > s1, s2, s3;
 		s1.push( 1 );
 		s2.push( 2 );
@@ -522,6 +606,7 @@ int main()
 
 	// NOTE - operator<
 	{
+		std::cout << "------------- operator < -------------" << std::endl;
 		ft::stack <int, ft::vector<int> > s1, s2, s3;
 		s1.push( 2 );
 		s1.push( 4 );
@@ -559,6 +644,7 @@ int main()
 
 	// NOTE - operator<=
 	{
+		std::cout << "------------- operator <= -------------" << std::endl;
 		ft::stack <int> s1, s2, s3;
 		s1.push( 5 );
 		s1.push( 10 );
@@ -583,6 +669,7 @@ int main()
 
 	// NOTE - operator>
 	{
+		std::cout << "------------- operator > -------------" << std::endl;
 		ft::stack <int, ft::vector<int> > s1, s2, s3;
 		s1.push( 1 );
 		s1.push( 2 );
@@ -608,6 +695,7 @@ int main()
 
 	// NOTE - operator>=
 	{
+		std::cout << "------------- operator >= -------------" << std::endl;
 		ft::stack <int, ft::vector<int> > s1, s2, s3;
 		s1.push( 1 );
 		s1.push( 2 );
@@ -636,7 +724,7 @@ int main()
 
     // NOTE - Construct pair
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Construct pair -------------" << std::endl;
         ft::pair<std::string, double> product1;
         ft::pair<std::string, double> product2("tomatoes", 2.30);
         ft::pair<std::string, double> product3(product2);
@@ -650,7 +738,7 @@ int main()
 
     // NOTE - pair::operator= example
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "-------------  pair::operator= example -------------" << std::endl;
         ft::pair<std::string, int> planet("Earth", 6371), homeplanet;
         planet = ft::make_pair("Earth", 6371);
         homeplanet = planet;
@@ -660,7 +748,7 @@ int main()
 
     // NOTE - make_pair example
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- make_pair example -------------" << std::endl;
         ft::pair<int, int> foo;
         ft::pair<int, int> bar;
         foo = ft::make_pair(10, 20);
@@ -671,7 +759,7 @@ int main()
 
     // NOTE - Relational operators for pair
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Relational operators for pair-------------" << std::endl;
         ft::pair<int, char> foo(10, 'z');
         ft::pair<int, char> bar(90, 'a');
         if (foo == bar)
@@ -690,7 +778,7 @@ int main()
 
     // NOTE - Construct map
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Construct map -------------" << std::endl;
         ft::map<char, int> first;
         first['a'] = 10;
         first['b'] = 30;
@@ -705,7 +793,7 @@ int main()
 
     // // NOTE - Access element
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Access element -------------" << std::endl;
         ft::map<char, std::string> mymap;
         mymap['a'] = "an element";
         mymap['b'] = "another element";
@@ -719,7 +807,7 @@ int main()
 
     // // NOTE - Test whether container is empty
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Test whether container is empty -------------" << std::endl;
         ft::map<char, int> mymap;
         mymap['a'] = 10;
         mymap['b'] = 20;
@@ -733,7 +821,7 @@ int main()
 
     // // NOTE - Return maximum size
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Return maximum size -------------" << std::endl;
         int i;
         ft::map<int, int> mymap;
         if (mymap.max_size() > 1000)
@@ -747,7 +835,7 @@ int main()
 
     // // NOTE - Insert elements
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Insert elements -------------" << std::endl;
         // first insert function version (single parameter):
         ft::map<char, int> mymap;
         mymap.insert(ft::pair<char, int>('a', 100));
@@ -778,7 +866,7 @@ int main()
 
     // // // NOTE - Clear content
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Clear content -------------" << std::endl;
         ft::map<char, int> mymap;
         mymap['x'] = 100;
         mymap['y'] = 200;
@@ -794,9 +882,9 @@ int main()
             std::cout << it->first << " => " << it->second << '\n';
     }
 
-    // // NOTE - Assignement Operator (new_map = old_map)
+    // NOTE - Assignement Operator (new_map = old_map)
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Assignement Operator (new_map = old_map) -------------" << std::endl;
         ft::map<char, int> first;
         ft::map<char, int> second;
         first['x'] = 8;
@@ -810,7 +898,7 @@ int main()
 
     // NOTE - Erase elements
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Erase elements -------------" << std::endl;
         ft::map<int, int> mymap;
         // insert some values:
         mymap[10] = 10;
@@ -834,7 +922,7 @@ int main()
 
     // NOTE - Swap content
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Swap content -------------" << std::endl;
         ft::map<char, int> foo, bar;
         foo['x'] = 100;
         foo['y'] = 200;
@@ -855,7 +943,7 @@ int main()
 
     // NOTE - Return key comparison object
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Return key comparison object -------------" << std::endl;
         ft::map<char, int> mymap;
         mymap['a'] = 100;
         mymap['b'] = 200;
@@ -872,7 +960,7 @@ int main()
 
     // NOTE - Return value comparison object
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Return value comparison object -------------" << std::endl;
         ft::map<char, int, std::greater<char> > mymap;
         mymap['x'] = 1001;
         mymap['y'] = 2002;
@@ -883,12 +971,14 @@ int main()
         do
         {
             std::cout << it->first << " => " << it->second << '\n';
-        } while (mymap.value_comp()(*it++, highest));
+        }
+		while (mymap.value_comp()
+			(*it++, highest));
     }
 
     // NOTE - Get iterator to element
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Get iterator to element -------------" << std::endl;
         ft::map<char, int> mymap;
         ft::map<char, int>::iterator it;
         mymap['a'] = 50;
@@ -907,7 +997,7 @@ int main()
 
     // NOTE - Count elements with a specific key
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Count elements with a specific key -------------" << std::endl;
         ft::map<char, int> mymap;
         char c;
         mymap['a'] = 101;
@@ -926,7 +1016,7 @@ int main()
     // NOTE - Return iterator to lower bound
     // NOTE - Return iterator to upper bound
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Return iterator to lower bound/upper bound -------------" << std::endl;
         ft::map<char, int> mymap;
         ft::map<char, int>::iterator itlow, itup;
         mymap['a'] = 20;
@@ -945,7 +1035,7 @@ int main()
 
     // NOTE - Get range of equal elements
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Get range of equal elements -------------" << std::endl;
         ft::map<char, int> mymap;
         mymap['a'] = 10;
         mymap['b'] = 20;
@@ -960,7 +1050,7 @@ int main()
 
     // NOTE - Get allocator
     {
-        std::cout << "------------- Library FT -------------" << std::endl;
+        std::cout << "------------- Get allocator -------------" << std::endl;
         int psize;
         ft::map<char, int> mymap;
         ft::pair<const char, int> *p;
@@ -983,12 +1073,13 @@ int main()
         }
     }
 
-	//NOTE - create 10000 map 
-	{
-		ft::map<int,int> mymap;
-		for(size_t i = 0 ; i< 10000  ; i++)
-			mymap[i] = i;
-		mymap.erase(mymap.begin(), mymap.end());
-	}
+	// NOTE - create 10000 map 
+	// {
+    //     std::cout << "------------- create 10000 map -------------" << std::endl;
+	// 	ft::map<int,int> mymap;
+	// 	for(size_t i = 0 ; i< 1000000 ; i++)
+	// 		mymap[i] = i;
+	// 	mymap.erase(mymap.begin(), mymap.end());
+	// }
 
 }	

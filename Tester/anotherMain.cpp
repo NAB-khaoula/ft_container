@@ -137,8 +137,7 @@ bool mycomparison(double first, double second)
 int main(void)
 {
 	// vector tests
-	std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< vector tests >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
-			  << std::endl;
+	std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< vector tests >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n" << std::endl;
 	NS::vector<int> vectGolbal;
 	print_namespace(vectGolbal);
 	// front() and back()
@@ -181,8 +180,8 @@ int main(void)
 	{
 		std::cout << "\ncapacity()" << std::endl;
 		std::cout << "=======================================" << std::endl;
-		NS::vector<size_t> vec(50, 500);
-		NS::vector<size_t> myvect(4, 100);
+		std::vector<size_t> vec(50, 500);
+		std::vector<size_t> myvect(4, 100);
 		std::cout << "myvect.capacity() is: " << myvect.capacity() << '\n';
 		std::cout << "myvect.size() is: " << myvect.size() << '\n';
 

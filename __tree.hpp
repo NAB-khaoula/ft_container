@@ -14,7 +14,6 @@ namespace ft{
 		binaryTreeNode*	_parent;
 		binaryTreeNode*	_left;
 		binaryTreeNode*	_right;
-		// NOTE check if T() works well, no segfault
 		binaryTreeNode(T& data = T()) : _data(data), height(1){}
 	};
 
@@ -33,15 +32,26 @@ namespace ft{
 		binarySearchTree() :  _allocator(Alloc()), _compare(Compare()), _root(NULL), endNode(NULL){
 		}
 
-		~binarySearchTree(){
-			// FIXME - need to delete the endnode!!!!!
-			// while(_root)
-			// {
-			// 	delete_node(_root->_data);
-			// }
+		binarySearchTree(const binarySearchTree &x){
+			(*this) = x;
 		}
 
 		//FIXME - need to add assignment operator;
+		binarySearchTree& operator=(const binarySearchTree& x)
+		{
+			_allocator = x._allocator;
+			_compare = x._compare;
+			_root = createNode(_root->_data);
+			endNode = createNode(endNode->_data);
+			_root = linkRoot_EndNode(_root, endNode);
+			return (*this);
+		}
+
+		~binarySearchTree(){
+			while(_root)
+				delete_node(_root->_data);
+		}
+
 
 		int isempty() const{
 			return(_root == NULL);
@@ -165,9 +175,6 @@ namespace ft{
 			if (node == NULL)
 			{
 				return (createNode(item));
-				// _node *p = _allocator.allocate(1);
-				// _allocator.construct(p, item);
-				// return p;
 			}
 			if(_compare(item.first, node->_data.first))
 			{
@@ -191,15 +198,10 @@ namespace ft{
 			{
 				endNode = _allocator.allocate(1);
 				_root = createNode(item);
-				_root->_parent = endNode;
-				endNode->_left = _root;
 			}
 			else
-			{
 				_root = insert_node(_root, item);
-				endNode->_left = _root;
-				_root->_parent = endNode;
-			}
+			_root = linkRoot_EndNode(_root, endNode);
 		}
 
 		binaryTreeNode<T> *search(T const &data) const{
@@ -215,20 +217,7 @@ namespace ft{
 			}
 			return endNode;
 		}
-
-		// binaryTreeNode<T> *searchTest(typename T::first_type const &data){
-		// 	binaryTreeNode<T> *ptr = _root;
-		// 	while(ptr)
-		// 	{
-		// 		if(_compare(data, ptr->_data.first))
-		// 			ptr = ptr->_left;
-		// 		else if (data == ptr->_data.first)
-		// 			break;
-		// 		else
-		// 			ptr = ptr->_right;
-		// 	}
-		// 	return ptr;
-		// }
+		
 
 		_node*	getSubtreeMinimum(_node *subtree)
 		{
@@ -280,6 +269,13 @@ namespace ft{
 			return node;
 		}
 
+		_node*	linkRoot_EndNode(_node *root, _node *endNode)
+		{
+			root->_parent = endNode;
+			endNode->_left = root;
+			return (root);
+		}
+
 		void	delete_node(T data)
 		{
 			if (isempty())
@@ -290,16 +286,10 @@ namespace ft{
 				if (_root == NULL)
 					_allocator.deallocate(endNode, 1);
 				else
-				{
-					_root->_parent = endNode;
-					endNode->_left = _root;
-				}
+					_root = linkRoot_EndNode(_root, endNode);
 			}
 		}
-		_node*	endnode()
-		{
-			return (endNode);
-		}
+
 		size_type max_size() const{
 			return (std::min<size_type>(std::numeric_limits<difference_type>::max(), _allocator.max_size()));
 		}

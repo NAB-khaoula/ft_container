@@ -142,8 +142,7 @@ namespace ft{
 		// NOTE ************insert**********
 		pair<iterator,bool> insert (const value_type& val){
 			binaryTreeNode<value_type> *foundNode = _tree.search(val);
-
-			if (foundNode != end())
+			if (foundNode != end() && !empty())
 				return (pair<iterator, bool>(foundNode, false));
 			else
 			{
@@ -169,8 +168,8 @@ namespace ft{
 		}
 
 		void clear(){
-			while(_size--)
-				_tree.delete_node(_tree.get_min()->_data);
+			while(!(_tree.isempty()))
+				erase(begin());
 		}
 
 		size_type erase (const key_type& k){
@@ -222,7 +221,8 @@ namespace ft{
 		}
 
 		size_type count (const key_type& k) const{
-			if (_tree.search(make_pair<key_type, mapped_type>(k, mapped_type())))
+			binaryTreeNode<value_type> *it = _tree.search(make_pair<key_type, mapped_type>(k, mapped_type()));
+			if (it != end())
 				return 1;
 			return 0;
 		}
@@ -317,4 +317,5 @@ namespace ft{
 	};
 		
 }
+
 #endif
