@@ -47,7 +47,7 @@ namespace ft{
 		typedef reverse_iterator<iterator>											reverse_iterator;
 		typedef typename allocator_type::size_type									size_type;
 		typedef typename allocator_type::difference_type							difference_type;
-		typedef binarySearchTree<value_type, key_compare>							binarySearchTree;
+		typedef binarySearchTree<value_type, key_compare, allocator_type>			binarySearchTree;
 
 		// NOTE **************************constructors**********************************
 		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _tree(), _size(0), _allocator(alloc), _cmp(comp){}
@@ -304,10 +304,6 @@ namespace ft{
 		}
 		// NOTE **************** Allocator: *******************
 
-		void Treeprint()
-		{
-			_tree.printTree();
-		}
 
 		protected:
 			binarySearchTree	_tree;

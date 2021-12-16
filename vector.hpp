@@ -51,47 +51,45 @@ namespace ft
 		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type = 0)
 		{
 			int i = -1;
-			difference_type	dist = last - first;
 			_allocator = alloc;
-			_size = dist;
-			_capacity = dist;
-			_array = _allocator.allocate(dist);
+			_size = last - first;
+			_capacity = last - first;
+			_array = _allocator.allocate(last - first);
 			while(first != last){
 				_array[++i] = *first;
 				first++;
 			}
 		}
-		vector(const vector &x)
-		{
-			_allocator = x._allocator;
-			pointer newArray = _allocator.allocate(x._capacity);
-			for(size_type i = 0; i < x.size(); i++){
-				newArray[i] = x._array[i];
-			}
-			_array = newArray;
-			_size = x._size;
-			_capacity = x._capacity;
+		vector(const vector &x) : _size(0), _capacity(0){
+			(*this) = x;
 		}
 		//******************constructor******************
 		//******************assignment operator******************
 		vector &operator=(const vector &x)
 		{
-			_allocator.deallocate(_array, _capacity);
 			_allocator = x._allocator;
-			pointer newArray = _allocator.allocate(x._capacity);
-			for(size_type i = 0; i < x.size(); i++){
-				newArray[i] = x._array[i];
+			if(_capacity)
+			{
+				_allocator.deallocate(_array, _capacity);
 			}
-			_array = newArray;
 			_size = x._size;
 			_capacity = x._capacity;
+			if (_capacity)
+			{
+				pointer newArray = _allocator.allocate(x._capacity);
+				for(size_type i = 0; i < x.size(); i++){
+					newArray[i] = x._array[i];
+				}
+				_array = newArray;
+			}
 			return(*this);
 		}
 		//******************assignment operator******************
 		//******************destructor******************
 		~vector()
 		{
-			delete [] _array;
+			if (_capacity)
+				_allocator.deallocate(_array, _capacity);
 		}
 		//******************destructor******************
 		//******************iterator******************

@@ -142,22 +142,34 @@ template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T
 			friend typename customizedIterator<Iterator>::difference_type operator- (const customizedIterator<Iterator>& n, const customizedIterator<Iterator>& it){
 				return (n._iter - it._iter);
 			}
-			friend bool operator== (const customizedIterator<Iterator>& lhs, const customizedIterator<Iterator>& rhs){
+
+			template<class U, class V>
+			friend bool operator== (const customizedIterator<U>& lhs, const customizedIterator<V>& rhs){
 				return (lhs._iter == rhs._iter);
 			}
-			friend bool operator!= (const customizedIterator<Iterator>& lhs, const customizedIterator<Iterator>& rhs){
+
+			template<class U, class V>
+			friend bool operator!= (const customizedIterator<U>& lhs, const customizedIterator<V>& rhs){
 				return (lhs._iter != rhs._iter);
 			}
-			friend bool operator< (const customizedIterator<Iterator>& lhs, const customizedIterator<Iterator>& rhs){
+
+			template<class U, class V>
+			friend bool operator< (const customizedIterator<U>& lhs, const customizedIterator<V>& rhs){
 				return (lhs._iter < rhs._iter);
 			}
-			friend bool operator<= (const customizedIterator<Iterator>& lhs, const customizedIterator<Iterator>& rhs){
+
+			template<class U, class V>
+			friend bool operator<= (const customizedIterator<U>& lhs, const customizedIterator<V>& rhs){
 				return (lhs._iter <= rhs._iter);
 			}
-			friend bool operator> (const customizedIterator<Iterator>& lhs, const customizedIterator<Iterator>& rhs){
+
+			template<class U, class V>
+			friend bool operator> (const customizedIterator<U>& lhs, const customizedIterator<V>& rhs){
 				return (lhs._iter > rhs._iter);
 			}
-			friend bool operator>= (const customizedIterator<Iterator>& lhs, const customizedIterator<Iterator>& rhs){
+
+			template<class U, class V>
+			friend bool operator>= (const customizedIterator<U>& lhs, const customizedIterator<V>& rhs){
 				return (lhs._iter >= rhs._iter);
 			}
 			//****************** operators overload non member function ***************************

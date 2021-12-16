@@ -130,7 +130,7 @@ namespace ft{
 			_tree_iterator operator--()
 			{
 				_treePointerNode parent = _iter->_parent;
-				if (_iter->_left) // look for the leftmost node in that subtree;
+				if (_iter->_left)
 				{
 					_iter = rightMostNode(_iter->_left);
 					return _iter;

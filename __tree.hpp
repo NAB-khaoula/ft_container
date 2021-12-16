@@ -17,32 +17,31 @@ namespace ft{
 		binaryTreeNode(T& data = T()) : _data(data), height(1){}
 	};
 
-	template <class T, class Compare, class Alloc = std::allocator<binaryTreeNode<T> > >
+	template <class T, class Compare, class Alloc >
 	class binarySearchTree
 	{
-		typedef typename Alloc::difference_type	difference_type;
-		typedef typename Alloc::size_type		size_type;
-		typedef binaryTreeNode<T>				_node;
-		Alloc				_allocator;
-		Compare				_compare;
-		_node*				_root;
-		_node*				endNode;
 		public:
+		typedef binaryTreeNode<T>								_node;
+		typedef	typename Alloc::template rebind<_node>::other	_allocator_type;
+		typedef typename Alloc::difference_type					difference_type;
+		typedef typename Alloc::size_type						size_type;
 
-		binarySearchTree() :  _allocator(Alloc()), _compare(Compare()), _root(NULL), endNode(NULL){
+		binarySearchTree() :  _allocator(_allocator_type()), _compare(Compare()), _root(NULL), endNode(NULL){
 		}
 
 		binarySearchTree(const binarySearchTree &x){
 			(*this) = x;
 		}
 
-		//FIXME - need to add assignment operator;
 		binarySearchTree& operator=(const binarySearchTree& x)
 		{
 			_allocator = x._allocator;
 			_compare = x._compare;
+			if (_root)
+				while(_root)
+					delete_node(_root->_data);
 			_root = createNode(_root->_data);
-			endNode = createNode(endNode->_data);
+			endNode = _allocator.allocate(1);
 			_root = linkRoot_EndNode(_root, endNode);
 			return (*this);
 		}
@@ -55,23 +54,6 @@ namespace ft{
 
 		int isempty() const{
 			return(_root == NULL);
-		}
-
-		void	printNode(_node *child)
-		{
-			if(child->_left != NULL)
-				printNode(child->_left);
-			std::cout << child->_data.first << ":" << child->_data.second << " ****height**** " << child->height << std::endl;
-			if (child->_right != NULL)
-				printNode(child->_right);
-		}
-
-		void	printTree()
-		{
-			if(_root != NULL)
-				printNode(_root);
-			else
-				std::cout << "empty tree!" << std::endl;
 		}
 
 		_node *get_min() const
@@ -150,10 +132,7 @@ namespace ft{
 				return (rightRotation(node));
 			}
 			else if (balanceFactor(node) < -1 && balanceFactor(node->_right) < 0)
-			{
-
 				return (leftRotation(node));
-			}
 			else if (balanceFactor(node) < -1 && balanceFactor(node->_right) >= 0)
 			{
 				node->_right = rightRotation(node->_right);
@@ -196,8 +175,8 @@ namespace ft{
 		void	insert(T item){
 		   if(isempty())
 			{
-				endNode = _allocator.allocate(1);
 				_root = createNode(item);
+				endNode = _allocator.allocate(1);
 			}
 			else
 				_root = insert_node(_root, item);
@@ -235,15 +214,17 @@ namespace ft{
 			else if (data.first == node->_data.first)
 			{
 				_node *temp;
+				_node *temp2;
 				if (!(node->_left) || !(node->_right)) // either leaf node or one child
 				{
 					temp = node->_left ? node->_left : node->_right;
 					if (temp) // there is one child;
 					{
+						temp2 = node;
 						temp->_parent = node->_parent;
 						node = temp;
 						node->_parent = temp->_parent;
-
+						_allocator.deallocate(temp2, 1);
 					}
 					else // there is no child;
 					{
@@ -276,6 +257,8 @@ namespace ft{
 			return (root);
 		}
 
+
+
 		void	delete_node(T data)
 		{
 			if (isempty())
@@ -293,6 +276,11 @@ namespace ft{
 		size_type max_size() const{
 			return (std::min<size_type>(std::numeric_limits<difference_type>::max(), _allocator.max_size()));
 		}
+		private:
+		_allocator_type											_allocator;
+		Compare													_compare;
+		_node*													_root;
+		_node*													endNode;
 	};
 }
 

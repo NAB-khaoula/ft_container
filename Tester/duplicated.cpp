@@ -12,7 +12,7 @@ typedef struct data
 	data(int a = 1337, int b = 42) : a(a), b(b)
 	{
 		std::cout << "a: " << a << ", b: " << b << std::endl;
-		std::cout << "Constructor parametrse\n";
+		std::cout << "Constructor parametrise\n";
 	}
 	data(const data& dt) {*this = dt;}
 	data& operator= (const data& dt)
@@ -1177,7 +1177,7 @@ int main()
         }
     }
 
-    // // NOTE - Access element
+    // NOTE - Access element
     {
         std::cout << "------------- Access element -------------" << std::endl;
         ft::map<char, std::string> mymap;
