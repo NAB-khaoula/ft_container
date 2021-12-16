@@ -107,12 +107,12 @@ public:
 // 	return (0);
 // }
 
+#include <vector>
+
 int main(){
-	ft::vector<int> vec(5,5);
-	ft::vector<int>::iterator it = vec.begin();
-	ft::vector<int>::const_iterator it1 = vec.begin();
-	if (it == it1)
-		std::cout << "succes" << std::endl;
-	else
-		std::cout << "yekh tfou 3la zher" << std::endl;
+	ft::vector<int> vect;
+	vect.insert(vect.begin(), 7, 5);
+	for(int i = 0; i < 4; i++)
+		std::cout << vect[i] << std::endl;
+	std::cout << vect.capacity() << std::endl;
 }

@@ -190,7 +190,7 @@ namespace ft{
 			}
 		}
 
-		//FIXME need to modify the erase!
+
 		void erase (iterator first, iterator last)
 		{
 			ft::vector<key_type> vect;
