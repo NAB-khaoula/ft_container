@@ -14,63 +14,63 @@ namespace ft
             typedef Container   container_type;
             typedef size_t      size_type;
 	    //******************member type******************
-            stack(const container_type& ctnr = container_type()): _c(ctnr){}
+            stack(const container_type& ctnr = container_type()): c(ctnr){}
             bool empty() const{
-                return (_c.empty());
+                return (c.empty());
             }
 
             size_type size() const{
-                return (_c.size());
+                return (c.size());
             }
 
             value_type& top(){
-                return(_c.back());
+                return(c.back());
             }
 
             const value_type& top() const{
-                return(_c.back());
+                return(c.back());
             }
 
             void push (const value_type& val){
-                _c.push_back(val);
+                c.push_back(val);
             }
 
             void pop(){
-                _c.pop_back();
+                c.pop_back();
             }
 
             template <class T_shadow, class Container_shadow>
             friend bool operator== (const stack<T_shadow,Container_shadow>& lhs, const stack<T_shadow,Container_shadow>& rhs){
-                return (lhs._c == rhs._c);
+                return (lhs.c == rhs.c);
             }
 
             template <class T_shadow, class Container_shadow>
             friend bool operator!= (const stack<T_shadow,Container_shadow>& lhs, const stack<T_shadow,Container_shadow>& rhs){
-                return (lhs._c != rhs._c);
+                return (lhs.c != rhs.c);
             }
 
             template <class T_shadow, class Container_shadow>
             friend bool operator<= (const stack<T_shadow,Container_shadow>& lhs, const stack<T_shadow,Container_shadow>& rhs){
-                return (lhs._c <= rhs._c);
+                return (lhs.c <= rhs.c);
             }
 
             template <class T_shadow, class Container_shadow>
             friend bool operator< (const stack<T_shadow,Container_shadow>& lhs, const stack<T_shadow,Container_shadow>& rhs){
-                return (lhs._c < rhs._c);
+                return (lhs.c < rhs.c);
             }
 
             template <class T_shadow, class Container_shadow>
             friend bool operator>= (const stack<T_shadow,Container_shadow>& lhs, const stack<T_shadow,Container_shadow>& rhs){
-                return (lhs._c >= rhs._c);
+                return (lhs.c >= rhs.c);
             }
 
             template <class T_shadow, class Container_shadow>
             friend bool operator> (const stack<T_shadow,Container_shadow>& lhs, const stack<T_shadow,Container_shadow>& rhs){
-                return (lhs._c > rhs._c);
+                return (lhs.c > rhs.c);
             }
 
         protected:
-            container_type _c;
+            container_type c;
     };
 }
 #endif

@@ -366,11 +366,11 @@ namespace ft
 						*(position + i) = *(first + i); 
 					_size += iteration;
 				}
-				else{
+				else
+				{
 					size_type tempCapacity = _capacity;
-					while(_size + iteration > _capacity * 2)
-						_capacity *= 2;
-					pointer newArray = _allocator.allocate(_capacity * 2);
+					_capacity = (_size + iteration > _capacity * 2) ? _size + iteration : _capacity * 2;
+					pointer newArray = _allocator.allocate(_capacity);
 					int j = -1;
 					for(iterator i = this->begin(); i < position; i++)
 						newArray[++j] = *i;
@@ -379,7 +379,6 @@ namespace ft
 					for(iterator i = position; i < this->end(); i++)
 						newArray[++j] = *i;
 					_allocator.deallocate(_array, tempCapacity);
-					_capacity *= 2;
 					_size += iteration;
 					_array = newArray;
 				}
@@ -387,17 +386,10 @@ namespace ft
 
 		iterator erase (iterator position)
 		{
-			pointer newArray = _allocator.allocate(_capacity);
-			int i = -1;
-			iterator it = this->begin() - 1;
-			while(++it < position)
-				newArray[++i] = *it;
-			while(++it != this->end())
-				newArray[++i] = *it;
-			_allocator.deallocate(_array, _capacity);
-			_array = newArray;
+			for (iterator it = position + 1 ; it != end(); it++)
+				*(it - 1) = *(it);
 			_size--;
-			return(position + 1);
+			return (position);
 		}
 
 		iterator erase (iterator first, iterator last){
