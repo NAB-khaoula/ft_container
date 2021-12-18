@@ -48,7 +48,7 @@ namespace ft
 		}
 
 		template <class InputIterator>
-		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename enable_if<!is_integral<InputIterator>::value, InputIterator >::type = 0)
+		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename enable_if<!is_integral<InputIterator>::value, InputIterator >::type * = NULL)
 		{
 			int i = -1;
 			_allocator = alloc;
@@ -227,7 +227,7 @@ namespace ft
 		//******************Element access******************
 		//******************Modifiers******************
 		template <class InputIterator>
-			void assign (InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type = 0){
+			void assign (InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type * = NULL){
 				difference_type dist = last - first;
 				if(dist <= (difference_type)_capacity){
 					for(int i = 0; i < dist; i++)
@@ -296,77 +296,98 @@ namespace ft
 		}
 		
 		iterator insert (iterator position, const value_type& val){
-			// if (_size <= _capacity){
-			// 	iterator temporaryIterator = this->end() + 1;
-			// 	while(--temporaryIterator != position)
-			// 		*temporaryIterator = *(temporaryIterator - 1);
-			// 	*(position) = val; 
-			// 	_size++;
-			// 	return position;
-			// }
-			// else{
-			// 	pointer newArray = _allocator.allocate(_capacity * 2);
-			// 	int j = -1;
-			// 	for(iterator i = this->begin(); i < position; i++)
-			// 		newArray[++j] = *i;
-			// 	newArray[++j] = val;
-			// 	int k = j;
-			// 	for(iterator i = position; i < this->end(); i++)
-			// 		newArray[++j] = *i;
-			// 	_allocator.deallocate(_array, _capacity);
-			// 	_capacity *= 2;
-			// 	_size++;
-			// 	_array = newArray;
-			// 	return newArray + k;
-			// }
-			if (_size <= _capacity)
+			iterator it;
+			if (empty())
 			{
-				iterator it = this->end() + 1;
-				while(--it != position)
-					*it = *(it - 1);
-				*(position) = val; 
+				_array = _allocator.allocate(1);
+				_array[0] = val;
+				it = position;
+				_capacity++;
 				_size++;
-				return position;
 			}
-			// else
-			// {
-
-			// }
+			else if(_size < _capacity)
+			{
+				it = end();
+				for (; it != position; it--)
+					*(it) = *(it - 1);
+				*(it) = val;
+				_size++;
+			}
+			else
+			{
+				int tempCap = _capacity;
+				pointer newArray;
+				_capacity *= 2;
+				newArray = _allocator.allocate(_capacity);
+				size_type index = -1;
+				for(iterator tempIterator = begin(); tempIterator != position; tempIterator++)
+					newArray[++index] = *tempIterator;
+				newArray[++index] = val;
+				it = end() - 1;
+				for (size_type i = _size; i > index; i--)
+				{
+					newArray[i] = *it;
+					it--;
+				}
+				if (tempCap)
+					_allocator.deallocate(_array, tempCap);
+				_array = newArray;
+				_size++;
+				return _array + index;
+			}
+			return position;
 		}
 
 		void insert (iterator position, size_type n, const value_type& val){
-			if (!_capacity)
-				_capacity = _size + n;
-			if(_size + n < _capacity)
+			if (empty())
 			{
-				iterator temporaryIterator = this->end() + n;
-				while(--temporaryIterator != position)
-					*temporaryIterator = *(temporaryIterator - n);
+				_array = _allocator.allocate(n);
 				for(size_type i = 0; i < n; i++)
-					*(position + i) = val; 
+					_array[i] = val;
+				_capacity += n;
 				_size += n;
 			}
-			else{
-				size_type tempCapacity = _capacity;
-				while(_size + n >= _capacity * 2)
-					_capacity *= 2;
-				pointer newArray = _allocator.allocate(_capacity * 2);
-				int j = -1;
-				for(iterator i = this->begin(); i < position; i++)
-					newArray[++j] = *i;
-				for(size_type l = 0; l < n; l++)
-					newArray[++j] = val;
-				for(iterator i = position; i < this->end(); i++)
-					newArray[++j] = *i;
-				_allocator.deallocate(_array, tempCapacity);
-				_capacity *= 2;
+			else if(_size + n <= _capacity)
+			{
+				iterator it = end() + n - 1;
+				for (; it != position + 1; it--)
+					*(it) = *(it - n);
+				for (size_type i = 0  ; i < n; i++)
+				{
+					*(it) = val;
+					it--;
+				}
 				_size += n;
+			}
+			else
+			{
+				int tempCap = _capacity;
+				pointer newArray;
+				if (_size + n > _capacity * 2)
+					_capacity = _size + n;
+				else
+					_capacity *= 2;
+				_size += n;
+				newArray = _allocator.allocate(_capacity);
+				size_type index = -1;
+				for(iterator tempIterator = begin(); tempIterator < position; tempIterator++)
+				{
+					newArray[++index] = *tempIterator;
+				}
+				for (size_type i = 0; i < n; i++)
+				{
+					newArray[++index] = val;
+				}
+				for (iterator tempIterator = position + n - 1; tempIterator != end(); tempIterator++)
+					newArray[++index] = *tempIterator;
+				if (tempCap)
+					_allocator.deallocate(_array, tempCap);
 				_array = newArray;
 			}
 		}
 
 		template <class InputIterator>
-    		void insert (iterator position, InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type = 0)
+    		void insert (iterator position, InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type * = NULL)
 			{
 				difference_type iteration = last - first;
 				if(_size + iteration < _capacity)

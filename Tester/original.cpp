@@ -4,28 +4,6 @@
 #include <iterator>
 #include <iostream>
 
-typedef struct data
-{
-	int a;
-	int b;
-	// data() {std::cout << "Constructor Default\n";}
-	data(int a = 1337, int b = 42) : a(a), b(b)
-	{
-		std::cout << "a: " << a << ", b: " << b << std::endl;
-		std::cout << "Constructor parametrse\n";
-	}
-	data(const data& dt) {*this = dt;}
-	data& operator= (const data& dt)
-	{
-		if (this != &dt)
-		{
-			this->a = dt.a;
-			this->b = dt.b;
-		}
-		return (*this);
-	}
-} t_data;
-
 template <typename T>
 void print_vector(std::vector<T> &vect, char const *label)
 {
@@ -391,6 +369,7 @@ int main()
 		vec.push_back(30);
 		vec.push_back(40);
 		it = vec.insert(vec.begin(), 3);
+		std::cout << "*****" << vec.capacity() << std::endl;
 		vec.insert(it, 2);
 		int i = 2;
 		it = vec.insert(vec.begin() + i, 7);
@@ -571,7 +550,7 @@ int main()
 		std::cout << "=======================================" << std::endl;
 	}
 
-	// // insert()
+	// insert()
 	{
 		std::cout << "\ninsert()" << std::endl;
 		std::cout << "=======================================" << std::endl;
@@ -585,11 +564,13 @@ int main()
 		}
 		ite = myvect.begin();
 		++ite;
-
+		std::cout << "*****" << *ite << std::endl;
 		myvect.insert(ite++, 10);
+		print_vector(myvect, "myvect");
 
 		ite = myvect.begin();
 		ite += 2;
+		std::cout <<"*****" <<*ite << std::endl;
 		myvect.insert(ite, 2, 20);
 		print_vector(myvect, "myvect");
 
