@@ -23,7 +23,9 @@ $ ./compare.sh
 
 ## Ressources
 * [Cplusplus](https://www.cplusplus.com/)
+* [CPP reference:]( https://cppreference.com/)
 * [Cpp STL ReferenceManual](https://www.cppreference.com/Cpp_STL_ReferenceManual.pdf)
 * [vector iterator implementation](https://internalpointers.com/post/writing-custom-iterators-modern-cpp)
 * [AVL tree insertion](http://www.mathcs.emory.edu/~cheung/Courses/253/Syllabus/Trees/AVL-insert.html)
 * [Binary Search Tree:](https://algorithmtutor.com/Data-Structures/Tree/Binary-Search-Trees/)
+
