@@ -4,13 +4,13 @@
 // #include <iostream>
 // #include <math.h>
 // #include <cstddef>
-#include "algorithm.hpp"
-#include "vector.hpp"
-#include "type_traits.hpp"
-#include "utility.hpp"
-#include "__tree.hpp"
-#include "_tree_iterator.hpp"
-#include "reverse_iterator.hpp"
+#include "../LibraryHeaders/algorithm.hpp"
+#include "../Vector/vector.hpp"
+#include "../LibraryHeaders/type_traits.hpp"
+#include "../LibraryHeaders/utility.hpp"
+#include "../Tree/__tree.hpp"
+#include "../Iterator/_tree_iterator.hpp"
+#include "../Iterator/reverse_iterator.hpp"
 
 namespace ft{
 

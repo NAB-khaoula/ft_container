@@ -1,5 +1,5 @@
-#ifndef __TREEBETA_HPP
-#define __TREEBETA_HPP
+#ifndef __TREE_HPP
+#define __TREE_HPP
 #include <memory>
 #include <iostream>
 #include <cmath>

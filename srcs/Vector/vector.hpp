@@ -5,10 +5,11 @@
 #include <iostream>
 #include <math.h>
 #include <cstddef>
-#include "iterator.hpp"
-#include "reverse_iterator.hpp"
-#include "algorithm.hpp"
-#include "type_traits.hpp"
+#include "../Iterator/iterator.hpp"
+#include "../Iterator/reverse_iterator.hpp"
+#include "../LibraryHeaders/algorithm.hpp"
+#include "../LibraryHeaders/type_traits.hpp"
+
 namespace ft
 {
 	template <typename T, typename Alloc = std::allocator<T> >
@@ -20,7 +21,8 @@ namespace ft
 		typedef	Alloc													allocator_type;
 		typedef	typename allocator_type::reference						reference;
 		typedef	typename allocator_type::const_reference				const_reference;
-		typedef	typename allocator_type::pointer						pointer;
+		// typedef	typename allocator_type::pointer						pointer;
+		typedef T*														pointer;	
 		typedef	typename allocator_type::const_pointer					const_pointer;
 		typedef	customizedIterator<pointer>								iterator;
 		typedef	customizedIterator<const_pointer>						const_iterator;
@@ -495,8 +497,6 @@ namespace ft
 			{
 				return(!(lhs < rhs));
 			}
-
-
 
 	private: 
 		T *_array;

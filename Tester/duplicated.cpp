@@ -1,8 +1,8 @@
-#include "../iterator.hpp"
-#include "../reverse_iterator.hpp"
-#include "../vector.hpp"
-#include "../map.hpp"
-#include "../stack.hpp"
+#include "../srcs/Iterator/iterator.hpp"
+#include "../srcs/Iterator/reverse_iterator.hpp"
+#include "../srcs/Vector/vector.hpp"
+#include "../srcs/Map/map.hpp"
+#include "../srcs/Stack/stack.hpp"
 
 template <typename T>
 void print_vector(ft::vector<T> &vect, char const *label)
